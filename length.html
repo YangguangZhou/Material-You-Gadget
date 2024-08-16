@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>长度单位转换和显示</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.js"></script>
+    <style>
+        :root {
+            --primary-color: #6750A4;
+            --on-primary-color: #FFFFFF;
+            --surface-color: #F3EDF7;
+            --on-surface-color: #1C1B1F;
+            --secondary-container: #E8DEF8;
+            --on-secondary-container: #1D192B;
+            --error-color: #B00020;
+            --outline-color: #6750A4;
+        }
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: var(--surface-color);
+            color: var(--on-surface-color);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            width: 100%;
+            max-width: 500px;
+            background-color: white;
+            border-radius: 24px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            overflow: hidden;
+        }
+        .input-group {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+        input, select {
+            padding: 0.5rem;
+            border: 1px solid var(--outline-color);
+            border-radius: 8px;
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+        input:focus, select:focus {
+            border-color: var(--primary-color);
+        }
+        input {
+            flex-grow: 1;
+        }
+        select {
+            width: 100px;
+        }
+        button {
+            background-color: var(--primary-color);
+            color: var(--on-primary-color);
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 20px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+        button:hover {
+            background-color: #7B65B5;
+            transform: translateY(-2px);
+        }
+        button:active {
+            background-color: #5E469A;
+        }
+        #line-container {
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            height: auto;
+            margin-bottom: 1.5rem;
+            transition: height 0.3s;
+            overflow: hidden;
+        }
+        #line {
+            width: 4px;
+            background-color: var(--primary-color);
+            transition: height 0.3s, background-color 0.3s;
+            border-radius: 2px;
+        }
+        #conversions {
+            background-color: var(--secondary-container);
+            color: var(--on-secondary-container);
+            padding: 1rem;
+            border-radius: 16px;
+            margin-top: 1.5rem;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-2xl font-bold mb-4 text-center">长度单位转换和显示</h1>
+        <div class="input-group">
+            <input type="number" id="length" step="0.1" min="0" placeholder="输入长度">
+            <select id="unit">
+                <option value="px">px</option>
+                <option value="em">em</option>
+                <option value="rem">rem</option>
+                <option value="%">%</option>
+                <option value="vw">vw</option>
+                <option value="vh">vh</option>
+                <option value="cm">cm</option>
+            </select>
+        </div>
+        <button id="convert" class="w-full">转换并显示</button>
+        <div id="line-container">
+            <div id="line"></div>
+        </div>
+        <p id="lineLength" class="text-center mb-2 font-semibold"></p>
+        <div id="conversions"></div>
+    </div>
+
+    <script>
+        const lengthInput = document.getElementById('length');
+        const unitSelect = document.getElementById('unit');
+        const convertBtn = document.getElementById('convert');
+        const line = document.getElementById('line');
+        const lineLength = document.getElementById('lineLength');
+        const conversions = document.getElementById('conversions');
+
+        const units = ['px', 'em', 'rem', '%', 'vw', 'vh', 'cm'];
+
+        convertBtn.addEventListener('click', () => {
+            const length = parseFloat(lengthInput.value);
+            const unit = unitSelect.value;
+
+            if (isNaN(length) || length <= 0) {
+                alert('请输入有效的正数');
+                return;
+            }
+
+            // 设置线条高度
+            const scaleFactor = 2; // 缩放因子
+            const scaledLength = length * scaleFactor;
+            line.style.height = `${scaledLength}px`;
+            lineLength.textContent = `线条长度: ${length}${unit}`;
+
+            // 转换到其他单位
+            let conversionHtml = '<h2 class="text-lg font-semibold mb-2">换算结果:</h2>';
+            units.forEach(toUnit => {
+                if (toUnit !== unit) {
+                    const convertedValue = convertUnit(length, unit, toUnit);
+                    conversionHtml += `<p class="mb-1">${convertedValue} ${toUnit}</p>`;
+                }
+            });
+            conversions.innerHTML = conversionHtml;
+            conversions.style.display = 'block';
+        });
+
+        function convertUnit(value, fromUnit, toUnit) {
+            const pxValue = toPx(value, fromUnit);
+            return fromPx(pxValue, toUnit).toFixed(2);
+        }
+
+        function toPx(value, unit) {
+            switch (unit) {
+                case 'px': return value;
+                case 'em': return value * 16;
+                case 'rem': return value * 16;
+                case '%': return value * window.innerHeight / 100;
+                case 'vw': return value * window.innerWidth / 100;
+                case 'vh': return value * window.innerHeight / 100;
+                case 'cm': return value * 37.795275591;
+                default: return value;
+            }
+        }
+
+        function fromPx(px, unit) {
+            switch (unit) {
+                case 'px': return px;
+                case 'em': return px / 16;
+                case 'rem': return px / 16;
+                case '%': return (px / window.innerHeight) * 100;
+                case 'vw': return (px / window.innerWidth) * 100;
+                case 'vh': return (px / window.innerHeight) * 100;
+                case 'cm': return px / 37.795275591;
+                default: return px;
+            }
+        }
+    </script>
+</body>
+</html>
