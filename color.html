@@ -76,13 +76,17 @@
             font-size: 16px;
             font-weight: 500;
             cursor: pointer;
-            transition: background-color 0.3s ease, transform 0.3s ease;
+            transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
             margin-bottom: 20px;
         }
         .button:hover {
-            background-color: darken(var(--primary-color), 10%);
+            background-color: var(--primary-color);
             transform: translateY(-2px);
             box-shadow: 0 6px 12px rgba(0,0,0,0.25);
+        }
+        .button:active {
+            transform: translateY(0);
+            box-shadow: 0 3px 6px rgba(0,0,0,0.15);
         }
         #colorInfo {
             font-size: 18px;
@@ -144,6 +148,14 @@
             const hexColor = rgbToHex(r, g, b);
             document.documentElement.style.setProperty('--primary-color', `rgb(${r}, ${g}, ${b})`);
             document.documentElement.style.setProperty('--on-primary-color', isColorLight(r, g, b) ? '#000000' : '#FFFFFF');
+            
+            // 更新按钮颜色
+            const buttons = document.querySelectorAll('.button');
+            buttons.forEach(button => {
+                button.style.backgroundColor = `rgb(${r}, ${g}, ${b})`;
+                button.style.color = isColorLight(r, g, b) ? '#000000' : '#FFFFFF';
+            });
+
             colorPreview.style.backgroundColor = `rgb(${r}, ${g}, ${b})`;
             colorInfo.innerHTML = `提取的主色：<br>RGB(${r}, ${g}, ${b})<br>HEX: ${hexColor}`;
         }
