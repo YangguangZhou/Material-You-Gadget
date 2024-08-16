@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>主色提取</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/color-thief/2.3.0/color-thief.umd.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #6750A4;
+            --on-primary-color: #FFFFFF;
+            --surface-color: #FFFBFE;
+            --on-surface-color: #1C1B1F;
+            --secondary-color: #E8DEF8;
+            --error-color: #B00020;
+            --border-radius: 16px;
+        }
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: var(--surface-color);
+            color: var(--on-surface-color);
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 600px;
+            width: 100%;
+            background-color: #FFFFFF;
+            border-radius: var(--border-radius);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+            overflow: hidden;
+            transition: box-shadow 0.3s ease;
+        }
+        .container:hover {
+            box-shadow: 0 12px 24px rgba(0,0,0,0.2);
+        }
+        .app-bar {
+            background-color: var(--primary-color);
+            color: var(--on-primary-color);
+            padding: 20px;
+            font-size: 24px;
+            font-weight: 500;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .content {
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        #imagePreview {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            border-radius: var(--border-radius);
+            margin-bottom: 20px;
+            background-color: var(--secondary-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--on-surface-color);
+            font-size: 18px;
+        }
+        .button {
+            background-color: var(--primary-color);
+            color: var(--on-primary-color);
+            border: none;
+            padding: 12px 24px;
+            border-radius: 24px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            margin-bottom: 20px;
+        }
+        .button:hover {
+            background-color: darken(var(--primary-color), 10%);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.25);
+        }
+        #colorInfo {
+            font-size: 18px;
+            text-align: center;
+            margin-top: 20px;
+        }
+        .color-preview {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            margin: 20px auto;
+            border: 4px solid var(--secondary-color);
+            transition: background-color 0.3s ease;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="app-bar">主色提取</div>
+        <div class="content">
+            <input type="file" id="imageUpload" accept="image/*" style="display: none;">
+            <button class="button" onclick="document.getElementById('imageUpload').click()">上传图片</button>
+            <div id="imagePreview">请上传图片</div>
+            <div class="color-preview" id="colorPreview"></div>
+            <p id="colorInfo"></p>
+        </div>
+    </div>
+    <script>
+        const colorThief = new ColorThief();
+        const imageUpload = document.getElementById('imageUpload');
+        const imagePreview = document.getElementById('imagePreview');
+        const colorInfo = document.getElementById('colorInfo');
+        const colorPreview = document.getElementById('colorPreview');
+
+        imageUpload.addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            const reader = new FileReader();
+
+            reader.onload = function(event) {
+                imagePreview.innerHTML = '';
+                const img = new Image();
+                img.src = event.target.result;
+                img.style.width = '100%';
+                img.style.height = '100%';
+                img.style.objectFit = 'cover';
+                imagePreview.appendChild(img);
+
+                img.onload = function() {
+                    const color = colorThief.getColor(img);
+                    applyColorTheme(color);
+                }
+            }
+
+            reader.readAsDataURL(file);
+        });
+
+        function applyColorTheme(color) {
+            const [r, g, b] = color;
+            const hexColor = rgbToHex(r, g, b);
+            document.documentElement.style.setProperty('--primary-color', `rgb(${r}, ${g}, ${b})`);
+            document.documentElement.style.setProperty('--on-primary-color', isColorLight(r, g, b) ? '#000000' : '#FFFFFF');
+            colorPreview.style.backgroundColor = `rgb(${r}, ${g}, ${b})`;
+            colorInfo.innerHTML = `提取的主色：<br>RGB(${r}, ${g}, ${b})<br>HEX: ${hexColor}`;
+        }
+
+        function isColorLight(r, g, b) {
+            const brightness = (r * 299 + g * 587 + b * 114) / 1000;
+            return brightness > 128;
+        }
+
+        function rgbToHex(r, g, b) {
+            return '#' + [r, g, b].map(x => {
+                const hex = x.toString(16);
+                return hex.length === 1 ? '0' + hex : hex;
+            }).join('');
+        }
+    </script>
+</body>
+</html>
