@@ -1,5 +1,5 @@
-<!DOCTYPE html>
 <html lang="zh-CN">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -16,6 +16,7 @@
             --error-color: #B00020;
             --outline-color: #6750A4;
         }
+
         body {
             font-family: 'Roboto', sans-serif;
             background-color: var(--surface-color);
@@ -27,6 +28,7 @@
             margin: 0;
             padding: 20px;
         }
+
         .container {
             width: 100%;
             max-width: 500px;
@@ -36,12 +38,15 @@
             padding: 2rem;
             overflow: hidden;
         }
+
         .input-group {
             display: flex;
             gap: 0.5rem;
             margin-bottom: 1.5rem;
         }
-        input, select {
+
+        input,
+        select {
             padding: 0.5rem;
             border: 1px solid var(--outline-color);
             border-radius: 8px;
@@ -49,15 +54,20 @@
             outline: none;
             transition: border-color 0.3s;
         }
-        input:focus, select:focus {
+
+        input:focus,
+        select:focus {
             border-color: var(--primary-color);
         }
+
         input {
             flex-grow: 1;
         }
+
         select {
             width: 100px;
         }
+
         button {
             background-color: var(--primary-color);
             color: var(--on-primary-color);
@@ -68,13 +78,16 @@
             cursor: pointer;
             transition: background-color 0.3s, transform 0.3s;
         }
+
         button:hover {
             background-color: #7B65B5;
             transform: translateY(-2px);
         }
+
         button:active {
             background-color: #5E469A;
         }
+
         #line-container {
             display: flex;
             justify-content: center;
@@ -84,12 +97,14 @@
             transition: height 0.3s;
             overflow: hidden;
         }
+
         #line {
             width: 4px;
             background-color: var(--primary-color);
             transition: height 0.3s, background-color 0.3s;
             border-radius: 2px;
         }
+
         #conversions {
             background-color: var(--secondary-container);
             color: var(--on-secondary-container);
@@ -100,6 +115,7 @@
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <h1 class="text-2xl font-bold mb-4 text-center">长度单位转换和显示</h1>
@@ -130,24 +146,24 @@
         const line = document.getElementById('line');
         const lineLength = document.getElementById('lineLength');
         const conversions = document.getElementById('conversions');
-
-        const units = ['px', 'em', 'rem', '%', 'vw', 'vh', 'cm'];
-
+        
+        const units = ['px', 'em', 'rem', 'vw', 'vh', 'cm'];
+        
         convertBtn.addEventListener('click', () => {
             const length = parseFloat(lengthInput.value);
             const unit = unitSelect.value;
-
+        
             if (isNaN(length) || length <= 0) {
                 alert('请输入有效的正数');
                 return;
             }
-
+        
             // 设置线条高度
             const scaleFactor = 2; // 缩放因子
             const scaledLength = length * scaleFactor;
             line.style.height = `${scaledLength}px`;
             lineLength.textContent = `线条长度: ${length}${unit}`;
-
+        
             // 转换到其他单位
             let conversionHtml = '<h2 class="text-lg font-semibold mb-2">换算结果:</h2>';
             units.forEach(toUnit => {
@@ -159,37 +175,38 @@
             conversions.innerHTML = conversionHtml;
             conversions.style.display = 'block';
         });
-
+        
         function convertUnit(value, fromUnit, toUnit) {
             const pxValue = toPx(value, fromUnit);
             return fromPx(pxValue, toUnit).toFixed(2);
         }
-
+        
         function toPx(value, unit) {
             switch (unit) {
-                case 'px': return value;
-                case 'em': return value * 16;
-                case 'rem': return value * 16;
-                case '%': return value * window.innerHeight / 100;
-                case 'vw': return value * window.innerWidth / 100;
-                case 'vh': return value * window.innerHeight / 100;
-                case 'cm': return value * 37.795275591;
-                default: return value;
+        case 'px': return value;
+        case 'em':
+        case 'rem': return value * 16;  // Assuming 1em/rem = 16px
+        case '%': return value * window.innerHeight / 100; // Default to viewport height
+        case 'vw': return value * window.innerWidth / 100;
+        case 'vh': return value * window.innerHeight / 100;
+        case 'cm': return value * 37.795275591; // px per cm
+        default: return value;
             }
         }
-
+        
         function fromPx(px, unit) {
             switch (unit) {
-                case 'px': return px;
-                case 'em': return px / 16;
-                case 'rem': return px / 16;
-                case '%': return (px / window.innerHeight) * 100;
-                case 'vw': return (px / window.innerWidth) * 100;
-                case 'vh': return (px / window.innerHeight) * 100;
-                case 'cm': return px / 37.795275591;
-                default: return px;
+        case 'px': return px;
+        case 'em':
+        case 'rem': return px / 16;
+        case '%': return (px / window.innerHeight) * 100; // Default to viewport height
+        case 'vw': return (px / window.innerWidth) * 100;
+        case 'vh': return (px / window.innerHeight) * 100;
+        case 'cm': return px / 37.795275591;
+        default: return px;
             }
         }
     </script>
 </body>
+
 </html>
