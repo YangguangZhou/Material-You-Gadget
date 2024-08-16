@@ -1,0 +1,15 @@
+{
+  "redirects": [
+    {
+      "source": "/",
+      "destination": "https://github.com/YangguangZhou/Gadget/",
+      "permanent": true
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/:x",
+      "destination": "/:x.html"
+    }
+  ]
+}
