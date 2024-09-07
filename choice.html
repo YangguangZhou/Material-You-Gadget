@@ -550,12 +550,12 @@
 
         // 初始化应用
         function initApp() {
-            showHomePage();
             updateColorScheme();
+            showHomePage();
         }
 
         // 页面加载完成后初始化应用
-        window.addEventListener('load', initApp);
+        document.addEventListener('DOMContentLoaded', initApp);
     </script>
 </body>
 
