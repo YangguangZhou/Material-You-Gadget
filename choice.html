@@ -89,7 +89,7 @@
             position: relative;
             display: flex;
             flex-direction: column;
-            height: 150px;
+            height: 100px;
         }
         .combo-card:hover {
             transform: translateY(-5px);
@@ -132,7 +132,7 @@
             width: 100%;
         }
         .input-field {
-            width: 100%;
+            width: 95%;
             padding: 12px;
             margin-bottom: 15px;
             border: 1px solid var(--secondary-color);
@@ -192,7 +192,7 @@
         <div class="app-bar">Material You 随机选择器</div>
         <div class="content">
             <!-- 主页 -->
-            <div id="home-page">
+            <div id="home-page" style="display: block;width: 90%;">
                 <button id="new-combo-btn" class="button">新建组合</button>
                 <div id="combo-list" class="combo-list"></div>
             </div>
@@ -344,7 +344,7 @@
                     clearInterval(interval);
                     updateColorScheme();
                 }
-            }, 100);
+            }, 75);
         }
 
         function copyResult() {
@@ -373,8 +373,8 @@
 
         function generateRandomColor() {
             const hue = Math.random() * 360;
-            const saturation = 20 + Math.random() * 25; // 限制饱和度在 20-50% 之间
-            const lightness = 25 + Math.random() * 10; // 限制亮度在 25-55% 之间
+            const saturation = 25 + Math.random() * 35; // 限制饱和度在 25-60% 之间
+            const lightness = 25 + Math.random() * 20; // 限制亮度在 25-45% 之间
             return hslToHex(hue, saturation, lightness);
         }
 
