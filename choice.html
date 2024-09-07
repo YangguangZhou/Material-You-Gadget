@@ -70,8 +70,7 @@
             font-weight: 500;
             cursor: pointer;
             transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
-            margin-bottom: 20px;
-            /* margin-right: 5px; */
+            margin-right: 5px;
         }
 
         .button:hover {
@@ -258,8 +257,6 @@
         }
 
         .button-group {
-            /* display: flex;
-            justify-content: space-between; */
             margin-bottom: 20px;
         }
 
@@ -274,7 +271,8 @@
             cursor: pointer;
             transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
             margin-bottom: 20px;
-            /* margin-right: 5px; */
+            margin-top: 20px;
+            margin-right: 5px;
         }
 
         .import-export-btn:hover {
@@ -297,11 +295,11 @@
             <div id="home-page" style="display: block;width: 90%;">
                 <div class="button-group">
                     <button id="new-combo-btn" class="button">新建组合</button>
-                    <button id="export-btn" class="import-export-btn">导出组合</button>
-                    <button id="import-btn" class="import-export-btn">导入组合</button>
-                    <input type="file" id="file-input" class="file-input" accept=".json">
                 </div>
                 <div id="combo-list" class="combo-list"></div>
+                <button id="export-btn" class="import-export-btn">导出组合</button>
+                <button id="import-btn" class="import-export-btn">导入组合</button>
+                <input type="file" id="file-input" class="file-input" accept=".json">
             </div>
 
             <!-- 新建/编辑页面 -->
