@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>综合计算器</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #6750A4;
+            --on-primary-color: #FFFFFF;
+            --surface-color: #FFFBFE;
+            --on-surface-color: #1C1B1F;
+            --secondary-color: #E8DEF8;
+            --error-color: #B00020;
+            --border-radius: 16px;
+        }
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: var(--surface-color);
+            color: var(--on-surface-color);
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 600px;
+            width: 100%;
+            background-color: #FFFFFF;
+            border-radius: var(--border-radius);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+            overflow: hidden;
+            transition: box-shadow 0.3s ease;
+        }
+        .container:hover {
+            box-shadow: 0 12px 24px rgba(0,0,0,0.2);
+        }
+        .app-bar {
+            background-color: var(--primary-color);
+            color: var(--on-primary-color);
+            padding: 20px;
+            font-size: 24px;
+            font-weight: 500;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .content {
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        #expression {
+            width: 100%;
+            padding: 12px;
+            font-size: 18px;
+            border: 2px solid var(--secondary-color);
+            border-radius: var(--border-radius);
+            margin-bottom: 20px;
+        }
+        .button {
+            background-color: var(--primary-color);
+            color: var(--on-primary-color);
+            border: none;
+            padding: 12px 24px;
+            border-radius: 24px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+            margin-bottom: 20px;
+        }
+        .button:hover {
+            background-color: var(--primary-color);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.25);
+        }
+        .button:active {
+            transform: translateY(0);
+            box-shadow: 0 3px 6px rgba(0,0,0,0.15);
+        }
+        #result {
+            font-size: 24px;
+            font-weight: 500;
+            margin-top: 20px;
+            text-align: center;
+        }
+        .instructions {
+            background-color: var(--secondary-color);
+            padding: 20px;
+            border-radius: var(--border-radius);
+            margin-top: 20px;
+        }
+        .instructions ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        .instructions li {
+            margin-bottom: 10px;
+        }
+        .copyright {
+            text-align: center;
+            margin-top: 20px;
+            color: var(--on-surface-color);
+            opacity: 0.7;
+        }
+        .copyright a {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="app-bar">综合计算器</div>
+        <div class="content">
+            <input type="text" id="expression" placeholder="输入表达式">
+            <button class="button" onclick="calculate()">计算</button>
+            <div id="result"></div>
+            <div class="instructions">
+                <strong>使用说明：</strong>
+                <ul>
+                    <li>加法: 使用 + 符号</li>
+                    <li>减法: 使用 - 符号</li>
+                    <li>乘法: 使用 * 符号</li>
+                    <li>n次方: 使用 ^ 符号, 例如 2^3 表示2的3次方</li>
+                    <li>n次方根: 使用 sqrt(n,m) 格式, 例如 sqrt(9,2) 表示9的平方根</li>
+                    <li>对数: 使用 log(x,base) 格式, 例如 log(100,10) 表示以10为底的100的对数</li>
+                    <li>进制转换: 使用 convert(fromBase,toBase,number) 格式, 例如 convert(10,2,3) 表示将十进制的3转换成二进制</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="copyright">
+        Copyright &copy; 2023 <a href="https://jerryz.com.cn" target="_blank">Jerry Zhou</a>
+        <br />
+        <a href="https://github.com/YangguangZhou/Calculator" target="_blank">GitHub</a>
+    </div>
+
+    <script>
+        function calculate() {
+            var expression = document.getElementById('expression').value;
+            var originalExpression = expression;
+            var result;
+
+            // 处理convert函数
+            expression = expression.replace(/convert\((\d+),(\d+),(\d+)\)/g, function (match, fromBase, toBase, number) {
+                var decimalNumber = parseInt(number, parseInt(fromBase, 10));
+                return decimalNumber.toString(parseInt(toBase, 10));
+            });
+
+            // 处理数字，确保它们被当作十进制数字来处理
+            expression = expression.replace(/\b\d+\b/g, function (match) {
+                return parseInt(match, 10);
+            });
+
+            // 添加对n次方的处理
+            expression = expression.replace(/\^/g, '**');
+
+            // 添加对n次方根的处理
+            expression = expression.replace(/sqrt\((\d+),(\d+)\)/g, 'Math.pow($1, 1/$2)');
+
+            // 添加对对数的处理
+            expression = expression.replace(/log\((\d+),(\d+)\)/g, 'Math.log($1) / Math.log($2)');
+
+            // 添加对进制转换的处理
+            expression = expression.replace(/convert\((\d+),(\d+),(\d+)\)/g, 'parseInt($3, $1).toString($2)');
+
+            try {
+                result = eval(expression);
+                document.getElementById('result').textContent = originalExpression + ' = ' + result;
+            } catch (error) {
+                document.getElementById('result').textContent = '错误: 无效的表达式';
+            }
+        }
+    </script>
+</body>
+</html>
