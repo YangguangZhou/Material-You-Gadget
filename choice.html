@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Material You 随机选择器</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #6750A4;
+            --on-primary-color: #FFFFFF;
+            --surface-color: #FFFBFE;
+            --on-surface-color: #1C1B1F;
+            --secondary-color: #E8DEF8;
+            --error-color: #B00020;
+            --border-radius: 16px;
+        }
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: var(--surface-color);
+            color: var(--on-surface-color);
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 600px;
+            width: 100%;
+            background-color: #FFFFFF;
+            border-radius: var(--border-radius);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+            overflow: hidden;
+            transition: box-shadow 0.3s ease;
+        }
+        .container:hover {
+            box-shadow: 0 12px 24px rgba(0,0,0,0.2);
+        }
+        .app-bar {
+            background-color: var(--primary-color);
+            color: var(--on-primary-color);
+            padding: 20px;
+            font-size: 24px;
+            font-weight: 500;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .content {
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .button {
+            background-color: var(--primary-color);
+            color: var(--on-primary-color);
+            border: none;
+            padding: 12px 24px;
+            border-radius: 24px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+            margin-bottom: 20px;
+        }
+        .button:hover {
+            background-color: var(--primary-color);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.25);
+        }
+        .button:active {
+            transform: translateY(0);
+            box-shadow: 0 3px 6px rgba(0,0,0,0.15);
+        }
+        .combo-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            width: 100%;
+        }
+        .combo-card {
+            background-color: rgba(var(--secondary-color-rgb), 0.3);
+            border-radius: var(--border-radius);
+            padding: 20px;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            height: 150px;
+        }
+        .combo-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+        }
+        .combo-name {
+            font-size: 18px;
+            font-weight: 500;
+            margin-bottom: 10px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            max-height: 2.8em;
+        }
+        .combo-items {
+            font-size: 14px;
+            color: var(--on-surface-color);
+            opacity: 0.8;
+            margin-top: auto;
+        }
+        .card-buttons {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            display: flex;
+            gap: 10px;
+        }
+        .card-btn {
+            background-color: var(--primary-color);
+            color: var(--on-primary-color);
+            border: none;
+            padding: 5px 10px;
+            border-radius: 12px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+        .edit-form {
+            width: 100%;
+        }
+        .input-field {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 1px solid var(--secondary-color);
+            border-radius: var(--border-radius);
+            font-size: 16px;
+        }
+        .item-list {
+            list-style-type: none;
+            padding: 0;
+        }
+        .item-list li {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--secondary-color);
+        }
+        .delete-btn {
+            background-color: var(--error-color);
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 12px;
+            cursor: pointer;
+        }
+        .random-result {
+            font-size: 24px;
+            font-weight: 500;
+            text-align: center;
+            margin: 30px 0;
+            padding: 20px;
+            background-color: var(--secondary-color);
+            border-radius: var(--border-radius);
+            transition: all 0.5s ease;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+        .copy-notification {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: var(--primary-color);
+            color: var(--on-primary-color);
+            padding: 10px 20px;
+            border-radius: var(--border-radius);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="app-bar">Material You 随机选择器</div>
+        <div class="content">
+            <!-- 主页 -->
+            <div id="home-page">
+                <button id="new-combo-btn" class="button">新建组合</button>
+                <div id="combo-list" class="combo-list"></div>
+            </div>
+
+            <!-- 新建/编辑页面 -->
+            <div id="edit-page" class="edit-form" style="display:none;">
+                <input id="combo-name" type="text" placeholder="组合名称" class="input-field">
+                <ul id="item-list" class="item-list"></ul>
+                <input id="new-item" type="text" placeholder="新项目" class="input-field">
+                <button id="add-item-btn" class="button">添加项目</button>
+                <button id="save-btn" class="button">保存</button>
+                <button id="delete-btn" class="button" style="background-color: var(--error-color);">删除</button>
+            </div>
+
+            <!-- 核心页面 -->
+            <div id="core-page" style="display:none;">
+                <h2 id="combo-title" style="text-align: center;"></h2>
+                <div class="random-result" id="result"></div>
+                <button id="randomize-btn" class="button">随机选择</button>
+                <button id="back-btn" class="button">返回主页</button>
+            </div>
+        </div>
+    </div>
+    <div id="copy-notification" class="copy-notification">已复制</div>
+
+    <script>
+        let combos = JSON.parse(localStorage.getItem('combos')) || {};
+        let currentCombo = null;
+
+        const homePage = document.getElementById('home-page');
+        const editPage = document.getElementById('edit-page');
+        const corePage = document.getElementById('core-page');
+        const comboList = document.getElementById('combo-list');
+        const comboName = document.getElementById('combo-name');
+        const itemList = document.getElementById('item-list');
+        const newItem = document.getElementById('new-item');
+        const result = document.getElementById('result');
+        const comboTitle = document.getElementById('combo-title');
+        const copyNotification = document.getElementById('copy-notification');
+
+        document.getElementById('new-combo-btn').addEventListener('click', () => showEditPage());
+        document.getElementById('add-item-btn').addEventListener('click', addItem);
+        document.getElementById('save-btn').addEventListener('click', saveCombo);
+        document.getElementById('delete-btn').addEventListener('click', deleteCombo);
+        document.getElementById('randomize-btn').addEventListener('click', randomize);
+        document.getElementById('back-btn').addEventListener('click', showHomePage);
+        result.addEventListener('click', copyResult);
+
+        function showHomePage() {
+            homePage.style.display = 'block';
+            editPage.style.display = 'none';
+            corePage.style.display = 'none';
+            renderComboList();
+        }
+
+        function showEditPage(comboId = null) {
+            homePage.style.display = 'none';
+            editPage.style.display = 'block';
+            corePage.style.display = 'none';
+            currentCombo = comboId;
+            if (comboId) {
+                const combo = combos[comboId];
+                comboName.value = combo.name;
+                itemList.innerHTML = combo.items.map((item, index) => `
+                    <li>
+                        <span>${index + 1}. ${item}</span>
+                        <button class="delete-btn" onclick="removeItem(${index})">删除</button>
+                    </li>
+                `).join('');
+            } else {
+                comboName.value = '';
+                itemList.innerHTML = '';
+            }
+        }
+
+        function showCorePage(comboId) {
+            homePage.style.display = 'none';
+            editPage.style.display = 'none';
+            corePage.style.display = 'block';
+            currentCombo = comboId;
+            const combo = combos[comboId];
+            comboTitle.textContent = combo.name;
+            result.textContent = '准备开始';
+            updateColorScheme();
+        }
+
+        function renderComboList() {
+            comboList.innerHTML = Object.entries(combos).map(([id, combo]) => `
+                <div class="combo-card">
+                    <div class="combo-name">${combo.name}</div>
+                    <div class="combo-items">${combo.items.length} 个选项</div>
+                    <div class="card-buttons">
+                        <button class="card-btn" onclick="showCorePage('${id}')">选择</button>
+                        <button class="card-btn" onclick="showEditPage('${id}')">编辑</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function addItem() {
+            const item = newItem.value.trim();
+            if (item) {
+                const li = document.createElement('li');
+                li.innerHTML = `
+                    <span>${itemList.children.length + 1}. ${item}</span>
+                    <button class="delete-btn" onclick="removeItem(${itemList.children.length})">删除</button>
+                `;
+                itemList.appendChild(li);
+                newItem.value = '';
+            }
+        }
+
+        function removeItem(index) {
+            itemList.removeChild(itemList.children[index]);
+            Array.from(itemList.children).forEach((li, i) => {
+                li.querySelector('span').textContent = `${i + 1}. ${li.querySelector('span').textContent.split('. ')[1]}`;
+                li.querySelector('button').setAttribute('onclick', `removeItem(${i})`);
+            });
+        }
+
+        function saveCombo() {
+            const name = comboName.value.trim();
+            const items = Array.from(itemList.children).map(li => li.querySelector('span').textContent.split('. ')[1]);
+            if (name && items.length >= 2) {
+                const id = currentCombo || Date.now().toString();
+                combos[id] = { name, items };
+                localStorage.setItem('combos', JSON.stringify(combos));
+                showHomePage();
+            } else {
+                alert('请输入组合名称并至少添加两个项目');
+            }
+        }
+
+        function deleteCombo() {
+            if (currentCombo) {
+                delete combos[currentCombo];
+                localStorage.setItem('combos', JSON.stringify(combos));
+            }
+            showHomePage();
+        }
+
+        function randomize() {
+            const combo = combos[currentCombo];
+            let index = 0;
+            const interval = setInterval(() => {
+                result.textContent = combo.items[index % combo.items.length];
+                index++;
+                if (index >= combo.items.length * 3 + Math.floor(Math.random() * combo.items.length)) {
+                    clearInterval(interval);
+                    updateColorScheme();
+                }
+            }, 100);
+        }
+
+        function copyResult() {
+            const text = result.textContent;
+            navigator.clipboard.writeText(text).then(() => {
+                showCopyNotification();
+            });
+        }
+
+        function showCopyNotification() {
+            copyNotification.style.opacity = '1';
+            setTimeout(() => {
+                copyNotification.style.opacity = '0';
+            }, 2000);
+        }
+
+        function updateColorScheme() {
+            const randomColor = generateRandomColor();
+            document.documentElement.style.setProperty('--primary-color', randomColor);
+            
+            // 更新其他颜色
+            const rgb = hexToRgb(randomColor);
+            document.documentElement.style.setProperty('--secondary-color', `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0.12)`);
+            document.documentElement.style.setProperty('--secondary-color-rgb', `${rgb.r}, ${rgb.g}, ${rgb.b}`);
+        }
+
+        function generateRandomColor() {
+            const hue = Math.random() * 360;
+            const saturation = 20 + Math.random() * 25; // 限制饱和度在 20-50% 之间
+            const lightness = 25 + Math.random() * 10; // 限制亮度在 25-55% 之间
+            return hslToHex(hue, saturation, lightness);
+        }
+
+        function hexToRgb(hex) {
+            const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+            return result ? {
+                r: parseInt(result[1], 16),
+                g: parseInt(result[2], 16),
+                b: parseInt(result[3], 16)
+            } : null;
+        }
+
+        function hslToHex(h, s, l) {
+            l /= 100;
+            const a = s * Math.min(l, 1 - l) / 100;
+            const f = n => {
+                const k = (n + h / 30) % 12;
+                const color = l - a * Math.max(Math.min(k - 3, 9 - k, 1), -1);
+                return Math.round(255 * color).toString(16).padStart(2, '0');
+            };
+            return `#${f(0)}${f(8)}${f(4)}`;
+        }
+
+        // 初始化应用
+        function initApp() {
+            showHomePage();
+            updateColorScheme();
+        }
+
+        // 页面加载完成后初始化应用
+        window.addEventListener('load', initApp);
+    </script>
+</body>
+</html>
