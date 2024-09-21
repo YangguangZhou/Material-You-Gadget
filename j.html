@@ -261,7 +261,7 @@ B3B3B3B3C3`;
 
         function submitAnswers() {
             saveAnswersToLocalStorage();
-            const savedAnswers = JSON.parse(localStorage.getItem('userAnswers'));
+            const savedAnswers = JSON.parse(localStorage.getItem('userAnswers-2024CSPJ'));
             let totalScore = 0;
 
             answers.forEach(answer => {
@@ -282,6 +282,7 @@ B3B3B3B3C3`;
             document.getElementById('total-score').style.display = 'block';
             document.getElementById('total-score').innerText = `总分：${totalScore}`;
             document.getElementById('action-buttons').innerHTML = `<button class="button" onclick="location.href='/score'">返回</button>`;
+            alert('提交成功');
         }
 
         function clearAnswers() {
