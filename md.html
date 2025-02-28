@@ -1,13 +1,17 @@
 <!DOCTYPE html>
 <html lang="zh">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="author" content="Jerry Zhou" />
-  <link rel="icon" href="/favicon.png" />
-  <meta name="keywords" content="markdown generator, markdown to rich text, markdown to rtf, markdown converter, markdown, tables, mathjax" />
-  <title>Markdown 至 富文本 转换器</title>
-
+  <meta name="keywords"
+    content="markdown generator, markdown to rich text, markdown to rtf, markdown converter, markdown, tables, mathjax" />
+  <title>Markdown 转换器</title>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2597042766299857"
+    crossorigin="anonymous"></script>
+  <script defer src="https://umami.jerryz.com.cn/script.js"
+    data-website-id="319efe93-a9d5-4f43-bfad-7bb27b46f56c"></script>
   <!-- 字体 & 图标 -->
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -20,29 +24,31 @@
     window.MathJax = {
       tex: {
         inlineMath: [['$', '$'], ['\\(', '\\)']],
-        displayMath: [['$$','$$'], ['\\[','\\]']]
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
       },
       svg: { fontCache: 'global' }
     };
   </script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" id="MathJax" async></script>
+  <script src="https://cdn.jerryz.com.cn/npm/mathjax@3/es5/tex-chtml-full.js" id="MathJax" async></script>
 
   <style>
     :root {
-      --primary-color: #6750A4;
+      --primary-color: #006493;
       --on-primary-color: #FFFFFF;
       --surface-color: #FFFBFE;
       --on-surface-color: #1C1B1F;
-      --secondary-color: #E8DEF8;
+      --secondary-color: #c9e6ff;
       --error-color: #B00020;
       --border-radius: 16px;
       --elevation: 0 8px 16px rgba(0, 0, 0, 0.15);
     }
+
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
     }
+
     body {
       font-family: 'Roboto', sans-serif;
       line-height: 1.6;
@@ -54,6 +60,7 @@
       align-items: center;
       min-height: 100vh;
     }
+
     .container {
       width: 100%;
       max-width: 1200px;
@@ -62,6 +69,7 @@
       box-shadow: var(--elevation);
       overflow: hidden;
     }
+
     .app-bar {
       background-color: var(--primary-color);
       color: var(--on-primary-color);
@@ -70,37 +78,44 @@
       font-weight: 500;
       text-align: center;
     }
+
     .content {
       padding: 24px;
     }
+
     .description {
       font-size: 1rem;
       text-align: center;
       margin-bottom: 24px;
     }
+
     /* 让输入框和预览框对齐 */
     .grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 24px;
-      align-items: start; 
+      align-items: start;
     }
+
     @media (max-width: 768px) {
       .grid {
         grid-template-columns: 1fr;
       }
     }
+
     .input-section,
     .preview-section {
       display: flex;
       flex-direction: column;
     }
+
     .label {
       font-size: 0.875rem;
       font-weight: 500;
       margin-bottom: 8px;
       color: var(--on-surface-color);
     }
+
     .textarea {
       width: 100%;
       height: 500px;
@@ -111,6 +126,7 @@
       resize: vertical;
       outline: none;
     }
+
     .preview {
       flex-grow: 1;
       width: 100%;
@@ -121,12 +137,14 @@
       overflow-y: auto;
       background-color: #FFFFFF;
     }
+
     .button-container {
       display: flex;
       gap: 12px;
       margin-bottom: 12px;
       flex-wrap: wrap;
     }
+
     .btn {
       display: inline-flex;
       align-items: center;
@@ -138,30 +156,32 @@
       cursor: pointer;
       transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
     }
+
     .btn .material-icons {
       font-size: 1.2rem;
       margin-right: 8px;
     }
+
     .btn-copy {
       background-color: var(--primary-color);
       color: var(--on-primary-color);
     }
+
     .btn-html {
       background-color: #388E3C;
       color: #FFFFFF;
     }
-    .btn-word {
-      background-color: #1976D2;
-      color: #FFFFFF;
-    }
+
     .btn:hover {
       transform: translateY(-2px);
-      box-shadow: 0 6px 12px rgba(0,0,0,0.25);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
     }
+
     .btn:active {
       transform: translateY(0);
-      box-shadow: 0 3px 6px rgba(0,0,0,0.15);
+      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
     }
+
     .copy-toast {
       position: fixed;
       left: 50%;
@@ -175,80 +195,97 @@
       transition: opacity 0.4s ease;
       z-index: 1000;
     }
+
     .copy-toast.show {
       opacity: 1;
     }
+
     /* 预览样式 */
     .preview h1 {
       font-size: 2em;
       margin: 0.67em 0;
     }
+
     .preview h2 {
       font-size: 1.5em;
       margin: 0.83em 0;
     }
+
     .preview h3 {
       font-size: 1.17em;
       margin: 1em 0;
     }
+
     .preview ul,
     .preview ol {
       padding-left: 2em;
       margin: 1em 0;
     }
+
     .preview p {
       margin: 1em 0;
     }
+
     .preview code {
       background-color: var(--secondary-color);
       padding: 0.2em 0.4em;
       border-radius: 4px;
       font-family: monospace;
     }
+
     .preview pre {
       background-color: var(--secondary-color);
       padding: 16px;
       border-radius: 12px;
       overflow-x: auto;
     }
+
     .preview pre code {
       background-color: transparent;
       padding: 0;
     }
+
     /* 链接与图片 */
     .preview a {
       color: var(--primary-color);
       text-decoration: none;
     }
+
     .preview a:hover {
       text-decoration: underline;
     }
+
     .preview img {
       max-width: 100%;
       height: auto;
       display: block;
       margin: 1em 0;
     }
+
     /* 表格 */
     .preview table {
       width: 100%;
       border-collapse: collapse;
       margin: 1em 0;
     }
+
     .preview table,
     .preview th,
     .preview td {
       border: 1px solid #ddd;
     }
+
     .preview th,
     .preview td {
       padding: 0.6em 1em;
       text-align: left;
     }
+
     /* 任务列表 */
     .preview input[type="checkbox"] {
       margin-right: 0.5em;
     }
+
     /* 水平分割线 */
     .preview hr {
       border: 0;
@@ -257,12 +294,13 @@
     }
   </style>
 </head>
+
 <body>
   <div class="container">
     <header class="app-bar">Markdown转换器</header>
     <div class="content">
       <p class="description">
-        当前转换器已支持表格、任务列表、分割线、LaTeX 公式、图片等更多 Markdown 特性。转换后的富文本可直接复制、保存为 HTML 或 DOCX！
+        将 Markdown 转换为富文本或HTML页面。支持表格、任务列表、分割线、LaTeX 公式、图片等更多 Markdown 特性。
       </p>
 
       <div class="grid">
@@ -283,10 +321,6 @@
               <span class="material-icons">code</span>
               保存为 HTML
             </button>
-            <button id="save-word-button" class="btn btn-word">
-              <span class="material-icons">description</span>
-              保存为 DOCX
-            </button>
           </div>
           <div id="preview" class="preview"></div>
         </div>
@@ -301,7 +335,6 @@
     const preview = document.getElementById('preview');
     const copyButton = document.getElementById('copy-button');
     const saveHtmlButton = document.getElementById('save-html-button');
-    const saveWordButton = document.getElementById('save-word-button');
     const copyToast = document.getElementById('copy-toast');
 
     // 开启 GFM 支持（包含表格、任务列表等），并自动换行
@@ -318,7 +351,7 @@
     }
 
     // 实时预览
-    markdownInput.addEventListener('input', function() {
+    markdownInput.addEventListener('input', function () {
       const html = convertToHTML(this.value);
       preview.innerHTML = html;
       // 让 MathJax 重新渲染公式
@@ -337,7 +370,7 @@
     }
 
     // 优先使用 Clipboard API 复制富文本，否则降级
-    copyButton.addEventListener('click', function() {
+    copyButton.addEventListener('click', function () {
       const htmlContent = preview.innerHTML;
       const tempDiv = document.createElement('div');
       tempDiv.innerHTML = htmlContent;
@@ -389,27 +422,9 @@
       URL.revokeObjectURL(url);
     }
 
-    // 保存为 DOCX（简单保存在 docx 后缀下，让 Word 打开，可能对复杂场景兼容不完美）
-    function saveAsDocx() {
-      const content =
-        '<html><head><meta charset="utf-8"><title>Document</title></head><body>' +
-        preview.innerHTML +
-        '</body></html>';
-      const blob = new Blob([content], {
-        type: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
-      });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = 'document.docx';
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-      URL.revokeObjectURL(url);
-    }
 
     saveHtmlButton.addEventListener('click', saveAsHTML);
-    saveWordButton.addEventListener('click', saveAsDocx);
   </script>
 </body>
+
 </html>

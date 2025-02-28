@@ -1,0 +1,1953 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>24点游戏</title>
+    <style>
+        /* Material You 设计系统颜色 */
+        :root {
+            /* 主色 */
+            --md-sys-color-primary: #006493;
+            --md-sys-color-on-primary: #FFFFFF;
+            --md-sys-color-primary-container: #c9e6ff;
+            --md-sys-color-on-primary-container: #001e30;
+
+            /* 次要色 - 调整为蓝灰色系 */
+            --md-sys-color-secondary: #4A6572;
+            --md-sys-color-on-secondary: #FFFFFF;
+            --md-sys-color-secondary-container: #D0E4FF;
+            --md-sys-color-on-secondary-container: #0F1B24;
+
+            /* 三级色 - 调整为蓝青色系 */
+            --md-sys-color-tertiary: #0088A3;
+            --md-sys-color-on-tertiary: #FFFFFF;
+            --md-sys-color-tertiary-container: #B3EBFF;
+            --md-sys-color-on-tertiary-container: #002A35;
+
+            /* 错误色 - 保持原样 */
+            --md-sys-color-error: #B3261E;
+            --md-sys-color-on-error: #FFFFFF;
+            --md-sys-color-error-container: #F9DEDC;
+            --md-sys-color-on-error-container: #370B1E;
+
+            /* 中性色 - 调整为带蓝色调的中性色 */
+            --md-sys-color-background: #FFFBFE;
+            --md-sys-color-on-background: #1A1C1E;
+            --md-sys-color-surface: #FFFBFE;
+            --md-sys-color-on-surface: #1A1C1E;
+            --md-sys-color-surface-variant: #DDE3EA;
+            --md-sys-color-on-surface-variant: #41484D;
+            --md-sys-color-outline: #72787E;
+            --md-sys-color-outline-variant: #C0C6CC;
+
+            /* 中性变体 - 蓝色系渐变 */
+            --md-sys-color-surface-1: #ECF4FF;
+            --md-sys-color-surface-2: #E0EDFA;
+            --md-sys-color-surface-3: #D3E6F5;
+            --md-sys-color-surface-4: #C7DFEF;
+            --md-sys-color-surface-5: #BBD8EA;
+
+            /* 材质高度 - 保持不变 */
+            --md-sys-elevation-level1: 0 1px 2px rgba(0, 0, 0, 0.3), 0 1px 3px 1px rgba(0, 0, 0, 0.15);
+            --md-sys-elevation-level2: 0 1px 2px rgba(0, 0, 0, 0.3), 0 2px 6px 2px rgba(0, 0, 0, 0.15);
+            --md-sys-elevation-level3: 0 4px 8px 3px rgba(0, 0, 0, 0.15), 0 1px 3px rgba(0, 0, 0, 0.3);
+            --md-sys-elevation-level4: 0 6px 10px 4px rgba(0, 0, 0, 0.15), 0 2px 3px rgba(0, 0, 0, 0.3);
+            --md-sys-elevation-level5: 0 8px 12px 6px rgba(0, 0, 0, 0.15), 0 4px 4px rgba(0, 0, 0, 0.3);
+
+            /* 圆角 - 保持不变 */
+            --md-sys-shape-corner-extra-small: 4px;
+            --md-sys-shape-corner-small: 8px;
+            --md-sys-shape-corner-medium: 12px;
+            --md-sys-shape-corner-large: 16px;
+            --md-sys-shape-corner-extra-large: 28px;
+
+            /* 自定义游戏颜色 - 调整为蓝青色调 */
+            --md-sys-color-success: #00839B;
+            --md-sys-color-on-success: #FFFFFF;
+            --md-sys-color-success-container: #B2EDFF;
+            --md-sys-color-on-success-container: #001F26;
+        }
+
+        /* 页面基础样式 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Roboto', 'Noto Sans SC', sans-serif;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        body {
+            background-color: var(--md-sys-color-background);
+            color: var(--md-sys-color-on-background);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 16px;
+        }
+
+        .container {
+            max-width: 800px;
+            width: 100%;
+        }
+
+        /* 标题区域 */
+        header {
+            text-align: center;
+            margin-bottom: 24px;
+            padding: 16px;
+        }
+
+        h1 {
+            color: var(--md-sys-color-primary);
+            font-size: 2.5rem;
+            font-weight: 400;
+            letter-spacing: 0;
+            margin-bottom: 8px;
+        }
+
+        .game-description {
+            color: var(--md-sys-color-on-surface-variant);
+            font-size: 0.875rem;
+            font-weight: 400;
+            line-height: 1.5;
+            margin-bottom: 8px;
+        }
+
+        /* 卡片容器 */
+        .md-card {
+            background-color: var(--md-sys-color-surface);
+            border-radius: var(--md-sys-shape-corner-medium);
+            box-shadow: var(--md-sys-elevation-level1);
+            overflow: hidden;
+            margin-bottom: 16px;
+            padding: 16px;
+        }
+
+        .md-card-title {
+            color: var(--md-sys-color-on-surface);
+            font-size: 1.125rem;
+            font-weight: 500;
+            margin-bottom: 16px;
+        }
+
+        /* 游戏卡片 */
+        .number-card {
+            width: 80px;
+            height: 112px;
+            border-radius: var(--md-sys-shape-corner-medium);
+            background-color: var(--md-sys-color-surface-variant);
+            color: var(--md-sys-color-on-surface-variant);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            font-weight: 500;
+            cursor: pointer;
+            box-shadow: var(--md-sys-elevation-level1);
+            position: relative;
+            overflow: hidden;
+            user-select: none;
+        }
+
+        .number-card::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom right, rgba(255, 255, 255, 0.2), transparent);
+            pointer-events: none;
+        }
+
+        .number-card:hover {
+            box-shadow: var(--md-sys-elevation-level2);
+            transform: translateY(-2px);
+        }
+
+        .number-card.used {
+            opacity: 0.6;
+            cursor: not-allowed;
+            background-color: var(--md-sys-color-outline-variant);
+            color: var(--md-sys-color-outline);
+            box-shadow: none;
+            transform: scale(0.95);
+        }
+
+        .number-card.selected {
+            background-color: var(--md-sys-color-primary-container);
+            color: var(--md-sys-color-on-primary-container);
+            box-shadow: var(--md-sys-elevation-level2);
+            transform: scale(1.05);
+        }
+
+        .number-card.result-card {
+            background-color: var(--md-sys-color-tertiary-container);
+            color: var(--md-sys-color-on-tertiary-container);
+        }
+
+        /* 游戏区域 */
+        .cards-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        /* 游戏状态 */
+        .game-status {
+            background-color: var(--md-sys-color-surface-1);
+            padding: 12px 16px;
+            border-radius: var(--md-sys-shape-corner-large);
+            margin-bottom: 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .game-status-text {
+            font-weight: 500;
+            color: var(--md-sys-color-on-surface);
+        }
+
+        .game-status.success {
+            background-color: var(--md-sys-color-success-container);
+        }
+
+        .game-status.success .game-status-text {
+            color: var(--md-sys-color-on-success-container);
+        }
+
+        /* 操作按钮 */
+        .operations {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+
+        .operation {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            border: none;
+            background-color: var(--md-sys-color-secondary-container);
+            color: var(--md-sys-color-on-secondary-container);
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: var(--md-sys-elevation-level1);
+        }
+
+        .operation:hover {
+            background-color: var(--md-sys-color-secondary);
+            color: var(--md-sys-color-on-secondary);
+            box-shadow: var(--md-sys-elevation-level2);
+        }
+
+        .operation:disabled {
+            background-color: var(--md-sys-color-outline-variant);
+            color: var(--md-sys-color-outline);
+            cursor: not-allowed;
+            box-shadow: none;
+        }
+
+        /* 操作步骤 */
+        .calculation-steps {
+            background-color: var(--md-sys-color-surface-2);
+            border-radius: var(--md-sys-shape-corner-medium);
+            padding: 16px;
+            margin-bottom: 16px;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        .calculation-steps::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .calculation-steps::-webkit-scrollbar-track {
+            background: var(--md-sys-color-surface-variant);
+            border-radius: 4px;
+        }
+
+        .calculation-steps::-webkit-scrollbar-thumb {
+            background-color: var(--md-sys-color-outline);
+            border-radius: 4px;
+        }
+
+        .step {
+            padding: 12px;
+            background-color: var(--md-sys-color-surface);
+            border-radius: var(--md-sys-shape-corner-small);
+            margin-bottom: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: var(--md-sys-elevation-level1);
+        }
+
+        .step:last-child {
+            margin-bottom: 0;
+        }
+
+        .step-text {
+            font-weight: 500;
+        }
+
+        .step-status {
+            font-size: 0.875rem;
+            color: var(--md-sys-color-on-surface-variant);
+            padding: 4px 8px;
+            border-radius: var(--md-sys-shape-corner-extra-small);
+            background-color: var(--md-sys-color-surface-variant);
+        }
+
+        /* 提示区域 */
+        .hint-container {
+            background-color: var(--md-sys-color-tertiary-container);
+            border-radius: var(--md-sys-shape-corner-medium);
+            padding: 16px;
+            margin-bottom: 16px;
+            display: none;
+        }
+
+        .hint-title {
+            color: var(--md-sys-color-on-tertiary-container);
+            font-weight: 500;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+        }
+
+        .hint-title::before {
+            content: "💡";
+            margin-right: 8px;
+        }
+
+        .hint-step {
+            background-color: rgba(255, 255, 255, 0.5);
+            padding: 8px 12px;
+            border-radius: var(--md-sys-shape-corner-small);
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        /* 按钮 */
+        .md-button {
+            height: 40px;
+            padding: 0 24px;
+            border: none;
+            border-radius: 20px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            letter-spacing: 0.1px;
+            text-transform: uppercase;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .md-button::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background-color: transparent;
+            transition: background-color 0.2s;
+        }
+
+        .md-button:hover::after {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .md-button-filled {
+            background-color: var(--md-sys-color-primary);
+            color: var(--md-sys-color-on-primary);
+            box-shadow: var(--md-sys-elevation-level1);
+        }
+
+        .md-button-filled:hover {
+            box-shadow: var(--md-sys-elevation-level2);
+        }
+
+        .md-button-tonal {
+            background-color: var(--md-sys-color-secondary-container);
+            color: var(--md-sys-color-on-secondary-container);
+        }
+
+        .md-button-outlined {
+            background-color: transparent;
+            color: var(--md-sys-color-primary);
+            border: 1px solid var(--md-sys-color-outline);
+        }
+
+        .md-button-outlined:hover::after {
+            background-color: rgba(103, 80, 164, 0.08);
+        }
+
+        .md-button-text {
+            background-color: transparent;
+            color: var(--md-sys-color-primary);
+        }
+
+        .md-button-success {
+            background-color: var(--md-sys-color-success);
+            color: var(--md-sys-color-on-success);
+        }
+
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+        }
+
+        /* 统计区域 */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .stat-item {
+            background-color: var(--md-sys-color-surface-1);
+            border-radius: var(--md-sys-shape-corner-medium);
+            padding: 16px;
+            text-align: center;
+            box-shadow: var(--md-sys-elevation-level1);
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 500;
+            color: var(--md-sys-color-primary);
+            margin-bottom: 4px;
+        }
+
+        .stat-label {
+            font-size: 0.875rem;
+            color: var(--md-sys-color-on-surface-variant);
+        }
+
+        /* 等级指示器 */
+        .level-indicator {
+            margin-bottom: 24px;
+            background-color: var(--md-sys-color-surface-1);
+            border-radius: var(--md-sys-shape-corner-medium);
+            padding: 16px;
+            box-shadow: var(--md-sys-elevation-level1);
+        }
+
+        .level-name {
+            font-size: 1.25rem;
+            color: var(--md-sys-color-primary);
+            text-align: center;
+            margin-bottom: 16px;
+            font-weight: 500;
+        }
+
+        .level-bar {
+            height: 8px;
+            background-color: var(--md-sys-color-outline-variant);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 8px;
+        }
+
+        .level-progress {
+            height: 100%;
+            background-color: var(--md-sys-color-primary);
+            border-radius: 4px;
+            transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .level-details {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.75rem;
+            color: var(--md-sys-color-on-surface-variant);
+        }
+
+        /* 历史记录 */
+        .history-title {
+            font-size: 1rem;
+            font-weight: 500;
+            color: var(--md-sys-color-on-surface);
+            margin-bottom: 12px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid var(--md-sys-color-outline-variant);
+        }
+
+        .history-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 8px;
+            border-bottom: 1px solid var(--md-sys-color-outline-variant);
+        }
+
+        .history-item:last-child {
+            border-bottom: none;
+        }
+
+        .history-result {
+            padding: 4px 8px;
+            border-radius: var(--md-sys-shape-corner-extra-small);
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+
+        .history-success {
+            background-color: var(--md-sys-color-success-container);
+            color: var(--md-sys-color-on-success-container);
+        }
+
+        .history-fail {
+            background-color: var(--md-sys-color-error-container);
+            color: var(--md-sys-color-on-error-container);
+        }
+
+        /* FAB按钮 */
+        .fab {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background-color: var(--md-sys-color-tertiary);
+            color: var(--md-sys-color-on-tertiary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            box-shadow: var(--md-sys-elevation-level3);
+            cursor: pointer;
+            z-index: 10;
+            border: none;
+        }
+
+        .fab:hover {
+            box-shadow: var(--md-sys-elevation-level4);
+        }
+
+        .ribbon-shape {
+            transform-style: preserve-3d;
+            transform: skew(10deg, 10deg);
+            transform-origin: center;
+        }
+
+        /* 提示消息 */
+        .toast {
+            position: fixed;
+            bottom: 24px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background-color: #333;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 4px;
+            font-size: 0.875rem;
+            z-index: 1000;
+            box-shadow: var(--md-sys-elevation-level2);
+            opacity: 0;
+            transition: transform 0.3s, opacity 0.3s;
+        }
+
+        .toast.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        /* 成功动画 */
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 20px;
+            background-color: #f0f;
+            animation: fall 3s linear forwards;
+            /* 改为linear动画 */
+            z-index: 1000;
+            border-radius: 2px;
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateY(-10vh) rotate(0deg);
+            }
+
+            100% {
+                transform: translateY(120vh) rotate(720deg);
+            }
+        }
+
+        .success-message {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: var(--md-sys-color-primary);
+            color: var(--md-sys-color-on-primary);
+            padding: 24px 48px;
+            border-radius: 16px;
+            z-index: 1001;
+            font-size: 1.5rem;
+            font-weight: 500;
+            text-align: center;
+            box-shadow: var(--md-sys-elevation-level4);
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 600px) {
+            .number-card {
+                width: 70px;
+                height: 100px;
+                font-size: 1.75rem;
+            }
+
+            .operation {
+                width: 48px;
+                height: 48px;
+                font-size: 1.25rem;
+            }
+
+            h1 {
+                font-size: 1.75rem;
+            }
+
+            .controls {
+                flex-wrap: wrap;
+            }
+        }
+
+        /* 无记录提示 */
+        .empty-placeholder {
+            text-align: center;
+            padding: 16px;
+            color: var(--md-sys-color-on-surface-variant);
+            font-size: 0.875rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>24点游戏</h1>
+            <p class="game-description">使用四个数字和基本运算（+, -, ×, ÷），计算出结果为24。每个数字必须且只能使用一次。</p>
+        </header>
+
+        <div class="md-card">
+            <div class="game-status" id="game-status">
+                <div class="game-status-text" id="game-status-text">请选择第一个数</div>
+                <div class="game-status-text">剩余数字: <span id="remaining-count">4</span>/4</div>
+            </div>
+
+            <div class="cards-container" id="cards-container">
+                <!-- Cards will be generated here -->
+            </div>
+
+            <div class="operations">
+                <button class="operation" data-op="+" id="op-add" disabled>+</button>
+                <button class="operation" data-op="-" id="op-subtract" disabled>−</button>
+                <button class="operation" data-op="*" id="op-multiply" disabled>×</button>
+                <button class="operation" data-op="/" id="op-divide" disabled>÷</button>
+            </div>
+
+            <div class="calculation-steps" id="calculation-steps">
+                <!-- Calculation steps will be shown here -->
+                <div class="empty-placeholder">计算步骤将显示在这里</div>
+            </div>
+
+            <div class="hint-container" id="hint-container">
+                <div class="hint-title">提示</div>
+                <div class="hint-step" id="hint-step"></div>
+            </div>
+
+            <div class="controls">
+                <button class="md-button md-button-outlined" id="undo-btn">撤销</button>
+                <button class="md-button md-button-filled" id="reset-btn">重置</button>
+                <button class="md-button md-button-tonal" id="new-game-btn">新游戏</button>
+                <button class="md-button md-button-success" id="hint-btn">提示</button>
+                <button class="md-button md-button-text" id="verify-btn">验证可解</button>
+            </div>
+        </div>
+
+        <div class="md-card">
+            <div class="md-card-title">游戏统计</div>
+
+            <div class="level-indicator">
+                <div class="level-name" id="level-name">新手</div>
+                <div class="level-bar">
+                    <div class="level-progress" id="level-progress" style="width: 0%"></div>
+                </div>
+                <div class="level-details">
+                    <div id="current-level-info">等级 1</div>
+                    <div id="next-level-info">还需 5 次成功</div>
+                </div>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-value" id="success-count">0</div>
+                    <div class="stat-label">成功解题</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value" id="total-attempts">0</div>
+                    <div class="stat-label">总尝试次数</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value" id="success-rate">0%</div>
+                    <div class="stat-label">成功率</div>
+                </div>
+            </div>
+
+            <div class="history-title">最近游戏</div>
+            <div id="history-list">
+                <!-- History will be displayed here -->
+                <div class="empty-placeholder">暂无游戏记录</div>
+            </div>
+        </div>
+    </div>
+
+    <button class="fab" id="help-btn">?</button>
+
+    <div class="toast" id="toast"></div>
+    <div class="success-message" id="success-message">恭喜！你解出了24点！</div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Game state
+            let gameState = {
+                cards: [],                // 原始卡片值
+                usedCardIndexes: new Set(), // 已使用的原始卡片索引
+                currentStage: 1,          // 1: 选择第一个数, 2: 选择运算符, 3: 选择第二个数
+                firstNumberIndex: null,   // 第一个数的索引
+                selectedOperator: null,   // 选择的运算符
+                steps: [],                // 计算步骤
+                hintUsed: false,          // 是否使用了提示
+                originalCardCount: 4,     // 原始卡片数量
+                usedOriginalCards: 0      // 已使用的原始卡片数量
+            };
+
+            // Game statistics
+            let gameStats = loadGameStats();
+
+            // Level definitions
+            const levels = [
+                { name: "新手", threshold: 0 },
+                { name: "初学者", threshold: 5 },
+                { name: "进阶者", threshold: 15 },
+                { name: "熟练者", threshold: 30 },
+                { name: "专家", threshold: 50 },
+                { name: "大师", threshold: 75 },
+                { name: "24点王者", threshold: 100 }
+            ];
+
+            // DOM elements
+            const cardsContainer = document.getElementById('cards-container');
+            const calculationSteps = document.getElementById('calculation-steps');
+            const undoBtn = document.getElementById('undo-btn');
+            const resetBtn = document.getElementById('reset-btn');
+            const newGameBtn = document.getElementById('new-game-btn');
+            const verifyBtn = document.getElementById('verify-btn');
+            const addBtn = document.getElementById('op-add');
+            const subtractBtn = document.getElementById('op-subtract');
+            const multiplyBtn = document.getElementById('op-multiply');
+            const divideBtn = document.getElementById('op-divide');
+            const successMessage = document.getElementById('success-message');
+            const remainingCount = document.getElementById('remaining-count');
+            const gameStatusText = document.getElementById('game-status-text');
+            const gameStatusContainer = document.getElementById('game-status');
+            const successCountEl = document.getElementById('success-count');
+            const totalAttemptsEl = document.getElementById('total-attempts');
+            const successRateEl = document.getElementById('success-rate');
+            const levelNameEl = document.getElementById('level-name');
+            const levelProgressEl = document.getElementById('level-progress');
+            const currentLevelInfoEl = document.getElementById('current-level-info');
+            const nextLevelInfoEl = document.getElementById('next-level-info');
+            const historyListEl = document.getElementById('history-list');
+            const helpBtn = document.getElementById('help-btn');
+            const toastEl = document.getElementById('toast');
+            const hintBtn = document.getElementById('hint-btn');
+            const hintContainer = document.getElementById('hint-container');
+            const hintStep = document.getElementById('hint-step');
+
+            // 初始化游戏
+            function initGame() {
+                // Generate cards until we find a solvable set
+                let cards;
+                let attempts = 0;
+                do {
+                    cards = generateRandomCards(4);
+                    attempts++;
+                } while (!isSolvable(cards) && attempts < 10);
+
+                // If we couldn't find a solvable set after 10 attempts, use a known solvable set
+                if (!isSolvable(cards)) {
+                    cards = getKnownSolvableCards();
+                }
+
+                gameState.cards = cards;
+                gameState.usedCardIndexes = new Set();
+                gameState.currentStage = 1;
+                gameState.firstNumberIndex = null;
+                gameState.selectedOperator = null;
+                gameState.steps = [];
+                gameState.hintUsed = false;
+                gameState.usedOriginalCards = 0;
+
+                renderCards();
+                renderCalculationSteps();
+                updateGameState();
+                updateGameStage();
+
+                gameStatusContainer.classList.remove('success');
+                hintContainer.style.display = 'none';
+
+                remainingCount.textContent = gameState.originalCardCount - gameState.usedOriginalCards;
+            }
+
+            // 生成随机卡片
+            function generateRandomCards(count) {
+                const cards = [];
+                for (let i = 0; i < count; i++) {
+                    // 随机生成1-13之间的整数
+                    cards.push(Math.floor(Math.random() * 13) + 1);
+                }
+                return cards;
+            }
+
+            // 获取已知可解的卡片组合
+            function getKnownSolvableCards() {
+                const solvableSets = [
+                    [3, 8, 3, 8],     // (3 + 8 + 3) * 8 = 24
+                    [5, 5, 5, 1],      // 5 * 5 - 5 + 1 = 24
+                    [4, 7, 8, 1],      // (7 - 4 - 1) * 8 = 24
+                    [6, 3, 3, 2],      // 6 * 3 + 3 * 2 = 24
+                    [9, 8, 3, 1],      // 9 * 8 / 3 = 24
+                    [4, 6, 6, 1],      // (6 + 6) * 4 / 1 = 24
+                    [10, 10, 4, 4],    // 10 + 10 + 4 = 24
+                    [9, 7, 4, 4],      // 9 + 7 + 4 + 4 = 24
+                    [12, 12, 6, 6]     // 12 * 6 / (12 / 6) = 24
+                ];
+
+                // 随机选择一个可解集合
+                return solvableSets[Math.floor(Math.random() * solvableSets.length)];
+            }
+
+            // 检查卡片组合是否可解
+            function isSolvable(cards) {
+                // 此函数使用穷举法检查给定的卡片组合是否能得到24
+                if (!cards || cards.length !== 4) return false;
+
+                // 检查结果的函数
+                function isCloseToTarget(value, target = 24, epsilon = 1e-6) {
+                    return Math.abs(value - target) < epsilon;
+                }
+
+                // 获取所有排列组合
+                function getPermutations(arr) {
+                    if (arr.length <= 1) return [arr];
+                    const result = [];
+                    for (let i = 0; i < arr.length; i++) {
+                        const current = arr[i];
+                        const remaining = [...arr.slice(0, i), ...arr.slice(i + 1)];
+                        const perms = getPermutations(remaining);
+                        for (const perm of perms) {
+                            result.push([current, ...perm]);
+                        }
+                    }
+                    return result;
+                }
+
+                // 尝试所有运算符组合
+                const operations = ['+', '-', '*', '/'];
+                const permutations = getPermutations(cards);
+
+                // 不同的括号位置模式
+                // 无括号: a op1 b op2 c op3 d
+                // 模式1: (a op1 b) op2 c op3 d
+                // 模式2: a op1 (b op2 c) op3 d
+                // 模式3: a op1 b op2 (c op3 d)
+                // 模式4: (a op1 b) op2 (c op3 d)
+                // 模式5: ((a op1 b) op2 c) op3 d
+                // 模式6: (a op1 (b op2 c)) op3 d
+                // 模式7: a op1 ((b op2 c) op3 d)
+                // 模式8: a op1 (b op2 (c op3 d))
+
+                for (const perm of permutations) {
+                    for (const op1 of operations) {
+                        for (const op2 of operations) {
+                            for (const op3 of operations) {
+                                const [a, b, c, d] = perm;
+
+                                // 计算所有可能的括号组合
+                                try {
+                                    // 无括号
+                                    let result = calculate(calculate(calculate(a, op1, b), op2, c), op3, d);
+                                    if (isCloseToTarget(result)) return true;
+
+                                    // 模式1: (a op1 b) op2 c op3 d
+                                    result = calculate(calculate(calculate(a, op1, b), op2, c), op3, d);
+                                    if (isCloseToTarget(result)) return true;
+
+                                    // 模式2: a op1 (b op2 c) op3 d
+                                    result = calculate(calculate(a, op1, calculate(b, op2, c)), op3, d);
+                                    if (isCloseToTarget(result)) return true;
+
+                                    // 模式3: a op1 b op2 (c op3 d)
+                                    result = calculate(calculate(a, op1, b), op2, calculate(c, op3, d));
+                                    if (isCloseToTarget(result)) return true;
+
+                                    // 模式4: (a op1 b) op2 (c op3 d)
+                                    result = calculate(calculate(a, op1, b), op2, calculate(c, op3, d));
+                                    if (isCloseToTarget(result)) return true;
+
+                                    // 模式5: ((a op1 b) op2 c) op3 d
+                                    result = calculate(calculate(calculate(a, op1, b), op2, c), op3, d);
+                                    if (isCloseToTarget(result)) return true;
+
+                                    // 模式6: (a op1 (b op2 c)) op3 d
+                                    result = calculate(calculate(a, op1, calculate(b, op2, c)), op3, d);
+                                    if (isCloseToTarget(result)) return true;
+
+                                    // 模式7: a op1 ((b op2 c) op3 d)
+                                    result = calculate(a, op1, calculate(calculate(b, op2, c), op3, d));
+                                    if (isCloseToTarget(result)) return true;
+
+                                    // 模式8: a op1 (b op2 (c op3 d))
+                                    result = calculate(a, op1, calculate(b, op2, calculate(c, op3, d)));
+                                    if (isCloseToTarget(result)) return true;
+
+                                } catch (e) {
+                                    // 可能出现除零等错误，继续尝试其他组合
+                                    continue;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                // 如果所有组合都尝试过了，仍然没有解
+                return false;
+            }
+
+            // 执行单个计算
+            function calculate(a, op, b) {
+                switch (op) {
+                    case '+': return a + b;
+                    case '-': return a - b;
+                    case '*': return a * b;
+                    case '/':
+                        if (b === 0) throw new Error("除数不能为0");
+                        return a / b;
+                    default: throw new Error("无效的运算符");
+                }
+            }
+
+            // 检查当前牌组是否可解
+            function verifyCurrentCards() {
+                let remainingCards = [];
+                for (let i = 0; i < gameState.cards.length; i++) {
+                    if (!gameState.usedCardIndexes.has(i)) {
+                        remainingCards.push(gameState.cards[i]);
+                    }
+                }
+
+                // 添加已有的中间结果
+                gameState.steps.forEach((step, index) => {
+                    if (!step.used) {
+                        remainingCards.push(step.result);
+                    }
+                });
+
+                // 根据剩余卡片数量决定验证方式
+                if (remainingCards.length === 1) {
+                    // 只剩一张卡片，检查是否为24
+                    if (Math.abs(remainingCards[0] - 24) < 1e-6) {
+                        showToast("当前结果为24，你已经成功了！");
+                    } else {
+                        showToast("只剩一张卡片且不为24，计算有误，请重新尝试");
+                        recordFailedAttempt("单卡非24");
+                    }
+                } else if (remainingCards.length > 1) {
+                    // 仍有多张卡片，检查剩余卡片是否可能得到24
+                    const combinations = [];
+
+                    if (remainingCards.length === 2) {
+                        // 测试两张卡片的所有可能运算
+                        const operations = ['+', '-', '*', '/'];
+                        for (const op of operations) {
+                            try {
+                                const result = calculate(remainingCards[0], op, remainingCards[1]);
+                                if (Math.abs(result - 24) < 1e-6) {
+                                    combinations.push({
+                                        cards: [remainingCards[0], remainingCards[1]],
+                                        operations: [op],
+                                        steps: [`${remainingCards[0]} ${getOperatorSymbol(op)} ${remainingCards[1]} = 24`]
+                                    });
+                                }
+                            } catch (e) {
+                                continue;
+                            }
+
+                            // 检查反向运算
+                            try {
+                                const result = calculate(remainingCards[1], op, remainingCards[0]);
+                                if (Math.abs(result - 24) < 1e-6) {
+                                    combinations.push({
+                                        cards: [remainingCards[1], remainingCards[0]],
+                                        operations: [op],
+                                        steps: [`${remainingCards[1]} ${getOperatorSymbol(op)} ${remainingCards[0]} = 24`]
+                                    });
+                                }
+                            } catch (e) {
+                                continue;
+                            }
+                        }
+                    } else {
+                        // 如果有3张或4张卡片，使用递归方法查找解
+                        findSolutions(remainingCards, combinations);
+                    }
+
+                    if (combinations.length > 0) {
+                        showToast("当前牌组有解，继续努力！");
+                    } else {
+                        showToast("当前牌组无解，请点击新游戏重新开始");
+                    }
+                }
+            }
+
+            // 查找所有可能的解决方案
+            function findSolutions(cards, solutions, currentOps = [], currentSteps = []) {
+                // 如果只剩一张卡片，检查是否为24
+                if (cards.length === 1) {
+                    if (Math.abs(cards[0] - 24) < 1e-6) {
+                        solutions.push({
+                            cards: [...cards],
+                            operations: [...currentOps],
+                            steps: [...currentSteps]
+                        });
+                    }
+                    return;
+                }
+
+                // 尝试所有可能的卡片对和运算符
+                for (let i = 0; i < cards.length; i++) {
+                    for (let j = i + 1; j < cards.length; j++) {
+                        const a = cards[i];
+                        const b = cards[j];
+                        const remainingCards = cards.filter((_, index) => index !== i && index !== j);
+
+                        // 尝试所有运算符
+                        for (const op of ['+', '-', '*', '/']) {
+                            try {
+                                // 正向运算: a op b
+                                const result = calculate(a, op, b);
+                                const newCards = [...remainingCards, result];
+                                const newOps = [...currentOps, op];
+                                const newSteps = [...currentSteps, `${a} ${getOperatorSymbol(op)} ${b} = ${result}`];
+
+                                findSolutions(newCards, solutions, newOps, newSteps);
+                            } catch (e) {
+                                // 可能出现除零等错误，继续尝试其他组合
+                            }
+
+                            // 如果操作不是加法或乘法(它们是可交换的)，还要尝试反向运算
+                            if (op === '-' || op === '/') {
+                                try {
+                                    // 反向运算: b op a
+                                    const result = calculate(b, op, a);
+                                    const newCards = [...remainingCards, result];
+                                    const newOps = [...currentOps, op];
+                                    const newSteps = [...currentSteps, `${b} ${getOperatorSymbol(op)} ${a} = ${result}`];
+
+                                    findSolutions(newCards, solutions, newOps, newSteps);
+                                } catch (e) {
+                                    // 可能出现除零等错误，继续尝试其他组合
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            // 更新游戏阶段UI
+            function updateGameStage() {
+                // 设置运算符按钮可用性
+                [addBtn, subtractBtn, multiplyBtn, divideBtn].forEach(btn => {
+                    btn.disabled = gameState.currentStage !== 2;
+                });
+            }
+
+            // 渲染卡片
+            function renderCards() {
+                cardsContainer.innerHTML = '';
+
+                // 渲染原始卡片
+                gameState.cards.forEach((card, index) => {
+                    if (!gameState.usedCardIndexes.has(index)) {
+                        const cardElement = document.createElement('div');
+                        cardElement.className = 'number-card';
+
+                        if (gameState.currentStage === 1 && gameState.firstNumberIndex === index) {
+                            cardElement.classList.add('selected');
+                        }
+
+                        if (gameState.currentStage === 3 && gameState.firstNumberIndex !== index) {
+                            // 为第二个选择高亮可用卡片
+                            cardElement.classList.add('available');
+                        }
+
+                        cardElement.textContent = card;
+                        cardElement.addEventListener('click', () => selectCard(index));
+                        cardsContainer.appendChild(cardElement);
+                    }
+                });
+
+                // 添加中间结果卡片
+                gameState.steps.forEach((step, stepIndex) => {
+                    if (!step.used) {
+                        const cardElement = document.createElement('div');
+                        cardElement.className = 'number-card result-card';
+
+                        if (gameState.currentStage === 1 && gameState.firstNumberIndex === 'result-' + stepIndex) {
+                            cardElement.classList.add('selected');
+                        }
+
+                        if (gameState.currentStage === 3 && gameState.firstNumberIndex !== 'result-' + stepIndex) {
+                            // 为第二个选择高亮可用卡片
+                            cardElement.classList.add('available');
+                        }
+
+                        cardElement.textContent = step.result;
+                        cardElement.addEventListener('click', () => selectResultCard(stepIndex));
+                        cardsContainer.appendChild(cardElement);
+                    }
+                });
+
+                remainingCount.textContent = gameState.originalCardCount - gameState.usedOriginalCards;
+
+                // 检查是否只剩一张卡片且不是24
+                checkForFailure();
+            }
+
+            // 选择卡片
+            function selectCard(index) {
+                if (gameState.usedCardIndexes.has(index)) return;
+
+                if (gameState.currentStage === 1) {
+                    // 第一个数字选择
+                    gameState.firstNumberIndex = index;
+                    gameState.currentStage = 2;
+                } else if (gameState.currentStage === 3) {
+                    // 第二个数字选择
+                    if (index === gameState.firstNumberIndex) return; // 不能选择同一张卡片
+
+                    // 获取两个选择的值
+                    const firstValue = (typeof gameState.firstNumberIndex === 'string' && gameState.firstNumberIndex.startsWith('result-'))
+                        ? gameState.steps[parseInt(gameState.firstNumberIndex.split('-')[1])].result
+                        : gameState.cards[gameState.firstNumberIndex];
+
+                    const secondValue = gameState.cards[index];
+
+                    // 执行计算
+                    performCalculation(firstValue, secondValue, gameState.firstNumberIndex, index);
+                }
+
+                renderCards();
+                updateGameState();
+                updateGameStage();
+            }
+
+            // 选择结果卡片
+            function selectResultCard(stepIndex) {
+                const cardId = 'result-' + stepIndex;
+
+                if (gameState.steps[stepIndex].used) return;
+
+                if (gameState.currentStage === 1) {
+                    // 第一个数字选择
+                    gameState.firstNumberIndex = cardId;
+                    gameState.currentStage = 2;
+                } else if (gameState.currentStage === 3) {
+                    // 第二个数字选择
+                    if (cardId === gameState.firstNumberIndex) return; // 不能选择同一张卡片
+
+                    // 获取两个选择的值
+                    const firstValue = (typeof gameState.firstNumberIndex === 'string' && gameState.firstNumberIndex.startsWith('result-'))
+                        ? gameState.steps[parseInt(gameState.firstNumberIndex.split('-')[1])].result
+                        : gameState.cards[gameState.firstNumberIndex];
+
+                    const secondValue = gameState.steps[stepIndex].result;
+
+                    // 执行计算
+                    performCalculation(firstValue, secondValue, gameState.firstNumberIndex, cardId);
+                }
+
+                renderCards();
+                updateGameState();
+                updateGameStage();
+            }
+
+            // 选择运算符
+            function selectOperator(operator) {
+                if (gameState.currentStage !== 2) return;
+
+                gameState.selectedOperator = operator;
+                gameState.currentStage = 3;
+
+                renderCards();
+                updateGameState();
+                updateGameStage();
+            }
+
+            // 更新游戏状态
+            function updateGameState() {
+                if (gameState.currentStage === 1) {
+                    gameStatusText.textContent = "请选择第一个数";
+                } else if (gameState.currentStage === 2) {
+                    gameStatusText.textContent = "请选择运算符";
+                } else if (gameState.currentStage === 3) {
+                    gameStatusText.textContent = "请选择第二个数";
+                }
+            }
+
+            // 执行计算
+            function performCalculation(firstValue, secondValue, firstIndex, secondIndex) {
+                let result;
+                let operationText;
+
+                // 执行计算
+                switch (gameState.selectedOperator) {
+                    case '+':
+                        result = firstValue + secondValue;
+                        operationText = `${firstValue} + ${secondValue} = ${result}`;
+                        break;
+                    case '-':
+                        result = firstValue - secondValue;
+                        operationText = `${firstValue} − ${secondValue} = ${result}`;
+                        break;
+                    case '*':
+                        result = firstValue * secondValue;
+                        operationText = `${firstValue} × ${secondValue} = ${result}`;
+                        break;
+                    case '/':
+                        // 检查除数为零和非整数结果
+                        if (secondValue === 0) {
+                            showToast("除数不能为0");
+                            return;
+                        }
+
+                        if (firstValue % secondValue !== 0) {
+                            showToast("除法结果必须是整数");
+                            return;
+                        }
+
+                        result = firstValue / secondValue;
+                        operationText = `${firstValue} ÷ ${secondValue} = ${result}`;
+                        break;
+                }
+
+                // 检查是否使用了原始卡片
+                let usedOriginalCardsInThisStep = 0;
+
+                // 判断使用的是否是原始卡片
+                if (typeof firstIndex === 'number') {
+                    usedOriginalCardsInThisStep++;
+                }
+
+                if (typeof secondIndex === 'number') {
+                    usedOriginalCardsInThisStep++;
+                }
+
+                // 添加计算步骤
+                gameState.steps.push({
+                    firstValue,
+                    secondValue,
+                    operator: gameState.selectedOperator,
+                    result,
+                    text: operationText,
+                    used: false,
+                    firstIndex,
+                    secondIndex,
+                    usedOriginalCards: usedOriginalCardsInThisStep
+                });
+
+                // 标记使用过的卡片
+                if (typeof firstIndex === 'string' && firstIndex.startsWith('result-')) {
+                    // 标记使用过的结果
+                    const stepIndex = parseInt(firstIndex.split('-')[1]);
+                    gameState.steps[stepIndex].used = true;
+                } else {
+                    // 标记使用过的原始卡片
+                    gameState.usedCardIndexes.add(firstIndex);
+                    gameState.usedOriginalCards++;
+                }
+
+                if (typeof secondIndex === 'string' && secondIndex.startsWith('result-')) {
+                    // 标记使用过的结果
+                    const stepIndex = parseInt(secondIndex.split('-')[1]);
+                    gameState.steps[stepIndex].used = true;
+                } else {
+                    // 标记使用过的原始卡片
+                    gameState.usedCardIndexes.add(secondIndex);
+                    gameState.usedOriginalCards++;
+                }
+
+                // 重置选择
+                gameState.firstNumberIndex = null;
+                gameState.selectedOperator = null;
+                gameState.currentStage = 1;
+
+                // 检查是否达到24
+                checkForSuccess(result);
+
+                // 更新UI
+                renderCalculationSteps();
+                renderCards();
+                updateGameState();
+                updateGameStage();
+            }
+
+            // 渲染计算步骤
+            function renderCalculationSteps() {
+                if (gameState.steps.length === 0) {
+                    calculationSteps.innerHTML = '<div class="empty-placeholder">计算步骤将显示在这里</div>';
+                    return;
+                }
+
+                calculationSteps.innerHTML = '';
+
+                gameState.steps.forEach((step, index) => {
+                    const stepElement = document.createElement('div');
+                    stepElement.className = 'step';
+
+                    const stepTextEl = document.createElement('div');
+                    stepTextEl.className = 'step-text';
+                    stepTextEl.textContent = step.text;
+
+                    const stepStatusEl = document.createElement('div');
+                    stepStatusEl.className = 'step-status';
+                    stepStatusEl.textContent = step.used ? '已使用' : '可用';
+
+                    stepElement.appendChild(stepTextEl);
+                    stepElement.appendChild(stepStatusEl);
+
+                    calculationSteps.appendChild(stepElement);
+                });
+            }
+
+            // 检查是否成功
+            function checkForSuccess(result) {
+                // 只有当所有原始卡片都被使用且结果为24时才算成功
+                if (result === 24 && gameState.usedOriginalCards === gameState.originalCardCount) {
+                    // 成功！
+                    gameStatusText.textContent = "成功！";
+                    gameStatusContainer.classList.add('success');
+
+                    // 更新统计数据
+                    gameStats.totalSuccess++;
+                    gameStats.totalAttempts++;
+                    gameStats.recentGames.unshift({
+                        success: true,
+                        steps: [...gameState.steps.map(step => ({ ...step }))],
+                        date: new Date().toISOString(),
+                        cards: [...gameState.cards],
+                        hintUsed: gameState.hintUsed
+                    });
+
+                    // 限制最近游戏记录数量
+                    if (gameStats.recentGames.length > 10) {
+                        gameStats.recentGames.pop();
+                    }
+
+                    saveGameStats();
+                    updateStatsDisplay();
+
+                    // 庆祝
+                    celebrateSuccess();
+                }
+            }
+
+            // 检查是否失败(只剩一张卡且不是24)
+            function checkForFailure() {
+                const availableCards = gameState.cards.filter((_, index) => !gameState.usedCardIndexes.has(index));
+                const availableResults = gameState.steps.filter(step => !step.used);
+
+                // 如果只剩一张卡片(无论是原始卡片还是结果卡片)
+                if (availableCards.length + availableResults.length === 1) {
+                    let lastCardValue;
+
+                    if (availableCards.length === 1) {
+                        lastCardValue = availableCards[0];
+                    } else if (availableResults.length === 1) {
+                        lastCardValue = availableResults[0].result;
+                    }
+
+                    // 检查最后一张卡是否为24
+                    if (Math.abs(lastCardValue - 24) >= 1e-6) {
+                        // 失败！最后一张卡不是24
+                        gameStatusText.textContent = "失败！最后一张卡不是24";
+                        recordFailedAttempt("单卡非24");
+                    }
+                }
+            }
+
+            // 记录失败尝试
+            function recordFailedAttempt(reason) {
+                // 如果游戏已成功，不记录失败
+                if (gameStatusContainer.classList.contains('success')) {
+                    return;
+                }
+
+                gameStats.totalAttempts++;
+                gameStats.recentGames.unshift({
+                    success: false,
+                    steps: [...gameState.steps.map(step => ({ ...step }))],
+                    date: new Date().toISOString(),
+                    cards: [...gameState.cards],
+                    hintUsed: gameState.hintUsed,
+                    failReason: reason
+                });
+
+                // 限制最近游戏记录数量
+                if (gameStats.recentGames.length > 10) {
+                    gameStats.recentGames.pop();
+                }
+
+                saveGameStats();
+                updateStatsDisplay();
+            }
+
+            // 撤销上一步
+            function undoLastStep() {
+                if (gameState.steps.length === 0) {
+                    // 如果没有步骤，重置选择状态
+                    gameState.firstNumberIndex = null;
+                    gameState.selectedOperator = null;
+                    gameState.currentStage = 1;
+                    renderCards();
+                    updateGameState();
+                    updateGameStage();
+                    return;
+                }
+
+                // 获取最后一步操作
+                const lastStep = gameState.steps.pop();
+
+                // 恢复使用的卡片
+                if (typeof lastStep.firstIndex === 'string' && lastStep.firstIndex.startsWith('result-')) {
+                    // 恢复使用的结果卡片
+                    const stepIndex = parseInt(lastStep.firstIndex.split('-')[1]);
+                    if (stepIndex >= 0 && stepIndex < gameState.steps.length) {
+                        gameState.steps[stepIndex].used = false;
+                    }
+                } else if (typeof lastStep.firstIndex === 'number') {
+                    // 恢复使用的原始卡片
+                    gameState.usedCardIndexes.delete(lastStep.firstIndex);
+                    gameState.usedOriginalCards--;
+                }
+
+                if (typeof lastStep.secondIndex === 'string' && lastStep.secondIndex.startsWith('result-')) {
+                    // 恢复使用的结果卡片
+                    const stepIndex = parseInt(lastStep.secondIndex.split('-')[1]);
+                    if (stepIndex >= 0 && stepIndex < gameState.steps.length) {
+                        gameState.steps[stepIndex].used = false;
+                    }
+                } else if (typeof lastStep.secondIndex === 'number') {
+                    // 恢复使用的原始卡片
+                    gameState.usedCardIndexes.delete(lastStep.secondIndex);
+                    gameState.usedOriginalCards--;
+                }
+
+                // 重置选择状态
+                gameState.firstNumberIndex = null;
+                gameState.selectedOperator = null;
+                gameState.currentStage = 1;
+
+                // 更新UI
+                renderCalculationSteps();
+                renderCards();
+                updateGameState();
+                updateGameStage();
+                gameStatusContainer.classList.remove('success');
+
+                remainingCount.textContent = gameState.originalCardCount - gameState.usedOriginalCards;
+            }
+
+            // 重置游戏
+            function resetGame() {
+                gameState.usedCardIndexes = new Set();
+                gameState.steps = [];
+                gameState.firstNumberIndex = null;
+                gameState.selectedOperator = null;
+                gameState.currentStage = 1;
+                gameState.hintUsed = false;
+                gameState.usedOriginalCards = 0;
+
+                renderCards();
+                renderCalculationSteps();
+                updateGameState();
+                updateGameStage();
+                gameStatusContainer.classList.remove('success');
+                hintContainer.style.display = 'none';
+
+                remainingCount.textContent = gameState.originalCardCount - gameState.usedOriginalCards;
+            }
+
+            // 更新统计显示
+            function updateStatsDisplay() {
+                successCountEl.textContent = gameStats.totalSuccess;
+                totalAttemptsEl.textContent = gameStats.totalAttempts;
+
+                const rate = gameStats.totalAttempts > 0
+                    ? Math.round((gameStats.totalSuccess / gameStats.totalAttempts) * 100)
+                    : 0;
+                successRateEl.textContent = rate + '%';
+
+                // 更新等级信息
+                let currentLevel = 0;
+                let nextLevelThreshold = 0;
+
+                // 找到当前等级
+                for (let i = levels.length - 1; i >= 0; i--) {
+                    if (gameStats.totalSuccess >= levels[i].threshold) {
+                        currentLevel = i;
+                        levelNameEl.textContent = levels[i].name;
+                        break;
+                    }
+                }
+
+                // 获取下一级阈值
+                if (currentLevel < levels.length - 1) {
+                    nextLevelThreshold = levels[currentLevel + 1].threshold;
+                    nextLevelInfoEl.textContent = `还需 ${nextLevelThreshold - gameStats.totalSuccess} 次成功`;
+                } else {
+                    nextLevelInfoEl.textContent = '已达到最高等级';
+                }
+
+                // 更新进度条
+                if (currentLevel < levels.length - 1) {
+                    const currentThreshold = levels[currentLevel].threshold;
+                    const nextThreshold = levels[currentLevel + 1].threshold;
+                    const progress = ((gameStats.totalSuccess - currentThreshold) / (nextThreshold - currentThreshold)) * 100;
+                    levelProgressEl.style.width = progress + '%';
+                } else {
+                    levelProgressEl.style.width = '100%';
+                }
+
+                currentLevelInfoEl.textContent = `等级 ${currentLevel + 1}`;
+
+                // 更新最近游戏
+                renderHistory();
+            }
+
+            // 渲染历史记录
+            function renderHistory() {
+                historyListEl.innerHTML = '';
+
+                if (gameStats.recentGames.length === 0) {
+                    historyListEl.innerHTML = '<div class="empty-placeholder">暂无游戏记录</div>';
+                    return;
+                }
+
+                gameStats.recentGames.forEach((game, index) => {
+                    const historyItem = document.createElement('div');
+                    historyItem.className = 'history-item';
+
+                    const dateSpan = document.createElement('div');
+                    const date = new Date(game.date);
+                    const formattedDate = `${date.getMonth() + 1}/${date.getDate()} ${date.getHours()}:${String(date.getMinutes()).padStart(2, '0')}`;
+                    dateSpan.textContent = formattedDate;
+
+                    const cardsSpan = document.createElement('div');
+                    if (game.cards && game.cards.length > 0) {
+                        cardsSpan.textContent = game.cards.join(', ');
+                    }
+
+                    const resultSpan = document.createElement('div');
+                    resultSpan.className = game.success ? 'history-result history-success' : 'history-result history-fail';
+                    resultSpan.textContent = game.success ? '成功' : '失败';
+
+                    // 显示是否使用了提示
+                    if (game.hintUsed) {
+                        resultSpan.textContent += ' (提示)';
+                    }
+
+                    historyItem.appendChild(dateSpan);
+                    historyItem.appendChild(cardsSpan);
+                    historyItem.appendChild(resultSpan);
+
+                    historyListEl.appendChild(historyItem);
+                });
+            }
+
+            // 从 localStorage 加载游戏统计
+            function loadGameStats() {
+                try {
+                    const statsData = localStorage.getItem('24game_stats');
+                    return statsData ? JSON.parse(statsData) : {
+                        totalSuccess: 0,
+                        totalAttempts: 0,
+                        recentGames: []
+                    };
+                } catch (e) {
+                    return {
+                        totalSuccess: 0,
+                        totalAttempts: 0,
+                        recentGames: []
+                    };
+                }
+            }
+
+            // 保存游戏统计到 localStorage
+            function saveGameStats() {
+                try {
+                    localStorage.setItem('24game_stats', JSON.stringify(gameStats));
+                } catch (e) {
+                    console.error('Failed to save game stats', e);
+                }
+            }
+
+            // 庆祝成功
+            function celebrateSuccess() {
+                // 创建五彩纸屑
+                for (let i = 0; i < 100; i++) {
+                    createConfetti();
+                }
+
+                // 显示成功信息
+                successMessage.style.display = 'block';
+                setTimeout(() => {
+                    successMessage.style.display = 'none';
+                }, 3000);
+            }
+
+            // 创建五彩纸屑
+            // 创建五彩纸屑
+            function createConfetti() {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+
+                // 随机位置、颜色和大小
+                const colors = ['#6750A4', '#7D5260', '#625B71', '#B3261E', '#388E3C', '#0288D1', '#FF9800', '#E91E63', '#00BCD4'];
+                const randomColor = colors[Math.floor(Math.random() * colors.length)];
+
+                // 随机选择形状：彩带或圆形
+                const isRibbon = Math.random() > 0.3;
+
+                if (isRibbon) {
+                    // 彩带形状
+                    const randomWidth = Math.floor(Math.random() * 8) + 3;
+                    const randomHeight = Math.floor(Math.random() * 15) + 10;
+                    confetti.style.width = `${randomWidth}px`;
+                    confetti.style.height = `${randomHeight}px`;
+                    confetti.style.backgroundColor = randomColor;
+                    // 不直接设置transform，而是添加一个类
+                    confetti.classList.add('ribbon');
+                } else {
+                    // 圆形纸屑
+                    const randomSize = Math.floor(Math.random() * 8) + 4;
+                    confetti.style.width = `${randomSize}px`;
+                    confetti.style.height = `${randomSize}px`;
+                    confetti.style.backgroundColor = randomColor;
+                    confetti.style.borderRadius = '50%';
+                }
+
+                const randomLeft = Math.floor(Math.random() * window.innerWidth);
+                const randomDelay = Math.random() * 2; // 减少最大延迟
+                const randomDuration = 2 + Math.random() * 3; // 调整动画时长
+
+                confetti.style.left = `${randomLeft}px`;
+                confetti.style.top = '-20px';
+                confetti.style.animationDelay = `${randomDelay}s`;
+                confetti.style.animationDuration = `${randomDuration}s`;
+
+                // 添加额外的旋转样式，不覆盖基本动画
+                if (isRibbon) {
+                    // 给彩带添加随机倾斜角度，但不使用transform属性
+                    confetti.style.rotate = `${Math.random() * 360}deg`;
+                }
+
+                document.body.appendChild(confetti);
+
+                // 更长的超时时间确保动画完全结束
+                setTimeout(() => {
+                    confetti.remove();
+                }, (randomDuration + randomDelay) * 1000 + 1000); // 额外增加1秒
+            }
+
+            // 显示提示消息
+            function showToast(message) {
+                toastEl.textContent = message;
+                toastEl.classList.add('show');
+
+                setTimeout(() => {
+                    toastEl.classList.remove('show');
+                }, 3000);
+            }
+
+            // 显示帮助信息
+            function showHelp() {
+                showToast("选择一个数，然后选择一个运算符，再选择另一个数。所有四个数字都必须使用，且最终结果为24才算成功！");
+            }
+
+            // 获取提示
+            function getHint() {
+                // 标记已使用提示
+                if (!gameState.hintUsed) {
+                    gameState.hintUsed = true;
+
+                    // 记录使用提示为失败尝试
+                    recordFailedAttempt("使用提示");
+                }
+
+                // 获取可用数字
+                let availableNumbers = [];
+
+                // 添加未使用的原始卡片
+                for (let i = 0; i < gameState.cards.length; i++) {
+                    if (!gameState.usedCardIndexes.has(i)) {
+                        availableNumbers.push({
+                            value: gameState.cards[i],
+                            index: i,
+                            type: 'original'
+                        });
+                    }
+                }
+
+                // 添加中间结果
+                gameState.steps.forEach((step, index) => {
+                    if (!step.used) {
+                        availableNumbers.push({
+                            value: step.result,
+                            index: index,
+                            type: 'result'
+                        });
+                    }
+                });
+
+                // 根据剩余卡片找出完整解法
+                const solutions = [];
+                findCompleteSolutions(availableNumbers, solutions);
+
+                if (solutions.length > 0) {
+                    // 选择最短的解法
+                    solutions.sort((a, b) => a.steps.length - b.steps.length);
+                    const bestSolution = solutions[0];
+
+                    // 生成完整提示HTML
+                    let hintHTML = '<div style="font-weight: bold; margin-bottom: 8px;">完整解题步骤:</div>';
+                    bestSolution.steps.forEach((step, index) => {
+                        hintHTML += `<div style="margin-bottom: 4px;">步骤 ${index + 1}: ${step}</div>`;
+                    });
+
+                    hintStep.innerHTML = hintHTML;
+                    hintContainer.style.display = 'block';
+                } else {
+                    showToast("无法找到有效提示");
+                }
+            }
+
+            // 找到完整解决方案
+            function findCompleteSolutions(availableCards, solutions) {
+                // 转换卡片格式为纯数值数组
+                const cards = availableCards.map(card => card.value);
+
+                // 获取所有卡片的排列组合
+                const permutations = getPermutations(cards);
+                const operations = ['+', '-', '*', '/'];
+
+                // 不同的括号位置模式来测试
+                const patterns = [
+                    // ((a op1 b) op2 c) op3 d
+                    (a, b, c, d, op1, op2, op3) => {
+                        try {
+                            const step1 = calculate(a, op1, b);
+                            const step2 = calculate(step1, op2, c);
+                            const result = calculate(step2, op3, d);
+                            if (Math.abs(result - 24) < 1e-6) {
+                                return [
+                                    `${a} ${getOperatorSymbol(op1)} ${b} = ${step1}`,
+                                    `${step1} ${getOperatorSymbol(op2)} ${c} = ${step2}`,
+                                    `${step2} ${getOperatorSymbol(op3)} ${d} = 24`
+                                ];
+                            }
+                        } catch (e) { }
+                        return null;
+                    },
+
+                    // (a op1 (b op2 c)) op3 d
+                    (a, b, c, d, op1, op2, op3) => {
+                        try {
+                            const step1 = calculate(b, op2, c);
+                            const step2 = calculate(a, op1, step1);
+                            const result = calculate(step2, op3, d);
+                            if (Math.abs(result - 24) < 1e-6) {
+                                return [
+                                    `${b} ${getOperatorSymbol(op2)} ${c} = ${step1}`,
+                                    `${a} ${getOperatorSymbol(op1)} ${step1} = ${step2}`,
+                                    `${step2} ${getOperatorSymbol(op3)} ${d} = 24`
+                                ];
+                            }
+                        } catch (e) { }
+                        return null;
+                    },
+
+                    // a op1 ((b op2 c) op3 d)
+                    (a, b, c, d, op1, op2, op3) => {
+                        try {
+                            const step1 = calculate(b, op2, c);
+                            const step2 = calculate(step1, op3, d);
+                            const result = calculate(a, op1, step2);
+                            if (Math.abs(result - 24) < 1e-6) {
+                                return [
+                                    `${b} ${getOperatorSymbol(op2)} ${c} = ${step1}`,
+                                    `${step1} ${getOperatorSymbol(op3)} ${d} = ${step2}`,
+                                    `${a} ${getOperatorSymbol(op1)} ${step2} = 24`
+                                ];
+                            }
+                        } catch (e) { }
+                        return null;
+                    },
+
+                    // a op1 (b op2 (c op3 d))
+                    (a, b, c, d, op1, op2, op3) => {
+                        try {
+                            const step1 = calculate(c, op3, d);
+                            const step2 = calculate(b, op2, step1);
+                            const result = calculate(a, op1, step2);
+                            if (Math.abs(result - 24) < 1e-6) {
+                                return [
+                                    `${c} ${getOperatorSymbol(op3)} ${d} = ${step1}`,
+                                    `${b} ${getOperatorSymbol(op2)} ${step1} = ${step2}`,
+                                    `${a} ${getOperatorSymbol(op1)} ${step2} = 24`
+                                ];
+                            }
+                        } catch (e) { }
+                        return null;
+                    },
+
+                    // (a op1 b) op2 (c op3 d)
+                    (a, b, c, d, op1, op2, op3) => {
+                        try {
+                            const step1 = calculate(a, op1, b);
+                            const step2 = calculate(c, op3, d);
+                            const result = calculate(step1, op2, step2);
+                            if (Math.abs(result - 24) < 1e-6) {
+                                return [
+                                    `${a} ${getOperatorSymbol(op1)} ${b} = ${step1}`,
+                                    `${c} ${getOperatorSymbol(op3)} ${d} = ${step2}`,
+                                    `${step1} ${getOperatorSymbol(op2)} ${step2} = 24`
+                                ];
+                            }
+                        } catch (e) { }
+                        return null;
+                    }
+                ];
+
+                // 尝试所有可能的排列和操作
+                for (const perm of permutations) {
+                    for (const op1 of operations) {
+                        for (const op2 of operations) {
+                            for (const op3 of operations) {
+                                for (const pattern of patterns) {
+                                    const steps = pattern(perm[0], perm[1], perm[2], perm[3], op1, op2, op3);
+                                    if (steps) {
+                                        solutions.push({
+                                            cards: perm,
+                                            steps: steps
+                                        });
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                return solutions;
+            }
+
+            // 获取所有排列组合
+            function getPermutations(arr) {
+                if (arr.length <= 1) return [arr];
+                const result = [];
+                for (let i = 0; i < arr.length; i++) {
+                    const current = arr[i];
+                    const remaining = [...arr.slice(0, i), ...arr.slice(i + 1)];
+                    const perms = getPermutations(remaining);
+                    for (const perm of perms) {
+                        result.push([current, ...perm]);
+                    }
+                }
+                return result;
+            }
+
+            // 获取运算符符号
+            function getOperatorSymbol(op) {
+                switch (op) {
+                    case '+': return '+';
+                    case '-': return '−';
+                    case '*': return '×';
+                    case '/': return '÷';
+                    default: return op;
+                }
+            }
+
+            // 初始化游戏
+            initGame();
+            updateStatsDisplay();
+
+            // 事件监听
+            undoBtn.addEventListener('click', undoLastStep);
+            resetBtn.addEventListener('click', resetGame);
+            verifyBtn.addEventListener('click', verifyCurrentCards);
+            newGameBtn.addEventListener('click', () => {
+                // 如果有步骤但未成功，记录失败尝试
+                if (gameState.steps.length > 0 && !gameStatusContainer.classList.contains('success')) {
+                    gameStats.totalAttempts++;
+                    gameStats.recentGames.unshift({
+                        success: false,
+                        steps: [...gameState.steps.map(step => ({ ...step }))],
+                        date: new Date().toISOString(),
+                        cards: [...gameState.cards],
+                        hintUsed: gameState.hintUsed,
+                        failReason: "放弃"
+                    });
+
+                    // 限制最近游戏记录数量
+                    if (gameStats.recentGames.length > 10) {
+                        gameStats.recentGames.pop();
+                    }
+
+                    saveGameStats();
+                    updateStatsDisplay();
+                }
+
+                initGame();
+            });
+
+            addBtn.addEventListener('click', () => selectOperator('+'));
+            subtractBtn.addEventListener('click', () => selectOperator('-'));
+            multiplyBtn.addEventListener('click', () => selectOperator('*'));
+            divideBtn.addEventListener('click', () => selectOperator('/'));
+
+            helpBtn.addEventListener('click', showHelp);
+            hintBtn.addEventListener('click', getHint);
+        });
+    </script>
+</body>
+
+</html>
