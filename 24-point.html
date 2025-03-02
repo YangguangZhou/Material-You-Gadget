@@ -154,6 +154,8 @@
             position: relative;
             overflow: hidden;
             user-select: none;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
         }
 
         .number-card::after {
@@ -183,6 +185,11 @@
             color: var(--md-sys-color-on-primary-container);
             box-shadow: var(--md-sys-elevation-level2);
             transform: scale(1.05);
+            border: 2px solid var(--md-sys-color-primary);
+        }
+
+        .number-card.available {
+            border: 2px dashed var(--md-sys-color-tertiary);
         }
 
         .number-card.result-card {
@@ -954,6 +961,7 @@
                     case '*': return a * b;
                     case '/':
                         if (b === 0) throw new Error("除数不能为0");
+                        if (a % b !== 0) throw new Error("除法结果必须是整数");
                         return a / b;
                     default: throw new Error("无效的运算符");
                 }
@@ -1104,7 +1112,8 @@
                         const cardElement = document.createElement('div');
                         cardElement.className = 'number-card';
 
-                        if (gameState.currentStage === 1 && gameState.firstNumberIndex === index) {
+                        // 在阶段1和阶段2都高亮显示选中的卡片
+                        if ((gameState.currentStage === 1 || gameState.currentStage === 2) && gameState.firstNumberIndex === index) {
                             cardElement.classList.add('selected');
                         }
 
@@ -1125,7 +1134,8 @@
                         const cardElement = document.createElement('div');
                         cardElement.className = 'number-card result-card';
 
-                        if (gameState.currentStage === 1 && gameState.firstNumberIndex === 'result-' + stepIndex) {
+                        // 在阶段1和阶段2都高亮显示选中的卡片
+                        if ((gameState.currentStage === 1 || gameState.currentStage === 2) && gameState.firstNumberIndex === 'result-' + stepIndex) {
                             cardElement.classList.add('selected');
                         }
 
@@ -1154,6 +1164,11 @@
                     // 第一个数字选择
                     gameState.firstNumberIndex = index;
                     gameState.currentStage = 2;
+                } else if (gameState.currentStage === 2) {
+                    // 如果处于选择运算符阶段但用户点击了另一张卡片
+                    // 那么取消之前的选择，选择新的卡片
+                    gameState.firstNumberIndex = index;
+                    // 保持在选择运算符阶段
                 } else if (gameState.currentStage === 3) {
                     // 第二个数字选择
                     if (index === gameState.firstNumberIndex) return; // 不能选择同一张卡片
@@ -1184,6 +1199,11 @@
                     // 第一个数字选择
                     gameState.firstNumberIndex = cardId;
                     gameState.currentStage = 2;
+                } else if (gameState.currentStage === 2) {
+                    // 如果处于选择运算符阶段但用户点击了另一张卡片
+                    // 那么取消之前的选择，选择新的卡片
+                    gameState.firstNumberIndex = cardId;
+                    // 保持在选择运算符阶段
                 } else if (gameState.currentStage === 3) {
                     // 第二个数字选择
                     if (cardId === gameState.firstNumberIndex) return; // 不能选择同一张卡片
@@ -1638,7 +1658,6 @@
                 }, 3000);
             }
 
-            // 创建五彩纸屑
             // 创建五彩纸屑
             function createConfetti() {
                 const confetti = document.createElement('div');
