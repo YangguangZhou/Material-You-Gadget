@@ -5,42 +5,105 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="author" content="Jerry Zhou" />
-  <meta name="keywords"
-    content="markdown generator, markdown to rich text, markdown to rtf, markdown converter, markdown, tables, mathjax" />
-  <title>Markdown 转换器</title>
+  <title>Markdown 在线转换器 - 转富文本/HTML | Material You Gadget</title>
+  <meta name="description" content="强大的在线 Markdown 转换工具。实时将 Markdown 文本转换为富文本预览或纯 HTML 代码。支持 GFM 表格、任务列表、LaTeX 数学公式等。">
+  <meta name="keywords" content="Markdown转换器, Markdown转HTML, Markdown编辑器, 在线Markdown, Markdown预览, LaTeX, MathJax, GFM, Material You, Jerry Zhou">
+
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2597042766299857"
     crossorigin="anonymous"></script>
   <script defer src="https://umami.jerryz.com.cn/script.js"
     data-website-id="319efe93-a9d5-4f43-bfad-7bb27b46f56c"></script>
-  <!-- 字体 & 图标 -->
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet"> <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 
-  <!-- 引入 Marked.js （支持 GFM，包括表格、任务列表等） -->
-  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-
-  <!-- MathJax v3，用于支持 LaTeX 数学公式 -->
   <script>
     window.MathJax = {
       tex: {
         inlineMath: [['$', '$'], ['\\(', '\\)']],
         displayMath: [['$$', '$$'], ['\\[', '\\]']]
       },
-      svg: { fontCache: 'global' }
+      svg: { fontCache: 'global' },
+      startup: {
+        ready: () => {
+          MathJax.startup.defaultReady();
+          const preview = document.getElementById('preview');
+          if (preview && preview.innerHTML.trim() !== '' && preview.innerHTML.includes('$')) { // Only typeset if MathJax content likely present
+            MathJax.typesetPromise([preview]).catch(console.error);
+          }
+        }
+      }
     };
   </script>
   <script src="https://cdn.jerryz.com.cn/npm/mathjax@3/es5/tex-chtml-full.js" id="MathJax" async></script>
 
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "Markdown 在线转换器 - 转富文本/HTML",
+    "description": "强大的在线 Markdown 转换工具。实时将 Markdown 文本转换为富文本预览或纯 HTML 代码。支持 GFM 表格、任务列表、LaTeX 数学公式等。",
+    "url": "https://md.jerryz.com.cn/md.html",
+    "keywords": "Markdown转换器, Markdown转HTML, Markdown编辑器, 在线Markdown, Markdown预览, LaTeX, MathJax, GFM, Material You, Jerry Zhou",
+    "author": {
+      "@type": "Person",
+      "name": "Jerry Zhou"
+    },
+    "isPartOf": {
+      "@type": "WebSite",
+      "name": "Material You Gadget",
+      "url": "https://md.jerryz.com.cn/"
+    },
+    "mainEntity": {
+      "@type": "WebApplication",
+      "name": "Markdown 转换器",
+      "applicationCategory": "DeveloperToolApplication",
+      "operatingSystem": "All",
+      "browserRequirements": "Requires HTML5 support"
+    }
+  }
+  </script>
   <style>
     :root {
-      --primary-color: #006493;
-      --on-primary-color: #FFFFFF;
-      --surface-color: #FFFBFE;
-      --on-surface-color: #1C1B1F;
-      --secondary-color: #c9e6ff;
-      --error-color: #B00020;
-      --border-radius: 16px;
-      --elevation: 0 8px 16px rgba(0, 0, 0, 0.15);
+      /* Material You Inspired Palette (Light Theme) */
+      --md-sys-color-primary: #006493; /* Primary action color */
+      --md-sys-color-on-primary: #FFFFFF;
+      --md-sys-color-primary-container: #CDE5FF; /* Lighter shade for containers related to primary */
+      --md-sys-color-on-primary-container: #001E30;
+      
+      --md-sys-color-secondary: #51606F;
+      --md-sys-color-on-secondary: #FFFFFF;
+      --md-sys-color-secondary-container: #D4E4F6;
+      --md-sys-color-on-secondary-container: #0E1D2A;
+
+      --md-sys-color-tertiary: #68587A;
+      --md-sys-color-on-tertiary: #FFFFFF;
+      --md-sys-color-tertiary-container: #EFDBFF;
+      --md-sys-color-on-tertiary-container: #231533;
+
+      --md-sys-color-surface: #FCFCFF; /* Main background */
+      --md-sys-color-on-surface: #1A1C1E; /* Main text color */
+      --md-sys-color-surface-variant: #FAFAFA; /* Slightly different surface for cards, inputs */
+      --md-sys-color-on-surface-variant: #43474E; /* Text on surface variant */
+      --md-sys-color-outline: #73777F; /* Borders */
+      
+      --md-sys-color-background: #F8F9FA; /* Page background, slightly off-white */
+      --md-sys-color-on-background: #1A1C1E;
+
+      --md-sys-color-error: #BA1A1A;
+      --md-sys-color-on-error: #FFFFFF;
+
+      --border-radius-small: 8px;
+      --border-radius-medium: 12px;
+      --border-radius-large: 16px;
+      --border-radius-extra-large: 28px; /* For FABs or pill shaped buttons */
+      --border-radius-full: 999px; /* For circular elements */
+
+
+      --elevation-1: 0 1px 2px 0 rgba(0, 0, 0, 0.05), 0 1px 3px 0 rgba(0,0,0,0.1);
+      --elevation-2: 0 2px 4px -1px rgba(0,0,0,0.06), 0 4px 5px 0 rgba(0,0,0,0.06);
+      --elevation-3: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
+
     }
 
     * {
@@ -52,31 +115,62 @@
     body {
       font-family: 'Roboto', sans-serif;
       line-height: 1.6;
-      background-color: var(--surface-color);
-      color: var(--on-surface-color);
+      background-color: var(--md-sys-color-background);
+      color: var(--md-sys-color-on-background);
       padding: 20px;
       display: flex;
       justify-content: center;
-      align-items: center;
+      align-items: flex-start;
       min-height: 100vh;
     }
 
+    .back-to-home-btn {
+        position: fixed; /* Or absolute if container is relative */
+        top: 20px;
+        left: 20px;
+        width: 48px;
+        height: 48px;
+        background-color: var(--md-sys-color-surface-variant);
+        color: var(--md-sys-color-on-surface-variant);
+        border: none;
+        border-radius: var(--border-radius-full); /* Circular */
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        box-shadow: var(--elevation-2);
+        transition: background-color 0.2s ease, box-shadow 0.2s ease;
+        z-index: 1000;
+    }
+    .back-to-home-btn:hover {
+        background-color: var(--md-sys-color-primary-container);
+        color: var(--md-sys-color-on-primary-container);
+        box-shadow: var(--elevation-3);
+    }
+    .back-to-home-btn .material-icons-outlined {
+        font-size: 24px;
+    }
+
+
     .container {
       width: 100%;
-      max-width: 1200px;
-      background-color: #FFFFFF;
-      border-radius: var(--border-radius);
-      box-shadow: var(--elevation);
+      max-width: 1300px;
+      background-color: var(--md-sys-color-surface);
+      border-radius: var(--border-radius-large); /* Increased roundness */
+      box-shadow: var(--elevation-3);
       overflow: hidden;
+      margin-top: 40px; /* Adjusted for potential top bar or back button */
+      margin-bottom: 20px;
     }
 
     .app-bar {
-      background-color: var(--primary-color);
-      color: var(--on-primary-color);
-      padding: 20px;
-      font-size: 24px;
+      background-color: var(--md-sys-color-primary);
+      color: var(--md-sys-color-on-primary);
+      padding: 18px 24px; /* Slightly adjusted padding */
+      font-size: 20px; 
       font-weight: 500;
       text-align: center;
+      /* border-bottom: 1px solid var(--md-sys-color-outline); */ /* Removed border for cleaner look */
     }
 
     .content {
@@ -84,22 +178,39 @@
     }
 
     .description {
-      font-size: 1rem;
+      font-size: 0.95rem;
       text-align: center;
-      margin-bottom: 24px;
+      margin-bottom: 28px; /* Increased margin */
+      color: var(--md-sys-color-on-surface-variant);
     }
 
-    /* 让输入框和预览框对齐 */
     .grid {
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: 1fr 1fr; /* Default for desktop: side-by-side */
       gap: 24px;
-      align-items: start;
+      align-items: stretch; 
     }
 
-    @media (max-width: 768px) {
+    /* Mobile layout: Stack input and preview */
+    @media (max-width: 900px) {
       .grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: 1fr; /* Stack elements */
+      }
+      .textarea, .preview {
+        height: 45vh; /* Adjust height for mobile */
+        min-height: 300px;
+      }
+       .back-to-home-btn {
+        top: 15px;
+        left: 15px;
+        width: 40px;
+        height: 40px;
+      }
+      .back-to-home-btn .material-icons-outlined {
+        font-size: 20px;
+      }
+      .container {
+        margin-top: 70px; /* Ensure space for back button on mobile */
       }
     }
 
@@ -112,145 +223,180 @@
     .label {
       font-size: 0.875rem;
       font-weight: 500;
-      margin-bottom: 8px;
-      color: var(--on-surface-color);
+      margin-bottom: 10px; /* Increased margin */
+      color: var(--md-sys-color-on-surface-variant);
     }
 
     .textarea {
       width: 100%;
-      height: 500px;
+      height: 65vh; 
+      min-height: 350px;
       padding: 16px;
-      border: 1px solid var(--secondary-color);
-      border-radius: 8px;
-      font-family: monospace;
+      border: 1px solid var(--md-sys-color-outline);
+      border-radius: var(--border-radius-medium); /* Consistent roundness */
+      font-family: 'Roboto Mono', monospace;
+      font-size: 0.9rem;
       resize: vertical;
       outline: none;
+      background-color: var(--md-sys-color-surface-variant); 
+      color: var(--md-sys-color-on-surface-variant);
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+    .textarea:focus {
+      border-color: var(--md-sys-color-primary);
+      box-shadow: 0 0 0 2px var(--md-sys-color-primary-container);
     }
 
     .preview {
       flex-grow: 1;
       width: 100%;
-      height: 500px;
+      height: 65vh; 
+      min-height: 350px;
       padding: 16px;
-      border: 1px solid var(--secondary-color);
-      border-radius: 8px;
+      border: 1px solid var(--md-sys-color-outline);
+      border-radius: var(--border-radius-medium);
       overflow-y: auto;
-      background-color: #FFFFFF;
+      background-color: var(--md-sys-color-surface); /* Slightly different from textarea bg */
     }
 
     .button-container {
       display: flex;
       gap: 12px;
-      margin-bottom: 12px;
+      margin-bottom: 16px;
       flex-wrap: wrap;
+      align-items: center;
     }
 
     .btn {
       display: inline-flex;
       align-items: center;
-      padding: 12px 24px;
-      font-size: 0.875rem;
+      justify-content: center;
+      padding: 10px 22px; /* Adjusted padding for pill shape */
+      font-size: 0.9rem;
       font-weight: 500;
       border: none;
-      border-radius: 24px;
+      border-radius: var(--border-radius-extra-large); /* Pill shape */
       cursor: pointer;
-      transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+      transition: background-color 0.2s ease, transform 0.1s ease, box-shadow 0.2s ease;
+      text-transform: none; 
+      box-shadow: var(--elevation-1);
     }
 
-    .btn .material-icons {
-      font-size: 1.2rem;
+    .btn .material-icons-outlined { /* Updated to outlined icons */
+      font-size: 1.125rem; 
       margin-right: 8px;
     }
 
     .btn-copy {
-      background-color: var(--primary-color);
-      color: var(--on-primary-color);
+      background-color: var(--md-sys-color-primary);
+      color: var(--md-sys-color-on-primary);
+    }
+    .btn-copy:hover {
+      background-color: color-mix(in srgb, var(--md-sys-color-primary) 90%, black);
+      box-shadow: var(--elevation-2);
+      transform: translateY(-1px);
     }
 
-    .btn-html {
-      background-color: #388E3C;
-      color: #FFFFFF;
+    .btn-save-html {
+      background-color: var(--md-sys-color-tertiary); /* Using tertiary for differentiation */
+      color: var(--md-sys-color-on-tertiary);
     }
-
-    .btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
+    .btn-save-html:hover {
+      background-color: color-mix(in srgb, var(--md-sys-color-tertiary) 90%, black);
+      box-shadow: var(--elevation-2);
+      transform: translateY(-1px);
     }
-
+    
     .btn:active {
       transform: translateY(0);
-      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
+      box-shadow: none;
     }
 
     .copy-toast {
       position: fixed;
       left: 50%;
-      top: 10%;
+      bottom: 30px; /* Positioned at bottom */
+      top: auto; 
       transform: translateX(-50%);
-      background: rgba(0, 0, 0, 0.75);
-      color: #FFFFFF;
-      padding: 0.8rem 1.2rem;
-      border-radius: 4px;
+      background: var(--md-sys-color-on-surface);
+      color: var(--md-sys-color-surface);
+      padding: 12px 18px;
+      border-radius: var(--border-radius-medium);
       opacity: 0;
-      transition: opacity 0.4s ease;
-      z-index: 1000;
+      transition: opacity 0.4s ease, bottom 0.4s ease;
+      z-index: 10000;
+      font-size: 0.9rem;
+      box-shadow: var(--elevation-3);
     }
 
     .copy-toast.show {
       opacity: 1;
+      bottom: 50px;
     }
 
-    /* 预览样式 */
-    .preview h1 {
-      font-size: 2em;
-      margin: 0.67em 0;
+    /* Preview Styles (Material You Inspired) */
+    .preview {
+        font-size: 1rem;
+        line-height: 1.7;
+        color: var(--md-sys-color-on-surface);
     }
-
-    .preview h2 {
-      font-size: 1.5em;
-      margin: 0.83em 0;
+    .preview h1, .preview h2, .preview h3, .preview h4, .preview h5, .preview h6 {
+        margin-top: 1.6em;
+        margin-bottom: 0.8em;
+        font-weight: 600; 
+        color: var(--md-sys-color-primary); /* Titles with primary color */
     }
-
-    .preview h3 {
-      font-size: 1.17em;
-      margin: 1em 0;
-    }
+    .preview h1 { font-size: 2em; border-bottom: 1px solid var(--md-sys-color-outline); padding-bottom: 0.4em;}
+    .preview h2 { font-size: 1.6em; border-bottom: 1px solid var(--md-sys-color-outline); padding-bottom: 0.3em;}
+    .preview h3 { font-size: 1.3em; }
+    .preview h4 { font-size: 1.15em; }
 
     .preview ul,
     .preview ol {
       padding-left: 2em;
-      margin: 1em 0;
+      margin-top: 0.5em;
+      margin-bottom: 1em;
+    }
+    .preview li {
+        margin-bottom: 0.5em;
     }
 
     .preview p {
-      margin: 1em 0;
+      margin-top: 0;
+      margin-bottom: 1.2em;
     }
 
     .preview code {
-      background-color: var(--secondary-color);
-      padding: 0.2em 0.4em;
-      border-radius: 4px;
-      font-family: monospace;
+      background-color: var(--md-sys-color-secondary-container);
+      padding: 0.2em 0.5em;
+      border-radius: var(--border-radius-small);
+      font-family: 'Roboto Mono', monospace;
+      font-size: 0.875em; 
+      color: var(--md-sys-color-on-secondary-container);
     }
 
     .preview pre {
-      background-color: var(--secondary-color);
+      background-color: var(--md-sys-color-surface-variant); 
       padding: 16px;
-      border-radius: 12px;
+      border-radius: var(--border-radius-medium);
       overflow-x: auto;
+      border: 1px solid var(--md-sys-color-outline);
+      margin: 1.5em 0;
     }
 
     .preview pre code {
       background-color: transparent;
       padding: 0;
+      border: none;
+      font-size: 0.875em; 
+      color: var(--md-sys-color-on-surface-variant); 
     }
 
-    /* 链接与图片 */
     .preview a {
-      color: var(--primary-color);
+      color: var(--md-sys-color-primary);
       text-decoration: none;
+      font-weight: 500;
     }
-
     .preview a:hover {
       text-decoration: underline;
     }
@@ -259,172 +405,338 @@
       max-width: 100%;
       height: auto;
       display: block;
-      margin: 1em 0;
+      margin: 1.5em auto; 
+      border-radius: var(--border-radius-medium);
+      box-shadow: var(--elevation-1);
     }
 
-    /* 表格 */
     .preview table {
       width: 100%;
       border-collapse: collapse;
-      margin: 1em 0;
+      margin: 1.5em 0;
+      box-shadow: var(--elevation-1);
+      border-radius: var(--border-radius-medium);
+      overflow: hidden; 
+      border: 1px solid var(--md-sys-color-outline);
     }
 
-    .preview table,
     .preview th,
     .preview td {
-      border: 1px solid #ddd;
-    }
-
-    .preview th,
-    .preview td {
-      padding: 0.6em 1em;
+      border: 1px solid var(--md-sys-color-outline);
+      padding: 0.8em 1em; 
       text-align: left;
     }
-
-    /* 任务列表 */
-    .preview input[type="checkbox"] {
-      margin-right: 0.5em;
+    .preview th {
+        background-color: var(--md-sys-color-surface-variant);
+        font-weight: 600;
+        color: var(--md-sys-color-on-surface-variant);
+    }
+    .preview tr:nth-child(even) {
+        background-color: color-mix(in srgb, var(--md-sys-color-surface) 95%, var(--md-sys-color-surface-variant));
     }
 
-    /* 水平分割线 */
+    .preview input[type="checkbox"] {
+      margin-right: 0.6em;
+      transform: scale(1.1); 
+      accent-color: var(--md-sys-color-primary); /* Style checkbox */
+    }
+
     .preview hr {
       border: 0;
-      border-top: 2px solid var(--secondary-color);
-      margin: 1.5em 0;
+      border-top: 1px solid var(--md-sys-color-outline);
+      margin: 2em 0;
     }
+
+    .preview blockquote {
+        border-left: 4px solid var(--md-sys-color-primary-container);
+        margin: 1.5em 0;
+        padding: 0.8em 1.5em;
+        color: var(--md-sys-color-on-surface-variant); 
+        background-color: var(--md-sys-color-surface-variant);
+        border-radius: 0 var(--border-radius-medium) var(--border-radius-medium) 0;
+    }
+    .preview blockquote p {
+        margin-bottom: 0.5em;
+    }
+    .preview blockquote p:last-child {
+        margin-bottom: 0;
+    }
+
+    .footer {
+        text-align: center;
+        padding: 2rem 1rem;
+        margin-top: auto;
+        color: #79747e;
+    }
+
+    .footer a {
+        color: #006493;
+        text-decoration: none;
+    }
+
+    .footer a:hover {
+        text-decoration: none;
+    }
+
   </style>
 </head>
 
 <body>
+  <button id="back-to-home" class="back-to-home-btn" title="返回主站">
+    <span class="material-icons-outlined">arrow_back</span>
+  </button>
+
   <div class="container">
-    <header class="app-bar">Markdown转换器</header>
+    <header class="app-bar">Markdown 实时转换器</header>
     <div class="content">
       <p class="description">
-        将 Markdown 转换为富文本或HTML页面。支持表格、任务列表、分割线、LaTeX 公式、图片等更多 Markdown 特性。
+        将 Markdown 文本即时转换为富文本预览或纯 HTML 代码。支持 GFM 表格、任务列表、代码高亮、LaTeX 数学公式、图片等多种 Markdown 特性。
       </p>
 
       <div class="grid">
-        <!-- 左侧：输入框 -->
         <div class="input-section">
-          <label class="label" for="markdown-input">Markdown 输入</label>
-          <textarea id="markdown-input" class="textarea" placeholder="在这里输入 Markdown 文本..."></textarea>
+          <label class="label" for="markdown-input">Markdown 输入 (支持 LaTeX 公式)</label>
+          <textarea id="markdown-input" class="textarea" placeholder="在此处输入 Markdown 文本... 例如：&#10;&#10;```python&#10;print('Hello World!')&#10;```&#10;&#10;$$E = mc^2$$"></textarea>
         </div>
 
-        <!-- 右侧：按钮与预览 -->
         <div class="preview-section">
           <div class="button-container">
             <button id="copy-button" class="btn btn-copy">
-              <span class="material-icons">content_copy</span>
+              <span class="material-icons-outlined">content_copy</span>
               复制富文本
             </button>
-            <button id="save-html-button" class="btn btn-html">
-              <span class="material-icons">code</span>
+            <button id="save-html-button" class="btn btn-save-html"> 
+              <span class="material-icons-outlined">save_alt</span> 
               保存为 HTML
             </button>
-          </div>
-          <div id="preview" class="preview"></div>
+            </div>
+          <label class="label" for="preview">实时预览</label>
+          <div id="preview" class="preview">输入 Markdown 内容后，这里会显示渲染后的效果。</div>
         </div>
       </div>
     </div>
+    <footer class="footer">
+      <p>&copy; 2024-2025 <a href="https://jerryz.com.cn" target="_blank" rel="noopener">Jerry Zhou</a> | <a href="https://github.com/YangguangZhou/Material-You-Gadget" target="_blank" rel="noopener noreferrer">GitHub</a></p>
+    </footer>
   </div>
 
-  <div id="copy-toast" class="copy-toast">富文本已复制！</div>
+  <div id="copy-toast" class="copy-toast">消息提示</div>
+
+  
 
   <script>
     const markdownInput = document.getElementById('markdown-input');
     const preview = document.getElementById('preview');
     const copyButton = document.getElementById('copy-button');
     const saveHtmlButton = document.getElementById('save-html-button');
+    const backToHomeButton = document.getElementById('back-to-home');
     const copyToast = document.getElementById('copy-toast');
 
-    // 开启 GFM 支持（包含表格、任务列表等），并自动换行
+    // Marked.js Configuration
     marked.setOptions({
-      gfm: true,
-      breaks: false
+      gfm: true,        
+      breaks: false,     
+      pedantic: false,  
+      sanitize: false,  // IMPORTANT: If you expect user-generated content that might be malicious, set this to true or use a sanitizer library like DOMPurify.
+      smartLists: true,
+      smartypants: true 
     });
-
-    // 将 Markdown 转换为 HTML
-    function convertToHTML(md) {
-      // 使用 Marked.js 渲染
-      const rawHTML = marked.parse(md);
-      return rawHTML;
+    
+    // Debounce function
+    function debounce(func, delay) {
+      let timeoutId;
+      return function(...args) {
+        clearTimeout(timeoutId);
+        timeoutId = setTimeout(() => {
+          func.apply(this, args);
+        }, delay);
+      };
     }
 
-    // 实时预览
-    markdownInput.addEventListener('input', function () {
-      const html = convertToHTML(this.value);
-      preview.innerHTML = html;
-      // 让 MathJax 重新渲染公式
-      if (window.MathJax && window.MathJax.typesetPromise) {
-        MathJax.typesetPromise([preview]);
+    // Update preview function
+    function updatePreview() {
+      const markdownText = markdownInput.value;
+      const placeholderText = '<p style=\"color: #757575; text-align: center; margin-top: 20px;\">输入 Markdown 内容后，这里会显示渲染后的效果。</p>';
+      
+      if (markdownText.trim() === '') {
+        preview.innerHTML = placeholderText;
+        return;
       }
-    });
+      const rawHTML = marked.parse(markdownText);
+      preview.innerHTML = rawHTML;
+      
+      if (window.MathJax && typeof window.MathJax.typesetPromise === 'function' && markdownText.includes('$')) {
+        MathJax.typesetPromise([preview]).catch(function (err) {
+          console.error('MathJax typesetPromise failed:', err);
+        });
+      } else if (window.MathJax && typeof window.MathJax.typeset === 'function' && markdownText.includes('$')) {
+        MathJax.typeset([preview]);
+      }
+    }
 
-    // 显示弹窗
-    function showToast(message) {
+    const debouncedUpdatePreview = debounce(updatePreview, 300);
+    markdownInput.addEventListener('input', debouncedUpdatePreview);
+
+    if (markdownInput.value) {
+        updatePreview(); // Initial render if content exists
+    }
+
+    // Show toast message
+    function showToast(message, duration = 2500) {
       copyToast.textContent = message;
       copyToast.classList.add('show');
       setTimeout(() => {
         copyToast.classList.remove('show');
-      }, 2000);
+      }, duration);
     }
 
-    // 优先使用 Clipboard API 复制富文本，否则降级
+    // Copy rich text
     copyButton.addEventListener('click', function () {
       const htmlContent = preview.innerHTML;
       const tempDiv = document.createElement('div');
       tempDiv.innerHTML = htmlContent;
+      const plainText = tempDiv.textContent || tempDiv.innerText || "";
+      const placeholderHTML = '<p style=\"color: #757575; text-align: center; margin-top: 20px;\">输入 Markdown 内容后，这里会显示渲染后的效果。</p>';
+
+      if (!htmlContent.trim() || htmlContent === placeholderHTML) {
+        showToast('没有内容可以复制', 2000);
+        return;
+      }
+
       try {
-        const clipboardData = new DataTransfer();
-        clipboardData.setData('text/html', htmlContent);
-        clipboardData.setData('text/plain', tempDiv.textContent);
+        const htmlBlob = new Blob([htmlContent], { type: 'text/html' });
+        const textBlob = new Blob([plainText], { type: 'text/plain' });
+        
         navigator.clipboard.write([
           new ClipboardItem({
-            'text/html': new Blob([htmlContent], { type: 'text/html' }),
-            'text/plain': new Blob([tempDiv.textContent], { type: 'text/plain' })
+            'text/html': htmlBlob,
+            'text/plain': textBlob
           })
         ]).then(() => {
-          showToast('富文本已复制！');
+          showToast('富文本已复制到剪贴板！');
         }).catch(err => {
-          // 如果出现错误则进行降级复制
-          fallbackCopy(tempDiv.textContent);
+          console.warn('Clipboard API failed, falling back.', err);
+          fallbackCopy(plainText, htmlContent);
         });
-      } catch (err) {
-        fallbackCopy(tempDiv.textContent);
+      } catch (e) {
+        console.warn('Clipboard API not available or error, falling back.', e);
+        fallbackCopy(plainText, htmlContent);
       }
     });
 
-    function fallbackCopy(text) {
-      const textarea = document.createElement('textarea');
-      textarea.value = text;
-      document.body.appendChild(textarea);
-      textarea.select();
-      try {
-        document.execCommand('copy');
-        showToast('已复制（纯文本格式）！');
-      } catch (err) {
-        showToast('复制失败，请手动复制');
-      }
-      document.body.removeChild(textarea);
+    // Fallback copy function
+    function fallbackCopy(plainText, htmlContent) {
+        const tempDiv = document.createElement('div');
+        tempDiv.innerHTML = htmlContent;
+        document.body.appendChild(tempDiv);
+
+        const range = document.createRange();
+        range.selectNodeContents(tempDiv);
+        const selection = window.getSelection();
+        selection.removeAllRanges();
+        selection.addRange(range);
+
+        let success = false;
+        try {
+            success = document.execCommand('copy');
+        } catch (err) {
+            console.error('Fallback HTML copy execCommand failed:', err);
+        }
+        selection.removeAllRanges();
+        document.body.removeChild(tempDiv);
+
+        if (success) {
+            showToast('富文本已复制 (兼容模式)！');
+        } else {
+            const textarea = document.createElement('textarea');
+            textarea.value = plainText;
+            textarea.style.position = 'fixed'; 
+            textarea.style.opacity = '0';
+            document.body.appendChild(textarea);
+            textarea.select();
+            try {
+                document.execCommand('copy');
+                showToast('已复制为纯文本！');
+            } catch (err) {
+                showToast('复制失败，请手动复制。');
+                console.error('Fallback plain text copy execCommand failed:', err);
+            }
+            document.body.removeChild(textarea);
+        }
     }
 
-    // 保存为 HTML
-    function saveAsHTML() {
-      const htmlContent = preview.innerHTML;
-      const blob = new Blob([htmlContent], { type: 'text/html' });
+    // Save as HTML
+    saveHtmlButton.addEventListener('click', function() {
+      const currentHtmlContent = preview.innerHTML;
+      const placeholderHTML = '<p style=\"color: #757575; text-align: center; margin-top: 20px;\">输入 Markdown 内容后，这里会显示渲染后的效果。</p>';
+       if (!currentHtmlContent.trim() || currentHtmlContent === placeholderHTML) {
+        showToast('没有内容可以保存', 2000);
+        return;
+      }
+
+      const title = "Markdown Document"; 
+      const fullHtml = `
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>${title}</title>
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\\\(', '\\\\)']],
+        displayMath: [['$$', '$$'], ['\\\\[', '\\\\]']]
+      },
+      svg: { fontCache: 'global' }
+    };
+  <\/script>
+  <script src="https://cdn.jerryz.com.cn/npm/mathjax@3/es5/tex-chtml-full.js" id="MathJax" async><\/script>
+  <style>
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji"; line-height: 1.6; padding: 20px; margin: 0; color: #333; background-color: #fcfcff; }
+    .markdown-body { max-width: 800px; margin: 20px auto; background-color: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+    img { max-width: 100%; height: auto; border-radius: 4px; }
+    table { border-collapse: collapse; width: 100%; margin-bottom: 1em; }
+    th, td { border: 1px solid #dfe3e8; padding: 8px 10px; text-align: left; }
+    th { background-color: #f1f3f5; }
+    pre { background-color: #f8f9fa; padding: 12px; border-radius: 6px; overflow-x: auto; border: 1px solid #dfe3e8; }
+    code { font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace; font-size: 0.9em; background-color: #e8f0fe; padding: 0.2em 0.4em; border-radius: 4px;}
+    pre code { font-size: 0.875em; background-color: transparent; padding:0; border:none;}
+    blockquote { border-left: 4px solid #cde5ff; padding: 0.5em 1.2em; margin-left: 0; color: #43474e; background-color: #e8f0fe; }
+    h1, h2, h3, h4, h5, h6 { color: #005780; margin-top: 1.5em; margin-bottom: 0.6em;}
+    h1 { font-size: 2em; border-bottom: 1px solid #dfe3e8; padding-bottom: 0.3em;}
+    h2 { font-size: 1.5em; border-bottom: 1px solid #dfe3e8; padding-bottom: 0.2em;}
+    a { color: #006493; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+  <\/style>
+</head>
+<body>
+  <div class="markdown-body">
+    ${currentHtmlContent}
+  </div>
+</body>
+</html>`;
+
+      const blob = new Blob([fullHtml], { type: 'text/html;charset=utf-8' });
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
-      a.download = 'document.html';
+      a.download = 'markdown_export.html';
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);
       URL.revokeObjectURL(url);
+      showToast('HTML 文件已开始下载！');
+    });
+
+    backToHomeButton.addEventListener('click', function() {
+        window.location.href = 'https://md.jerryz.com.cn';
+    });
+
+    if (markdownInput.value.trim() !== '') {
+        debouncedUpdatePreview();
     }
 
-
-    saveHtmlButton.addEventListener('click', saveAsHTML);
   </script>
 </body>
-
 </html>

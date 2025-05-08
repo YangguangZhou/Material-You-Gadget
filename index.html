@@ -3,11 +3,102 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Material You Gadget</title>
+    <title>Material You Gadget - 实用小工具集 | Jerry Zhou</title>
+    <meta name="description" content="探索 Material You 风格的实用小工具集，包括随机选择器、主色提取、单位转换、计算器等。由 Jerry Zhou 开发的便捷在线工具。">
+    
+    <meta name="keywords" content="Material You, 小工具, 在线工具, 随机选择器, 主色提取, 单位转换, 计算器, Jerry Zhou">
+
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2597042766299857"
      crossorigin="anonymous"></script>
     <script defer src="https://umami.jerryz.com.cn/script.js" data-website-id="319efe93-a9d5-4f43-bfad-7bb27b46f56c"></script>
+    
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": "Material You Gadget - 实用小工具集",
+      "description": "一个提供多种 Material You 风格在线实用小工具的集合页面，包括随机选择器、颜色提取、单位转换等。",
+      "url": "https://md.jerryz.com.cn/", // 请确保这是您页面的准确URL
+      "author": {
+        "@type": "Person",
+        "name": "Jerry Zhou",
+        "url": "https://jerryz.com.cn"
+      },
+      "keywords": "Material You, 小工具, 在线工具, 随机选择器, 主色提取, 单位转换, 计算器",
+      "mainEntity": {
+        "@type": "ItemList",
+        "name": "小工具列表",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "item": {
+              "@type": "WebPage",
+              "url": "https://md.jerryz.com.cn/choice",
+              "name": "随机选择器"
+            }
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "item": {
+              "@type": "WebPage",
+              "url": "https://md.jerryz.com.cn/color",
+              "name": "主色提取"
+            }
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "item": {
+              "@type": "WebPage",
+              "url": "https://md.jerryz.com.cn/length",
+              "name": "长度单位转换"
+            }
+          },
+          {
+            "@type": "ListItem",
+            "position": 4,
+            "item": {
+              "@type": "WebPage",
+              "url": "https://md.jerryz.com.cn/calculator",
+              "name": "计算器"
+            }
+          },
+          {
+            "@type": "ListItem",
+            "position": 5,
+            "item": {
+              "@type": "WebPage",
+              "url": "https://md.jerryz.com.cn/crazy",
+              "name": "疯狂星期X"
+            }
+          },
+          {
+            "@type": "ListItem",
+            "position": 6,
+            "item": {
+              "@type": "WebPage",
+              "url": "https://md.jerryz.com.cn/score",
+              "name": "CSP估分"
+            }
+          },
+          {
+            "@type": "ListItem",
+            "position": 7,
+            "item": {
+              "@type": "WebPage",
+              "url": "https://md.jerryz.com.cn/24-point",
+              "name": "24点游戏"
+            }
+          }
+        ]
+      }
+    }
+    </script>
+
     <style>
         :root {
             --primary-color: #006493;
@@ -74,7 +165,7 @@
             transition: transform 0.2s, box-shadow 0.2s;
             box-shadow: var(--card-shadow);
             border: 1px solid var(--surface-variant);
-            cursor: pointer;
+            /* cursor: pointer; a标签默认就是pointer */
             position: relative;
             overflow: hidden;
             text-decoration: none;
@@ -95,6 +186,14 @@
             height: 56px;
             border-radius: 16px;
             margin-bottom: 1rem;
+        }
+        
+        .material-symbols-outlined {
+            font-variation-settings:
+            'FILL' 0,
+            'wght' 400,
+            'GRAD' 0,
+            'opsz' 24;
         }
 
         .card-title {
@@ -123,10 +222,6 @@
         }
 
         .footer a:hover {
-            text-decoration: none;
-        }
-
-        a {
             text-decoration: none;
         }
 
@@ -205,17 +300,8 @@
     </div>
 
     <footer class="footer">
-        <p>&copy; 2024-2025 <a href="https://jerryz.com.cn" target="_blank">Jerry Zhou</a> | <a href="https://github.com/YangguangZhou/Material-You-Gadget" target="_blank">GitHub</a></p>
+        <p>&copy; 2024-2025 <a href="https://jerryz.com.cn" target="_blank" rel="noopener">Jerry Zhou</a> | <a href="https://github.com/YangguangZhou/Material-You-Gadget" target="_blank" rel="noopener noreferrer">GitHub</a></p>
     </footer>
 
-    <script>
-        // 为卡片添加点击链接功能
-        document.querySelectorAll('.card').forEach(card => {
-            card.addEventListener('click', function(e) {
-                e.preventDefault();
-                window.location.href = this.getAttribute('href');
-            });
-        });
-    </script>
-</body>
+    </body>
 </html>

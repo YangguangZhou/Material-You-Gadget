@@ -1,13 +1,44 @@
 <!DOCTYPE html>
 <html lang="zh">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>综合计算器</title>
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2597042766299857"
-     crossorigin="anonymous"></script>
-    <script defer src="https://umami.jerryz.com.cn/script.js" data-website-id="319efe93-a9d5-4f43-bfad-7bb27b46f56c"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <title>综合计算器 - 多功能在线计算 | Material You Gadget</title>
+    <meta name="description" content="一个多功能的在线综合计算器，支持基本运算、n次方、n次方根、对数以及进制转换。Material You 风格设计，简洁易用。">
+    <meta name="keywords" content="计算器, 在线计算器, 多功能计算器, n次方, n次方根, 对数, 进制转换, Material You">
+
+    <script async
+        src="[https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2597042766299857](https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2597042766299857)"
+        crossorigin="anonymous"></script>
+    <script defer src="[https://umami.jerryz.com.cn/script.js](https://umami.jerryz.com.cn/script.js)"
+        data-website-id="319efe93-a9d5-4f43-bfad-7bb27b46f56c"></script>
+    <link
+        href="[https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap](https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap)"
+        rel="stylesheet">
+
+    <script type="application/ld+json">
+        {
+          "@context": "[https://schema.org](https://schema.org)",
+          "@type": "WebPage",
+          "name": "综合计算器 - 多功能在线计算",
+          "description": "一个多功能的在线综合计算器，支持基本运算、n次方、n次方根、对数以及进制转换。Material You 风格设计，简洁易用。",
+          "url": "[https://md.jerryz.com.cn/calculator](https://md.jerryz.com.cn/calculator)", // 请确保URL准确
+          "keywords": "计算器, 在线计算器, 多功能计算器, n次方, n次方根, 对数, 进制转换, Material You",
+          "isPartOf": {
+            "@type": "WebSite",
+            "name": "Material You Gadget",
+            "url": "[https://md.jerryz.com.cn/](https://md.jerryz.com.cn/)"
+          },
+          "mainEntity": {
+            "@type": "WebApplication",
+            "name": "综合计算器",
+            "applicationCategory": "UtilitiesApplication",
+            "operatingSystem": "All",
+            "browserRequirements": "Requires HTML5 support"
+          }
+        }
+    </script>
     <style>
         :root {
             --primary-color: #6750A4;
@@ -18,6 +49,7 @@
             --error-color: #B00020;
             --border-radius: 16px;
         }
+
         body {
             font-family: 'Roboto', sans-serif;
             margin: 0;
@@ -30,18 +62,21 @@
             align-items: center;
             min-height: 100vh;
         }
+
         .container {
             max-width: 600px;
             width: 100%;
             background-color: #FFFFFF;
             border-radius: var(--border-radius);
-            box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
             overflow: hidden;
             transition: box-shadow 0.3s ease;
         }
+
         .container:hover {
-            box-shadow: 0 12px 24px rgba(0,0,0,0.2);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
         }
+
         .app-bar {
             background-color: var(--primary-color);
             color: var(--on-primary-color);
@@ -50,12 +85,14 @@
             font-weight: 500;
             border-bottom: 1px solid rgba(255, 255, 255, 0.2);
         }
+
         .content {
             padding: 24px;
             display: flex;
             flex-direction: column;
             align-items: center;
         }
+
         #expression {
             width: 100%;
             padding: 12px;
@@ -64,6 +101,7 @@
             border-radius: var(--border-radius);
             margin-bottom: 20px;
         }
+
         .button {
             background-color: var(--primary-color);
             color: var(--on-primary-color);
@@ -76,46 +114,55 @@
             transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
             margin-bottom: 20px;
         }
+
         .button:hover {
             background-color: var(--primary-color);
             transform: translateY(-2px);
-            box-shadow: 0 6px 12px rgba(0,0,0,0.25);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
         }
+
         .button:active {
             transform: translateY(0);
-            box-shadow: 0 3px 6px rgba(0,0,0,0.15);
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
         }
+
         #result {
             font-size: 24px;
             font-weight: 500;
             margin-top: 20px;
             text-align: center;
         }
+
         .instructions {
             background-color: var(--secondary-color);
             padding: 20px;
             border-radius: var(--border-radius);
             margin-top: 20px;
         }
+
         .instructions ul {
             list-style-type: none;
             padding: 0;
         }
+
         .instructions li {
             margin-bottom: 10px;
         }
+
         .copyright {
             text-align: center;
             margin-top: 20px;
             color: var(--on-surface-color);
             opacity: 0.7;
         }
+
         .copyright a {
             color: var(--primary-color);
             text-decoration: none;
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <div class="app-bar">综合计算器</div>
@@ -138,7 +185,7 @@
         </div>
     </div>
     <div class="copyright">
-        Copyright &copy; 2023 <a href="https://jerryz.com.cn" target="_blank">Jerry Zhou</a>
+        Copyright &copy; 2023-2025 <a href="https://jerryz.com.cn" target="_blank">Jerry Zhou</a>
         <br />
         <a href="https://github.com/YangguangZhou/Calculator" target="_blank">GitHub</a>
     </div>
@@ -181,4 +228,5 @@
         }
     </script>
 </body>
+
 </html>
