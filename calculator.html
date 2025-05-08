@@ -9,26 +9,25 @@
     <meta name="keywords" content="计算器, 在线计算器, 多功能计算器, n次方, n次方根, 对数, 进制转换, Material You">
 
     <script async
-        src="[https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2597042766299857](https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2597042766299857)"
+        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2597042766299857"
         crossorigin="anonymous"></script>
-    <script defer src="[https://umami.jerryz.com.cn/script.js](https://umami.jerryz.com.cn/script.js)"
+    <script defer src="https://umami.jerryz.com.cn/script.js"
         data-website-id="319efe93-a9d5-4f43-bfad-7bb27b46f56c"></script>
-    <link
-        href="[https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap](https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap)"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
 
     <script type="application/ld+json">
         {
-          "@context": "[https://schema.org](https://schema.org)",
+          "@context": "https://schema.org",
           "@type": "WebPage",
           "name": "综合计算器 - 多功能在线计算",
           "description": "一个多功能的在线综合计算器，支持基本运算、n次方、n次方根、对数以及进制转换。Material You 风格设计，简洁易用。",
-          "url": "[https://md.jerryz.com.cn/calculator](https://md.jerryz.com.cn/calculator)", // 请确保URL准确
+          "url": "https://md.jerryz.com.cn/calculator",
           "keywords": "计算器, 在线计算器, 多功能计算器, n次方, n次方根, 对数, 进制转换, Material You",
           "isPartOf": {
             "@type": "WebSite",
             "name": "Material You Gadget",
-            "url": "[https://md.jerryz.com.cn/](https://md.jerryz.com.cn/)"
+            "url": "https://md.jerryz.com.cn/"
           },
           "mainEntity": {
             "@type": "WebApplication",
@@ -41,21 +40,48 @@
     </script>
     <style>
         :root {
-            --primary-color: #6750A4;
-            --on-primary-color: #FFFFFF;
-            --surface-color: #FFFBFE;
-            --on-surface-color: #1C1B1F;
-            --secondary-color: #E8DEF8;
-            --error-color: #B00020;
+            /* 核心颜色 */
+            --md-sys-color-primary: #6750A4;
+            --md-sys-color-on-primary: #FFFFFF;
+            --md-sys-color-primary-container: #EADDFF;
+            --md-sys-color-on-primary-container: #21005E;
+            
+            --md-sys-color-secondary: #625B71;
+            --md-sys-color-on-secondary: #FFFFFF;
+            --md-sys-color-secondary-container: #E8DEF8;
+            --md-sys-color-on-secondary-container: #1E192B;
+            
+            --md-sys-color-surface: #FFFBFE;
+            --md-sys-color-on-surface: #1C1B1F;
+            --md-sys-color-surface-variant: #E7E0EC;
+            --md-sys-color-on-surface-variant: #49454F;
+            
+            --md-sys-color-outline: #79747E;
+            --md-sys-color-outline-variant: #C4C7C5;
+            
+            --md-sys-color-error: #B3261E;
+            --md-sys-color-on-error: #FFFFFF;
+            
+            /* 尺寸和间距 */
             --border-radius: 16px;
+            --border-radius-full: 50%;
+            --spacing-small: 8px;
+            --spacing-medium: 16px;
+            --spacing-large: 24px;
+            
+            /* 阴影 */
+            --elevation-1: 0 1px 2px rgba(0, 0, 0, 0.1);
+            --elevation-2: 0 2px 4px rgba(0, 0, 0, 0.15);
+            --elevation-3: 0 4px 8px rgba(0, 0, 0, 0.2);
+            --elevation-4: 0 6px 12px rgba(0, 0, 0, 0.25);
         }
 
         body {
             font-family: 'Roboto', sans-serif;
             margin: 0;
-            padding: 20px;
-            background-color: var(--surface-color);
-            color: var(--on-surface-color);
+            padding: 0;
+            background-color: var(--md-sys-color-surface);
+            color: var(--md-sys-color-on-surface);
             transition: all 0.3s ease;
             display: flex;
             flex-direction: column;
@@ -65,29 +91,31 @@
 
         .container {
             max-width: 600px;
-            width: 100%;
+            width: 90%;
+            margin: 80px auto 40px;
             background-color: #FFFFFF;
             border-radius: var(--border-radius);
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+            box-shadow: var(--elevation-2);
             overflow: hidden;
             transition: box-shadow 0.3s ease;
         }
 
         .container:hover {
-            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+            box-shadow: var(--elevation-3);
         }
 
         .app-bar {
-            background-color: var(--primary-color);
-            color: var(--on-primary-color);
+            background-color: var(--md-sys-color-primary);
+            color: var(--md-sys-color-on-primary);
             padding: 20px;
             font-size: 24px;
             font-weight: 500;
+            text-align: center;
             border-bottom: 1px solid rgba(255, 255, 255, 0.2);
         }
 
         .content {
-            padding: 24px;
+            padding: var(--spacing-large);
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -95,49 +123,73 @@
 
         #expression {
             width: 100%;
-            padding: 12px;
+            padding: 16px;
             font-size: 18px;
-            border: 2px solid var(--secondary-color);
+            border: 1px solid var(--md-sys-color-outline-variant);
             border-radius: var(--border-radius);
-            margin-bottom: 20px;
+            margin-bottom: var(--spacing-large);
+            box-shadow: var(--elevation-1);
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        #expression:focus {
+            outline: none;
+            border-color: var(--md-sys-color-primary);
+            box-shadow: 0 0 0 2px rgba(103, 80, 164, 0.2);
         }
 
         .button {
-            background-color: var(--primary-color);
-            color: var(--on-primary-color);
+            background-color: var(--md-sys-color-primary);
+            color: var(--md-sys-color-on-primary);
             border: none;
             padding: 12px 24px;
             border-radius: 24px;
             font-size: 16px;
             font-weight: 500;
             cursor: pointer;
-            transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
-            margin-bottom: 20px;
+            transition: background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+            margin-bottom: var(--spacing-large);
+            box-shadow: var(--elevation-2);
         }
 
         .button:hover {
-            background-color: var(--primary-color);
+            background-color: #5D4A93;
             transform: translateY(-2px);
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
+            box-shadow: var(--elevation-3);
         }
 
         .button:active {
             transform: translateY(0);
-            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
+            box-shadow: var(--elevation-1);
         }
 
         #result {
             font-size: 24px;
             font-weight: 500;
-            margin-top: 20px;
+            margin: var(--spacing-large) 0;
             text-align: center;
+            color: var(--md-sys-color-primary);
+            transition: all 0.3s ease;
+            padding: 12px 16px;
+            border-radius: var(--border-radius);
+            background-color: var(--md-sys-color-surface-variant);
+            width: 100%;
+            box-sizing: border-box;
         }
 
         .instructions {
-            background-color: var(--secondary-color);
-            padding: 20px;
+            background-color: var(--md-sys-color-secondary-container);
+            padding: var(--spacing-large);
             border-radius: var(--border-radius);
-            margin-top: 20px;
+            margin-top: var(--spacing-large);
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .instructions strong {
+            display: block;
+            margin-bottom: var(--spacing-medium);
+            color: var(--md-sys-color-on-secondary-container);
         }
 
         .instructions ul {
@@ -146,24 +198,92 @@
         }
 
         .instructions li {
-            margin-bottom: 10px;
+            margin-bottom: var(--spacing-medium);
+            color: var(--md-sys-color-on-secondary-container);
         }
 
-        .copyright {
+        .back-to-home-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            width: 48px;
+            height: 48px;
+            background-color: var(--md-sys-color-surface-variant);
+            color: var(--md-sys-color-on-surface-variant);
+            border: none;
+            border-radius: var(--border-radius-full);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: var(--elevation-2);
+            transition: background-color 0.2s ease, box-shadow 0.2s ease;
+            z-index: 1000;
+        }
+
+        .back-to-home-btn:hover {
+            background-color: var(--md-sys-color-primary-container);
+            color: var(--md-sys-color-on-primary-container);
+            box-shadow: var(--elevation-3);
+        }
+
+        .back-to-home-btn .material-icons-outlined {
+            font-size: 24px;
+        }
+
+        .footer {
             text-align: center;
-            margin-top: 20px;
-            color: var(--on-surface-color);
-            opacity: 0.7;
+            padding: 2rem 1rem;
+            margin-top: auto;
+            color: var(--md-sys-color-outline);
+            width: 100%;
         }
 
-        .copyright a {
-            color: var(--primary-color);
+        .footer a {
+            color: #006493;
             text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        .footer a:hover {
+            color: var(--md-sys-color-primary);
+        }
+
+        @media (max-width: 900px) {
+            .back-to-home-btn {
+                top: 15px;
+                left: 15px;
+                width: 40px;
+                height: 40px;
+            }
+            .back-to-home-btn .material-icons-outlined {
+                font-size: 20px;
+            }
+            .container {
+                margin-top: 70px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                width: 95%;
+                border-radius: 12px;
+            }
+            .content {
+                padding: 16px;
+            }
+            .instructions {
+                padding: 16px;
+            }
         }
     </style>
 </head>
 
 <body>
+    <button id="back-to-home" class="back-to-home-btn" title="返回主站">
+        <span class="material-icons-outlined">arrow_back</span>
+    </button>
+
     <div class="container">
         <div class="app-bar">综合计算器</div>
         <div class="content">
@@ -184,11 +304,10 @@
             </div>
         </div>
     </div>
-    <div class="copyright">
-        Copyright &copy; 2023-2025 <a href="https://jerryz.com.cn" target="_blank">Jerry Zhou</a>
-        <br />
-        <a href="https://github.com/YangguangZhou/Calculator" target="_blank">GitHub</a>
-    </div>
+
+    <footer class="footer">
+        <p>&copy; 2023-2025 <a href="https://jerryz.com.cn" target="_blank" rel="noopener">Jerry Zhou</a> | <a href="https://github.com/YangguangZhou/Material-You-Gadget" target="_blank" rel="noopener noreferrer">GitHub</a></p>
+    </footer>
 
     <script>
         function calculate() {
@@ -226,6 +345,11 @@
                 document.getElementById('result').textContent = '错误: 无效的表达式';
             }
         }
+
+        // 返回按钮功能
+        document.getElementById('back-to-home').addEventListener('click', function() {
+            window.location.href = '../index.html';
+        });
     </script>
 </body>
 

@@ -7,7 +7,7 @@
     <title>24点游戏 - 在线益智算术 | Material You Gadget</title>
     <meta name="description" content="在线玩经典的24点益智游戏。使用四个数字通过加减乘除运算得出24。锻炼脑力，挑战自我！Material You 风格界面。">
     <meta name="keywords" content="24点, 算24, 益智游戏, 数学游戏, 在线游戏, 脑力训练, Material You">
-
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2597042766299857"
      crossorigin="anonymous"></script>
     <script defer src="https://umami.jerryz.com.cn/script.js" data-website-id="319efe93-a9d5-4f43-bfad-7bb27b46f56c"></script>
@@ -118,11 +118,72 @@
             flex-direction: column;
             align-items: center;
             padding: 16px;
+            margin: 0;
         }
 
         .container {
             max-width: 800px;
             width: 100%;
+            flex: 1;
+        }
+
+        /* 返回按钮样式 */
+        .back-to-home-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            width: 48px;
+            height: 48px;
+            background-color: var(--md-sys-color-surface-variant);
+            color: var(--md-sys-color-on-surface-variant);
+            border: none;
+            border-radius: 50%; /* 圆形按钮 */
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: var(--md-sys-elevation-level2);
+            transition: background-color 0.2s ease, box-shadow 0.2s ease;
+            z-index: 1000;
+        }
+
+        .back-to-home-btn:hover {
+            background-color: var(--md-sys-color-primary-container);
+            color: var(--md-sys-color-on-primary-container);
+            box-shadow: var(--md-sys-elevation-level3);
+        }
+
+        .back-to-home-btn .material-icons-outlined {
+            font-size: 24px;
+        }
+
+        @media (max-width: 900px) {
+            .back-to-home-btn {
+                top: 15px;
+                left: 15px;
+                width: 40px;
+                height: 40px;
+            }
+            .back-to-home-btn .material-icons-outlined {
+                font-size: 20px;
+            }
+        }
+
+        /* 页脚样式 */
+        .footer {
+            text-align: center;
+            padding: 2rem 1rem;
+            margin-top: auto;
+            color: var(--md-sys-color-on-surface-variant);
+        }
+
+        .footer a {
+            color: var(--md-sys-color-primary);
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
         }
 
         /* 标题区域 */
@@ -679,6 +740,11 @@
 </head>
 
 <body>
+    <!-- 返回按钮 -->
+    <button id="back-to-home" class="back-to-home-btn" title="返回主站">
+        <span class="material-icons-outlined">arrow_back</span>
+    </button>
+
     <div class="container">
         <header>
             <h1>24点游戏</h1>
@@ -758,6 +824,11 @@
         </div>
     </div>
 
+    <!-- 页脚 -->
+    <footer class="footer">
+        <p>&copy; 2024-2025 <a href="https://jerryz.com.cn" target="_blank" rel="noopener">Jerry Zhou</a> | <a href="https://github.com/YangguangZhou/Material-You-Gadget" target="_blank" rel="noopener noreferrer">GitHub</a></p>
+    </footer>
+
     <button class="fab" id="help-btn">?</button>
 
     <div class="toast" id="toast"></div>
@@ -765,6 +836,11 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
+            // 添加返回按钮点击事件
+            document.getElementById('back-to-home').addEventListener('click', function() {
+                window.location.href = 'https://md.jerryz.com.cn/';
+            });
+            
             // Game state
             let gameState = {
                 cards: [],                // 原始卡片值

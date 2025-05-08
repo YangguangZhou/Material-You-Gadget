@@ -7,23 +7,23 @@
         <meta name="description" content="趣味在线工具“疯狂星期X”，输入金额，生成幽默的“V我XX”文案。轻松向朋友开口，增添生活乐趣。Material You 风格。">
         <meta name="keywords" content="疯狂星期四, 疯狂星期X, 要钱神器, V我50, 趣味工具, 在线生成, Material You">
     
-        <script async src="[https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2597042766299857](https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2597042766299857)"
-         crossorigin="anonymous"></script>
-        <script defer src="[https://umami.jerryz.com.cn/script.js](https://umami.jerryz.com.cn/script.js)" data-website-id="319efe93-a9d5-4f43-bfad-7bb27b46f56c"></script>
-        <link href="[https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap](https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap)" rel="stylesheet">
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2597042766299857" crossorigin="anonymous"></script>
+        <script defer src="https://umami.jerryz.com.cn/script.js" data-website-id="319efe93-a9d5-4f43-bfad-7bb27b46f56c"></script>
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
     
         <script type="application/ld+json">
         {
-          "@context": "[https://schema.org](https://schema.org)",
+          "@context": "https://schema.org",
           "@type": "WebPage",
           "name": "疯狂星期X - 开口要钱神器",
-          "description": "趣味在线工具“疯狂星期X”，输入金额，生成幽默的“V我XX”文案。轻松向朋友开口，增添生活乐趣。Material You 风格。",
-          "url": "[https://md.jerryz.com.cn/crazy](https://md.jerryz.com.cn/crazy)", // 请确保URL准确
+          "description": "趣味在线工具"疯狂星期X"，输入金额，生成幽默的"V我XX"文案。轻松向朋友开口，增添生活乐趣。Material You 风格。",
+          "url": "https://md.jerryz.com.cn/crazy", // 请确保URL准确
           "keywords": "疯狂星期四, 疯狂星期X, 要钱神器, V我50, 趣味工具, 在线生成, Material You",
           "isPartOf": {
             "@type": "WebSite",
             "name": "Material You Gadget",
-            "url": "[https://md.jerryz.com.cn/](https://md.jerryz.com.cn/)"
+            "url": "https://md.jerryz.com.cn/"
           },
           "mainEntity": {
             "@type": "WebApplication",
@@ -36,122 +36,243 @@
         </script>
         <style>
         :root {
-            --primary-color: #006493;
-            --on-primary-color: #FFFFFF;
-            --surface-color: #FFFBFE;
-            --on-surface-color: #1C1B1F;
-            --secondary-color: #c9e6ff;
-            --error-color: #B00020;
+            /* Material You 风格颜色系统 */
+            --md-sys-color-primary: #006493;
+            --md-sys-color-on-primary: #FFFFFF;
+            --md-sys-color-primary-container: #c9e6ff;
+            --md-sys-color-on-primary-container: #001e30;
+            --md-sys-color-secondary: #50606e;
+            --md-sys-color-on-secondary: #FFFFFF;
+            --md-sys-color-secondary-container: #d3e5f5;
+            --md-sys-color-on-secondary-container: #0c1d29;
+            --md-sys-color-surface: #FFFBFE;
+            --md-sys-color-on-surface: #1C1B1F;
+            --md-sys-color-surface-variant: #e1e2ec;
+            --md-sys-color-on-surface-variant: #44474e;
+            --md-sys-color-error: #B00020;
+            --md-sys-color-outline: #79747e;
+            
+            /* 圆角和阴影 */
             --border-radius: 16px;
+            --border-radius-full: 50%;
+            --elevation-1: 0 1px 2px rgba(0,0,0,0.3);
+            --elevation-2: 0 3px 6px rgba(0,0,0,0.15);
+            --elevation-3: 0 8px 16px rgba(0,0,0,0.25);
         }
+        
         body {
             font-family: 'Roboto', sans-serif;
             margin: 0;
             padding: 20px;
-            background-color: var(--surface-color);
-            color: var(--on-surface-color);
+            background-color: var(--md-sys-color-surface);
+            color: var(--md-sys-color-on-surface);
             transition: all 0.3s ease;
             display: flex;
             flex-direction: column;
             align-items: center;
             min-height: 100vh;
         }
+        
         .container {
             max-width: 600px;
             width: 100%;
             background-color: #FFFFFF;
             border-radius: var(--border-radius);
-            box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+            box-shadow: var(--elevation-2);
             overflow: hidden;
             transition: box-shadow 0.3s ease;
         }
+        
         .container:hover {
-            box-shadow: 0 12px 24px rgba(0,0,0,0.2);
+            box-shadow: var(--elevation-3);
         }
+        
         .app-bar {
-            background-color: var(--primary-color);
-            color: var(--on-primary-color);
+            background-color: var(--md-sys-color-primary);
+            color: var(--md-sys-color-on-primary);
             padding: 20px;
             font-size: 24px;
             font-weight: 500;
             text-align: center;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
         }
+        
         .content {
             padding: 24px;
             display: flex;
             flex-direction: column;
             align-items: center;
         }
+        
         #number {
             width: 100%;
-            padding: 12px;
+            padding: 16px;
             font-size: 18px;
-            border: 2px solid var(--secondary-color);
-            border-radius: var(--border-radius);
-            margin-bottom: 20px;
+            border: 1px solid var(--md-sys-color-outline);
+            border-radius: 8px;
+            margin-bottom: 24px;
+            background-color: transparent;
+            color: var(--md-sys-color-on-surface);
+            transition: border-color 0.2s ease;
         }
+        
+        #number:focus {
+            outline: none;
+            border-color: var(--md-sys-color-primary);
+            box-shadow: 0 0 0 2px rgba(0, 100, 147, 0.2);
+        }
+        
         .button {
-            background-color: var(--primary-color);
-            color: var(--on-primary-color);
+            background-color: var(--md-sys-color-primary);
+            color: var(--md-sys-color-on-primary);
             border: none;
             padding: 12px 24px;
-            border-radius: 16px;
+            border-radius: 20px;
             font-size: 16px;
             font-weight: 500;
             cursor: pointer;
-            transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+            transition: background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
             margin-bottom: 20px;
             width: 100%;
+            box-shadow: var(--elevation-1);
         }
+        
         .button:hover {
-            background-color: var(--primary-color);
+            background-color: #00517a;
             transform: translateY(-2px);
-            box-shadow: 0 6px 12px rgba(0,0,0,0.25);
+            box-shadow: var(--elevation-2);
         }
+        
         .button:active {
             transform: translateY(0);
-            box-shadow: 0 3px 6px rgba(0,0,0,0.15);
+            box-shadow: var(--elevation-1);
         }
+        
         #result {
             font-size: 24px;
             font-weight: 500;
             margin-top: 20px;
             text-align: center;
             min-height: 36px;
+            padding: 10px;
+            border-radius: var(--border-radius);
+            background-color: var(--md-sys-color-primary-container);
+            color: var(--md-sys-color-on-primary-container);
+            max-width: 100%;
+            opacity: 0;
+            transition: opacity 0.3s ease;
         }
+        
+        #result.visible {
+            opacity: 1;
+        }
+        
         #copyButton {
             display: none;
+            background-color: var(--md-sys-color-secondary);
+            color: var(--md-sys-color-on-secondary);
         }
+        
+        #copyButton:hover {
+            background-color: #455561;
+        }
+        
         .instructions {
-            background-color: var(--secondary-color);
+            background-color: var(--md-sys-color-secondary-container);
             padding: 20px;
             border-radius: var(--border-radius);
-            margin-top: 20px;
+            margin-top: 24px;
+            color: var(--md-sys-color-on-secondary-container);
         }
+        
         .instructions ul {
             list-style-type: none;
             padding: 0;
         }
+        
         .instructions li {
-            margin-bottom: 10px;
+            margin-bottom: 12px;
+            position: relative;
+            padding-left: 24px;
         }
+        
+        .instructions li:before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: var(--md-sys-color-primary);
+            font-weight: bold;
+        }
+        
+        /* 返回按钮样式 */
+        .back-to-home-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            width: 48px;
+            height: 48px;
+            background-color: var(--md-sys-color-surface-variant);
+            color: var(--md-sys-color-on-surface-variant);
+            border: none;
+            border-radius: var(--border-radius-full);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: var(--elevation-2);
+            transition: background-color 0.2s ease, box-shadow 0.2s ease;
+            z-index: 1000;
+        }
+
+        .back-to-home-btn:hover {
+            background-color: var(--md-sys-color-primary-container);
+            color: var(--md-sys-color-on-primary-container);
+            box-shadow: var(--elevation-3);
+        }
+
+        .back-to-home-btn .material-icons-outlined {
+            font-size: 24px;
+        }
+
+        @media (max-width: 900px) {
+            .back-to-home-btn {
+                top: 15px;
+                left: 15px;
+                width: 40px;
+                height: 40px;
+            }
+            
+            .back-to-home-btn .material-icons-outlined {
+                font-size: 20px;
+            }
+        }
+        
+        /* 页脚样式 */
         .footer {
             text-align: center;
-            margin-top: 30px;
-            padding: 10px;
-            font-size: 14px;
-            color: var(--on-surface-color);
-            opacity: 0.7;
+            padding: 2rem 1rem;
+            margin-top: auto;
+            color: var(--md-sys-color-outline);
+            width: 100%;
         }
 
         .footer a {
-            color: var(--primary-color);
+            color: var(--md-sys-color-primary);
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        .footer a:hover {
+            color: #00517a;
             text-decoration: none;
         }
-    </style>
+        </style>
 </head>
 <body>
+    <!-- 返回按钮 -->
+    <button id="back-to-home" class="back-to-home-btn" title="返回主站">
+        <span class="material-icons-outlined">arrow_back</span>
+    </button>
+    
     <div class="container">
         <div class="app-bar">疯狂星期X</div>
         <div class="content">
@@ -168,10 +289,12 @@
                 </ul>
             </div>
         </div>
-        <div class="footer">
-            Copyright © 2024-2025 <a href="https://jerryz.com.cn" target="_blank">Jerry Zhou</a>
-        </div>
     </div>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <p>&copy; 2024-2025 <a href="https://jerryz.com.cn" target="_blank" rel="noopener">Jerry Zhou</a> | <a href="https://github.com/YangguangZhou/Material-You-Gadget" target="_blank" rel="noopener noreferrer">GitHub</a></p>
+    </footer>
 
     <script>
         function isNumber(n) {
@@ -191,7 +314,11 @@
             const number = document.getElementById('number').value;
 
             if (!isNumber(number) || number <= 0) {
-                document.getElementById('result').textContent = "输入错误";
+                const resultElement = document.getElementById('result');
+                resultElement.textContent = "输入错误，请输入有效金额";
+                resultElement.style.backgroundColor = "var(--md-sys-color-error)";
+                resultElement.style.color = "white";
+                resultElement.classList.add('visible');
                 document.getElementById('copyButton').style.display = 'none';
                 return;
             }
@@ -199,7 +326,11 @@
             let result = (4 * number) / 50;
             result = `今天是疯狂星期${convertToChinese(result)}，v我${number}`;
 
-            document.getElementById('result').textContent = result;
+            const resultElement = document.getElementById('result');
+            resultElement.textContent = result;
+            resultElement.style.backgroundColor = "var(--md-sys-color-primary-container)";
+            resultElement.style.color = "var(--md-sys-color-on-primary-container)";
+            resultElement.classList.add('visible');
             document.getElementById('copyButton').style.display = 'block';
         }
 
@@ -213,6 +344,11 @@
             textArea.remove();
             alert("结果已复制到剪贴板！");
         }
+        
+        // 返回按钮功能
+        document.getElementById('back-to-home').addEventListener('click', function() {
+            window.location.href = 'https://md.jerryz.com.cn/';
+        });
     </script>
 </body>
 </html>

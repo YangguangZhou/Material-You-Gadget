@@ -11,6 +11,7 @@
          crossorigin="anonymous"></script>
         <script defer src="https://umami.jerryz.com.cn/script.js" data-website-id="319efe93-a9d5-4f43-bfad-7bb27b46f56c"></script>
         <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
     
         <script type="application/ld+json">
         {
@@ -18,7 +19,7 @@
           "@type": "WebPage",
           "name": "CSP 在线估分 - J/S 组成绩预估",
           "description": "CCF CSP-J (入门级) 和 CSP-S (提高级) 非专业级别软件能力认证的在线估分平台入口。选择对应组别进行成绩预估。",
-          "url": "https://md.jerryz.com.cn/score.html", // 请确保URL准确
+          "url": "https://md.jerryz.com.cn/score.html",
           "keywords": "CSP估分, CSP-J估分, CSP-S估分, CSP成绩预估, 在线估分, CCF认证, Material You, Jerry Zhou",
           "isPartOf": {
             "@type": "WebSite",
@@ -41,96 +42,188 @@
         </script>
         <style>
         :root {
-            --primary-color: #006493;
-            --on-primary-color: #FFFFFF;
-            --surface-color: #FFFBFE;
-            --on-surface-color: #1C1B1F;
-            --secondary-color: #c9e6ff;
-            --error-color: #B00020;
+            /* Material You Design System 颜色变量 */
+            --md-sys-color-primary: #006493;
+            --md-sys-color-on-primary: #FFFFFF;
+            --md-sys-color-primary-container: #c9e6ff;
+            --md-sys-color-on-primary-container: #001e30;
+            --md-sys-color-secondary: #4e616d;
+            --md-sys-color-on-secondary: #FFFFFF;
+            --md-sys-color-secondary-container: #d1e5f3;
+            --md-sys-color-on-secondary-container: #0a1e29;
+            --md-sys-color-tertiary: #615a7d;
+            --md-sys-color-on-tertiary: #FFFFFF;
+            --md-sys-color-surface: #FDFCFF;
+            --md-sys-color-on-surface: #1A1C1E;
+            --md-sys-color-surface-variant: #dde3ea;
+            --md-sys-color-on-surface-variant: #41474d;
+            --md-sys-color-outline: #71787e;
+            --md-sys-color-error: #B3261E;
+            --md-sys-color-on-error: #FFFFFF;
+            
+            /* 边框和阴影 */
             --border-radius: 16px;
+            --border-radius-full: 50%;
+            --elevation-1: 0 1px 2px rgba(0,0,0,0.1), 0 1px 2px rgba(0,0,0,0.15);
+            --elevation-2: 0 2px 4px rgba(0,0,0,0.1), 0 2px 4px rgba(0,0,0,0.15);
+            --elevation-3: 0 4px 8px rgba(0,0,0,0.1), 0 4px 8px rgba(0,0,0,0.15);
         }
+        
         body {
             font-family: 'Roboto', sans-serif;
             margin: 0;
-            padding: 20px;
-            background-color: var(--surface-color);
-            color: var(--on-surface-color);
+            padding: 0;
+            background-color: var(--md-sys-color-surface);
+            color: var(--md-sys-color-on-surface);
             display: flex;
             flex-direction: column;
             align-items: center;
             min-height: 100vh;
         }
+        
         .container {
             max-width: 600px;
             width: 100%;
-            background-color: #FFFFFF;
+            background-color: var(--md-sys-color-surface);
             border-radius: var(--border-radius);
-            box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+            box-shadow: var(--elevation-2);
             overflow: hidden;
-            margin-top: 50px;
+            margin-top: 70px;
+            margin-bottom: 40px;
         }
+        
         .app-bar {
-            background-color: var(--primary-color);
-            color: var(--on-primary-color);
-            padding: 20px;
-            font-size: 24px;
-            font-weight: 500;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-            word-wrap: break-word;
-        }
-        .content {
+            background-color: var(--md-sys-color-primary);
+            color: var(--md-sys-color-on-primary);
             padding: 24px;
+            font-size: 28px;
+            font-weight: 500;
+            text-align: center;
+            position: relative;
+        }
+        
+        .content {
+            padding: 32px;
             display: flex;
             flex-direction: column;
             align-items: center;
+            gap: 16px;
         }
+        
         .card {
-            background-color: var(--secondary-color);
-            color: var(--on-surface-color);
-            padding: 16px;
+            background-color: var(--md-sys-color-primary-container);
+            color: var(--md-sys-color-on-primary-container);
+            padding: 20px;
             width: 100%;
             border-radius: var(--border-radius);
             margin-bottom: 16px;
-            text-align: left;
-            /* height: 40px; */
+            text-align: center;
             cursor: pointer;
-            transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+            transition: all 0.3s ease;
+            box-shadow: var(--elevation-1);
         }
+        
         .card:hover {
             transform: translateY(-2px);
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+            box-shadow: var(--elevation-3);
+            background-color: var(--md-sys-color-secondary-container);
         }
+        
         .card-title {
-            font-size: 18px;
+            font-size: 20px;
             font-weight: 500;
             word-wrap: break-word;
         }
-        .footer {
-            margin-top: auto;
-            padding: 10px;
-            text-align: center;
-            color: var(--on-surface-color);
+        
+        .back-to-home-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            width: 48px;
+            height: 48px;
+            background-color: var(--md-sys-color-surface-variant);
+            color: var(--md-sys-color-on-surface-variant);
+            border: none;
+            border-radius: var(--border-radius-full);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: var(--elevation-2);
+            transition: background-color 0.2s ease, box-shadow 0.2s ease;
+            z-index: 1000;
         }
+        
+        .back-to-home-btn:hover {
+            background-color: var(--md-sys-color-primary-container);
+            color: var(--md-sys-color-on-primary-container);
+            box-shadow: var(--elevation-3);
+        }
+        
+        .back-to-home-btn .material-icons-outlined {
+            font-size: 24px;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 2rem 1rem;
+            margin-top: auto;
+            color: #79747e;
+            width: 100%;
+        }
+        
         .footer a {
-            color: var(--primary-color);
+            color: var(--md-sys-color-primary);
             text-decoration: none;
         }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <div class="app-bar">CSP估分</div>
-        <div class="content">
-            <div class="card" onclick="location.href='/j'">
-                <div class="card-title">2024 CSP-J</div>
-            </div>
-            <div class="card" onclick="location.href='/s'">
-                <div class="card-title">2024 CSP-S</div>
+        
+        .footer a:hover {
+            text-decoration: none;
+            opacity: 0.8;
+        }
+        
+        @media (max-width: 900px) {
+            .back-to-home-btn {
+                top: 15px;
+                left: 15px;
+                width: 40px;
+                height: 40px;
+            }
+            
+            .back-to-home-btn .material-icons-outlined {
+                font-size: 20px;
+            }
+            
+            .container {
+                width: 90%;
+                margin-top: 60px;
+            }
+            
+            .content {
+                padding: 24px 16px;
+            }
+        }
+        </style>
+    </head>
+    <body>
+        <button id="back-to-home" class="back-to-home-btn" title="返回主站" onclick="location.href='/'">
+            <span class="material-icons-outlined">arrow_back</span>
+        </button>
+        
+        <div class="container">
+            <div class="app-bar">CSP估分</div>
+            <div class="content">
+                <div class="card" onclick="location.href='/j'">
+                    <div class="card-title">2024 CSP-J</div>
+                </div>
+                <div class="card" onclick="location.href='/s'">
+                    <div class="card-title">2024 CSP-S</div>
+                </div>
             </div>
         </div>
-    </div>
-    <div class="footer">
-        Copyright &copy; 2024 <a href="https://jerryz.com.cn">Jerry Zhou</a>
-    </div>
-</body>
+        
+        <footer class="footer">
+            <p>&copy; 2024-2025 <a href="https://jerryz.com.cn" target="_blank" rel="noopener">Jerry Zhou</a> | <a href="https://github.com/YangguangZhou/Material-You-Gadget" target="_blank" rel="noopener noreferrer">GitHub</a></p>
+        </footer>
+    </body>
 </html>

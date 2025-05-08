@@ -7,24 +7,25 @@
         <meta name="description" content="在线图片主色提取工具。上传图片，快速识别主要颜色并获取RGB和HEX值。帮助您轻松获得配色灵感。Material You 风格。">
         <meta name="keywords" content="主色提取, 颜色提取, 配色工具, 图片颜色, 在线工具, Color Thief, Material You">
     
-        <script async src="[https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2597042766299857](https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2597042766299857)"
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2597042766299857"
          crossorigin="anonymous"></script>
-        <script defer src="[https://umami.jerryz.com.cn/script.js](https://umami.jerryz.com.cn/script.js)" data-website-id="319efe93-a9d5-4f43-bfad-7bb27b46f56c"></script>
-        <script src="[https://cdnjs.cloudflare.com/ajax/libs/color-thief/2.3.0/color-thief.umd.js](https://cdnjs.cloudflare.com/ajax/libs/color-thief/2.3.0/color-thief.umd.js)"></script>
-        <link href="[https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap](https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap)" rel="stylesheet">
+        <script defer src="https://umami.jerryz.com.cn/script.js" data-website-id="319efe93-a9d5-4f43-bfad-7bb27b46f56c"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/color-thief/2.3.0/color-thief.umd.js"></script>
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
     
         <script type="application/ld+json">
         {
-          "@context": "[https://schema.org](https://schema.org)",
+          "@context": "https://schema.org",
           "@type": "WebPage",
           "name": "图片主色提取器 - 在线获取配色方案",
           "description": "在线图片主色提取工具。上传图片，快速识别主要颜色并获取RGB和HEX值。帮助您轻松获得配色灵感。Material You 风格。",
-          "url": "[https://md.jerryz.com.cn/color](https://md.jerryz.com.cn/color)", // 请确保URL准确
+          "url": "https://md.jerryz.com.cn/color",
           "keywords": "主色提取, 颜色提取, 配色工具, 图片颜色, 在线工具, Color Thief, Material You",
           "isPartOf": {
             "@type": "WebSite",
             "name": "Material You Gadget",
-            "url": "[https://md.jerryz.com.cn/](https://md.jerryz.com.cn/)"
+            "url": "https://md.jerryz.com.cn/"
           },
           "mainEntity": {
             "@type": "WebApplication",
@@ -37,20 +38,50 @@
         </script>
         <style>
         :root {
-            --primary-color: #006493;
-            --on-primary-color: #FFFFFF;
-            --surface-color: #FFFBFE;
-            --on-surface-color: #1C1B1F;
-            --secondary-color: #c9e6ff;
-            --error-color: #B00020;
+            /* Material You 颜色系统 */
+            --md-sys-color-primary: #006493;
+            --md-sys-color-on-primary: #FFFFFF;
+            --md-sys-color-primary-container: #c9e6ff;
+            --md-sys-color-on-primary-container: #001e30;
+            --md-sys-color-secondary: #4d616c;
+            --md-sys-color-on-secondary: #FFFFFF;
+            --md-sys-color-secondary-container: #d0e6f2;
+            --md-sys-color-on-secondary-container: #071e28;
+            --md-sys-color-tertiary: #5d5b7d;
+            --md-sys-color-on-tertiary: #FFFFFF;
+            --md-sys-color-tertiary-container: #e3dfff;
+            --md-sys-color-on-tertiary-container: #1c1936;
+            --md-sys-color-error: #B00020;
+            --md-sys-color-on-error: #FFFFFF;
+            --md-sys-color-surface: #FFFBFE;
+            --md-sys-color-on-surface: #1C1B1F;
+            --md-sys-color-surface-variant: #e2ecf2;
+            --md-sys-color-on-surface-variant: #49454F;
+            --md-sys-color-outline: #79747E;
+            --md-sys-color-background: #F8F9FA;
+            --md-sys-color-on-background: #1C1B1F;
+            
+            /* 老的变量兼容 */
+            --primary-color: var(--md-sys-color-primary);
+            --on-primary-color: var(--md-sys-color-on-primary);
+            --surface-color: var(--md-sys-color-surface);
+            --on-surface-color: var(--md-sys-color-on-surface);
+            --secondary-color: var(--md-sys-color-primary-container);
+            --error-color: var(--md-sys-color-error);
+            
+            /* 圆角和阴影 */
             --border-radius: 16px;
+            --border-radius-full: 50%;
+            --elevation-1: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.14);
+            --elevation-2: 0 3px 6px rgba(0,0,0,0.15), 0 2px 4px rgba(0,0,0,0.12);
+            --elevation-3: 0 10px 20px rgba(0,0,0,0.15), 0 3px 6px rgba(0,0,0,0.10);
         }
         body {
             font-family: 'Roboto', sans-serif;
             margin: 0;
             padding: 20px;
-            background-color: var(--surface-color);
-            color: var(--on-surface-color);
+            background-color: var(--md-sys-color-background);
+            color: var(--md-sys-color-on-background);
             transition: all 0.3s ease;
             display: flex;
             flex-direction: column;
@@ -58,27 +89,32 @@
             min-height: 100vh;
         }
         .container {
-            max-width: 600px;
+            max-width: 650px;
             width: 100%;
             background-color: #FFFFFF;
             border-radius: var(--border-radius);
-            box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+            box-shadow: var(--elevation-2);
             overflow: hidden;
             transition: box-shadow 0.3s ease;
+            margin-top: 40px;
+            margin-bottom: 40px;
         }
         .container:hover {
-            box-shadow: 0 12px 24px rgba(0,0,0,0.2);
+            box-shadow: var(--elevation-3);
         }
         .app-bar {
-            background-color: var(--primary-color);
-            color: var(--on-primary-color);
-            padding: 20px;
+            background-color: var(--md-sys-color-primary);
+            color: var(--md-sys-color-on-primary);
+            padding: 24px 20px;
             font-size: 24px;
             font-weight: 500;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         .content {
-            padding: 24px;
+            padding: 32px 24px;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -88,17 +124,18 @@
             height: 300px;
             object-fit: cover;
             border-radius: var(--border-radius);
-            margin-bottom: 20px;
-            background-color: var(--secondary-color);
+            margin-bottom: 24px;
+            background-color: var(--md-sys-color-surface-variant);
             display: flex;
             justify-content: center;
             align-items: center;
-            color: var(--on-surface-color);
+            color: var(--md-sys-color-on-surface-variant);
             font-size: 18px;
+            box-shadow: var(--elevation-1);
         }
         .button {
-            background-color: var(--primary-color);
-            color: var(--on-primary-color);
+            background-color: var(--md-sys-color-primary);
+            color: var(--md-sys-color-on-primary);
             border: none;
             padding: 12px 24px;
             border-radius: 24px;
@@ -106,46 +143,116 @@
             font-weight: 500;
             cursor: pointer;
             transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
-            margin-bottom: 20px;
+            margin-bottom: 24px;
+            box-shadow: var(--elevation-1);
         }
         .button:hover {
-            background-color: var(--primary-color);
             transform: translateY(-2px);
-            box-shadow: 0 6px 12px rgba(0,0,0,0.25);
+            box-shadow: var(--elevation-3);
         }
         .button:active {
             transform: translateY(0);
-            box-shadow: 0 3px 6px rgba(0,0,0,0.15);
+            box-shadow: var(--elevation-1);
         }
         #colorInfo {
             font-size: 18px;
             text-align: center;
-            margin-top: 20px;
+            margin-top: 24px;
+            line-height: 1.6;
         }
         .color-preview {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            margin: 20px auto;
-            border: 4px solid var(--secondary-color);
+            width: 120px;
+            height: 120px;
+            border-radius: var(--border-radius-full);
+            margin: 24px auto;
+            border: 4px solid var(--md-sys-color-primary-container);
             transition: background-color 0.3s ease;
+            box-shadow: var(--elevation-2);
         }
+        
+        /* 返回按钮样式 */
+        .back-to-home-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            width: 48px;
+            height: 48px;
+            background-color: var(--md-sys-color-surface-variant);
+            color: var(--md-sys-color-on-surface-variant);
+            border: none;
+            border-radius: var(--border-radius-full);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: var(--elevation-2);
+            transition: background-color 0.2s ease, box-shadow 0.2s ease;
+            z-index: 1000;
+        }
+
+        .back-to-home-btn:hover {
+            background-color: var(--md-sys-color-primary-container);
+            color: var(--md-sys-color-on-primary-container);
+            box-shadow: var(--elevation-3);
+        }
+
+        .back-to-home-btn .material-icons-outlined {
+            font-size: 24px;
+        }
+
+        @media (max-width: 900px) {
+            .back-to-home-btn {
+                top: 15px;
+                left: 15px;
+                width: 40px;
+                height: 40px;
+            }
+            .back-to-home-btn .material-icons-outlined {
+                font-size: 20px;
+            }
+        }
+        
+        /* 改进的 Footer 样式 */
         .footer {
             text-align: center;
-            margin-top: 30px;
-            padding: 10px;
-            font-size: 14px;
-            color: var(--on-surface-color);
-            opacity: 0.7;
+            padding: 2rem 1rem;
+            margin-top: auto;
+            color: var(--md-sys-color-outline);
+            width: 100%;
         }
 
         .footer a {
-            color: var(--primary-color);
+            color: var(--md-sys-color-primary);
             text-decoration: none;
+            transition: opacity 0.2s ease;
+        }
+
+        .footer a:hover {
+            text-decoration: none;
+            opacity: 0.8;
+        }
+        
+        /* 响应式调整 */
+        @media (max-width: 700px) {
+            .container {
+                width: calc(100% - 20px);
+                margin-top: 30px;
+            }
+            .content {
+                padding: 24px 16px;
+            }
+            #imagePreview {
+                height: 250px;
+            }
         }
     </style>
 </head>
 <body>
+    <!-- 返回按钮 -->
+    <button id="back-to-home" class="back-to-home-btn" title="返回主站">
+        <span class="material-icons-outlined">arrow_back</span>
+    </button>
+
     <div class="container">
         <div class="app-bar">主色提取</div>
         <div class="content">
@@ -155,16 +262,24 @@
             <div class="color-preview" id="colorPreview"></div>
             <p id="colorInfo"></p>
         </div>
-        <div class="footer">
-            Copyright © 2024-2025 <a href="https://jerryz.com.cn" target="_blank">Jerry Zhou</a>
-        </div>
     </div>
+    
+    <!-- 改进的 Footer -->
+    <footer class="footer">
+        <p>&copy; 2024-2025 <a href="https://jerryz.com.cn" target="_blank" rel="noopener">Jerry Zhou</a> | <a href="https://github.com/YangguangZhou/Material-You-Gadget" target="_blank" rel="noopener noreferrer">GitHub</a></p>
+    </footer>
+
     <script>
         const colorThief = new ColorThief();
         const imageUpload = document.getElementById('imageUpload');
         const imagePreview = document.getElementById('imagePreview');
         const colorInfo = document.getElementById('colorInfo');
         const colorPreview = document.getElementById('colorPreview');
+        
+        // 返回按钮功能
+        document.getElementById('back-to-home').addEventListener('click', function() {
+            window.location.href = 'https://md.jerryz.com.cn/';
+        });
 
         imageUpload.addEventListener('change', function(e) {
             const file = e.target.files[0];
@@ -191,18 +306,36 @@
         function applyColorTheme(color) {
             const [r, g, b] = color;
             const hexColor = rgbToHex(r, g, b);
+            
+            // 更新主要颜色变量
+            document.documentElement.style.setProperty('--md-sys-color-primary', `rgb(${r}, ${g}, ${b})`);
             document.documentElement.style.setProperty('--primary-color', `rgb(${r}, ${g}, ${b})`);
-            document.documentElement.style.setProperty('--on-primary-color', isColorLight(r, g, b) ? '#000000' : '#FFFFFF');
+            
+            // 根据颜色亮度决定文字颜色
+            const isLight = isColorLight(r, g, b);
+            document.documentElement.style.setProperty('--md-sys-color-on-primary', isLight ? '#000000' : '#FFFFFF');
+            document.documentElement.style.setProperty('--on-primary-color', isLight ? '#000000' : '#FFFFFF');
+            
+            // 生成辅助颜色（轻微变暗或变亮的主色）
+            const primaryContainer = isLight 
+                ? `rgb(${Math.max(r-40, 0)}, ${Math.max(g-40, 0)}, ${Math.max(b-40, 0)})` 
+                : `rgb(${Math.min(r+60, 255)}, ${Math.min(g+60, 255)}, ${Math.min(b+60, 255)})`;
+            document.documentElement.style.setProperty('--md-sys-color-primary-container', primaryContainer);
+            document.documentElement.style.setProperty('--secondary-color', primaryContainer);
             
             // 更新按钮颜色
             const buttons = document.querySelectorAll('.button');
             buttons.forEach(button => {
                 button.style.backgroundColor = `rgb(${r}, ${g}, ${b})`;
-                button.style.color = isColorLight(r, g, b) ? '#000000' : '#FFFFFF';
+                button.style.color = isLight ? '#000000' : '#FFFFFF';
             });
 
             colorPreview.style.backgroundColor = `rgb(${r}, ${g}, ${b})`;
-            colorInfo.innerHTML = `提取的主色：<br>RGB(${r}, ${g}, ${b})<br>HEX: ${hexColor}`;
+            colorInfo.innerHTML = `提取的主色：<br>RGB(${r}, ${g}, ${b})<br>HEX: ${hexColor}<br><br>点击上方按钮可再次上传图片`;
+            
+            // 更新app-bar颜色
+            document.querySelector('.app-bar').style.backgroundColor = `rgb(${r}, ${g}, ${b})`;
+            document.querySelector('.app-bar').style.color = isLight ? '#000000' : '#FFFFFF';
         }
 
         function isColorLight(r, g, b) {

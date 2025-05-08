@@ -11,6 +11,8 @@
      crossorigin="anonymous"></script>
     <script defer src="https://umami.jerryz.com.cn/script.js" data-website-id="319efe93-a9d5-4f43-bfad-7bb27b46f56c"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
     
     <script type="application/ld+json">
     {
@@ -18,7 +20,7 @@
       "@type": "WebPage",
       "name": "长度单位转换器 - 在线可视化CSS单位",
       "description": "在线长度单位转换工具，支持px, em, rem, %, vw, vh, cm等CSS常用单位之间的转换，并提供可视化线条显示。",
-      "url": "https://md.jerryz.com.cn/length.html", // 请确保URL准确
+      "url": "https://md.jerryz.com.cn/length.html", 
       "keywords": "长度单位转换, CSS单位, px, em, rem, vw, vh, cm, 在线转换, 可视化, Material You",
       "isPartOf": {
         "@type": "WebSite",
@@ -36,22 +38,61 @@
     </script>
     <style>
         :root {
-            --primary-color: #6750A4;
-            --on-primary-color: #FFFFFF;
-            --surface-color: #F3EDF7;
-            --on-surface-color: #1C1B1F;
-            --secondary-container: #E8DEF8;
-            --on-secondary-container: #1D192B;
-            --error-color: #B00020;
-            --outline-color: #6750A4;
+            /* Material You 主色系 */
+            --md-sys-color-primary: #6750A4;
+            --md-sys-color-on-primary: #FFFFFF;
+            --md-sys-color-primary-container: #EADDFF;
+            --md-sys-color-on-primary-container: #21005E;
+
+            /* 次级色系 */
+            --md-sys-color-secondary: #625B71;
+            --md-sys-color-on-secondary: #FFFFFF;
+            --md-sys-color-secondary-container: #E8DEF8;
+            --md-sys-color-on-secondary-container: #1D192B;
+
+            /* 第三色系 */
+            --md-sys-color-tertiary: #7D5260;
+            --md-sys-color-on-tertiary: #FFFFFF;
+            --md-sys-color-tertiary-container: #FFD8E4;
+            --md-sys-color-on-tertiary-container: #31111D;
+
+            /* 错误色系 */
+            --md-sys-color-error: #B3261E;
+            --md-sys-color-on-error: #FFFFFF;
+            --md-sys-color-error-container: #F9DEDC;
+            --md-sys-color-on-error-container: #410E0B;
+
+            /* 背景和表面色系 */
+            --md-sys-color-background: #FFFBFE;
+            --md-sys-color-on-background: #1C1B1F;
+            --md-sys-color-surface: #FFFBFE;
+            --md-sys-color-on-surface: #1C1B1F;
+            --md-sys-color-surface-variant: #E7E0EC;
+            --md-sys-color-on-surface-variant: #49454F;
+
+            /* 轮廓色系 */
+            --md-sys-color-outline: #79747E;
+            --md-sys-color-outline-variant: #CAC4D0;
+
+            /* 阴影 */
+            --elevation-1: 0 1px 2px rgba(0,0,0,0.3), 0 1px 3px 1px rgba(0,0,0,0.15);
+            --elevation-2: 0 2px 4px rgba(0,0,0,0.2), 0 1px 6px 2px rgba(0,0,0,0.1);
+            --elevation-3: 0 4px 8px rgba(0,0,0,0.15), 0 2px 10px 3px rgba(0,0,0,0.1);
+
+            /* 圆角 */
+            --border-radius-small: 8px;
+            --border-radius-medium: 16px;
+            --border-radius-large: 24px;
+            --border-radius-full: 9999px;
         }
 
         body {
             font-family: 'Roboto', sans-serif;
-            background-color: var(--surface-color);
-            color: var(--on-surface-color);
+            background-color: var(--md-sys-color-background);
+            color: var(--md-sys-color-on-background);
             min-height: 100vh;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             margin: 0;
@@ -61,32 +102,46 @@
         .container {
             width: 100%;
             max-width: 500px;
-            background-color: white;
-            border-radius: 24px;
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+            background-color: var(--md-sys-color-surface);
+            border-radius: var(--border-radius-large);
+            box-shadow: var(--elevation-1);
             padding: 2rem;
-            overflow: hidden;
+            margin: 60px 0 30px 0;
+            transition: box-shadow 0.3s ease;
+        }
+
+        .container:hover {
+            box-shadow: var(--elevation-2);
+        }
+
+        h1 {
+            color: var(--md-sys-color-on-surface);
+            margin-bottom: 1.5rem;
+            font-weight: 500;
         }
 
         .input-group {
             display: flex;
-            gap: 0.5rem;
+            gap: 0.75rem;
             margin-bottom: 1.5rem;
         }
 
         input,
         select {
-            padding: 0.5rem;
-            border: 1px solid var(--outline-color);
-            border-radius: 8px;
+            padding: 0.75rem;
+            border: 1px solid var(--md-sys-color-outline-variant);
+            border-radius: var(--border-radius-small);
             font-size: 1rem;
             outline: none;
-            transition: border-color 0.3s;
+            transition: border-color 0.3s, box-shadow 0.3s;
+            background-color: var(--md-sys-color-surface);
+            color: var(--md-sys-color-on-surface);
         }
 
         input:focus,
         select:focus {
-            border-color: var(--primary-color);
+            border-color: var(--md-sys-color-primary);
+            box-shadow: 0 0 0 1px var(--md-sys-color-primary);
         }
 
         input {
@@ -97,57 +152,224 @@
             width: 100px;
         }
 
-        button {
-            background-color: var(--primary-color);
-            color: var(--on-primary-color);
-            padding: 0.5rem 1rem;
+        .btn {
+            background-color: var(--md-sys-color-primary);
+            color: var(--md-sys-color-on-primary);
+            padding: 0.75rem 1.5rem;
             border: none;
-            border-radius: 20px;
+            border-radius: var(--border-radius-full);
             font-size: 1rem;
+            font-weight: 500;
             cursor: pointer;
-            transition: background-color 0.3s, transform 0.3s;
+            transition: background-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+            box-shadow: var(--elevation-1);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
-        button:hover {
+        .btn:hover {
             background-color: #7B65B5;
-            transform: translateY(-2px);
+            box-shadow: var(--elevation-2);
+            transform: translateY(-1px);
         }
 
-        button:active {
+        .btn:active {
             background-color: #5E469A;
+            transform: translateY(0);
         }
 
         #line-container {
             display: flex;
             justify-content: center;
             align-items: flex-end;
-            height: auto;
-            margin-bottom: 1.5rem;
+            height: 200px;
+            margin: 2rem 0;
             transition: height 0.3s;
             overflow: hidden;
         }
 
         #line {
-            width: 4px;
-            background-color: var(--primary-color);
+            width: 8px;
+            background-color: var(--md-sys-color-primary);
             transition: height 0.3s, background-color 0.3s;
-            border-radius: 2px;
+            border-radius: 4px;
+            box-shadow: var(--elevation-1);
+        }
+
+        #lineLength {
+            color: var(--md-sys-color-on-surface-variant);
+            font-size: 0.9rem;
         }
 
         #conversions {
-            background-color: var(--secondary-container);
-            color: var(--on-secondary-container);
-            padding: 1rem;
-            border-radius: 16px;
+            background-color: var(--md-sys-color-secondary-container);
+            color: var(--md-sys-color-on-secondary-container);
+            padding: 1.25rem;
+            border-radius: var(--border-radius-medium);
             margin-top: 1.5rem;
             display: none;
+            box-shadow: var(--elevation-1);
+        }
+
+        #conversions h2 {
+            margin-top: 0;
+            color: var(--md-sys-color-on-secondary-container);
+            font-size: 1.25rem;
+            font-weight: 500;
+            margin-bottom: 0.75rem;
+        }
+
+        #conversions p {
+            margin: 0.5rem 0;
+            font-size: 1rem;
+        }
+
+        /* 返回按钮样式 */
+        .back-to-home-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            width: 48px;
+            height: 48px;
+            background-color: var(--md-sys-color-surface-variant);
+            color: var(--md-sys-color-on-surface-variant);
+            border: none;
+            border-radius: var(--border-radius-full);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: var(--elevation-2);
+            transition: background-color 0.2s ease, box-shadow 0.2s ease;
+            z-index: 1000;
+        }
+
+        .back-to-home-btn:hover {
+            background-color: var(--md-sys-color-primary-container);
+            color: var(--md-sys-color-on-primary-container);
+            box-shadow: var(--elevation-3);
+        }
+
+        .back-to-home-btn .material-icons-outlined {
+            font-size: 24px;
+        }
+
+        /* 页脚样式 */
+        .footer {
+            text-align: center;
+            padding: 2rem 1rem;
+            margin-top: auto;
+            color: var(--md-sys-color-outline);
+        }
+
+        .footer a {
+            color: var(--md-sys-color-primary);
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        .footer a:hover {
+            color: var(--md-sys-color-tertiary);
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 900px) {
+            .back-to-home-btn {
+                top: 15px;
+                left: 15px;
+                width: 40px;
+                height: 40px;
+            }
+
+            .back-to-home-btn .material-icons-outlined {
+                font-size: 20px;
+            }
+
+            .container {
+                padding: 1.5rem;
+                max-width: 90%;
+            }
+        }
+
+        /* 添加滑动选择器 */
+        .slider-container {
+            width: 100%;
+            margin-bottom: 1.5rem;
+        }
+
+        .slider {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 8px;
+            background: var(--md-sys-color-surface-variant);
+            outline: none;
+            border-radius: 4px;
+            margin: 1rem 0;
+        }
+
+        .slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: var(--md-sys-color-primary);
+            cursor: pointer;
+            box-shadow: var(--elevation-1);
+        }
+
+        .slider::-moz-range-thumb {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: var(--md-sys-color-primary);
+            cursor: pointer;
+            box-shadow: var(--elevation-1);
+        }
+
+        /* 提示样式 */
+        .tooltip {
+            position: relative;
+            display: inline-block;
+            margin-left: 8px;
+            cursor: help;
+        }
+
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 200px;
+            background-color: var(--md-sys-color-surface-variant);
+            color: var(--md-sys-color-on-surface-variant);
+            text-align: center;
+            border-radius: var(--border-radius-small);
+            padding: 8px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -100px;
+            opacity: 0;
+            transition: opacity 0.3s;
+            box-shadow: var(--elevation-2);
+            font-size: 0.8rem;
+        }
+
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
+            opacity: 1;
         }
     </style>
 </head>
 
 <body>
+    <!-- 返回按钮 -->
+    <button id="back-to-home" class="back-to-home-btn" title="返回主站">
+        <span class="material-icons-outlined">arrow_back</span>
+    </button>
+
     <div class="container">
         <h1 class="text-2xl font-bold mb-4 text-center">长度单位转换和显示</h1>
+        
         <div class="input-group">
             <input type="number" id="length" step="0.1" min="0" placeholder="输入长度">
             <select id="unit">
@@ -158,26 +380,89 @@
                 <option value="vw">vw</option>
                 <option value="vh">vh</option>
                 <option value="cm">cm</option>
+                <option value="mm">mm</option>
+                <option value="in">in</option>
+                <option value="pt">pt</option>
             </select>
         </div>
-        <button id="convert" class="w-full">转换并显示</button>
+
+        <!-- 滑动选择器 -->
+        <div class="slider-container">
+            <label for="length-slider">长度调整:</label>
+            <input type="range" min="0" max="100" value="10" class="slider" id="length-slider">
+        </div>
+        
+        <button id="convert" class="btn w-full">转换并显示</button>
+        
         <div id="line-container">
             <div id="line"></div>
         </div>
+        
         <p id="lineLength" class="text-center mb-2 font-semibold"></p>
+        
         <div id="conversions"></div>
+
+        <div class="mt-4 p-4 bg-gray-50 rounded-lg text-sm">
+            <p class="mb-2"><strong>基准设置:</strong></p>
+            <div class="flex items-center mb-2">
+                <label for="base-font-size" class="mr-2">基准字体大小: </label>
+                <input type="number" id="base-font-size" class="w-16 p-1 border rounded" value="16" min="1"> px
+                <div class="tooltip">
+                    <span class="material-icons-outlined text-sm">help_outline</span>
+                    <span class="tooltiptext">em和rem单位的基准字体大小。默认为16px。</span>
+                </div>
+            </div>
+            <div class="flex items-center">
+                <label for="dpi-setting" class="mr-2">屏幕DPI: </label>
+                <input type="number" id="dpi-setting" class="w-16 p-1 border rounded" value="96" min="1">
+                <div class="tooltip">
+                    <span class="material-icons-outlined text-sm">help_outline</span>
+                    <span class="tooltiptext">影响物理单位(cm, mm, in)与像素的换算。默认为96。</span>
+                </div>
+            </div>
+        </div>
     </div>
 
+    <!-- 页脚 -->
+    <footer class="footer">
+        <p>&copy; 2024-2025 <a href="https://jerryz.com.cn" target="_blank" rel="noopener">Jerry Zhou</a> | <a href="https://github.com/YangguangZhou/Material-You-Gadget" target="_blank" rel="noopener noreferrer">GitHub</a></p>
+    </footer>
+
     <script>
+        // 获取元素
         const lengthInput = document.getElementById('length');
         const unitSelect = document.getElementById('unit');
         const convertBtn = document.getElementById('convert');
         const line = document.getElementById('line');
         const lineLength = document.getElementById('lineLength');
         const conversions = document.getElementById('conversions');
+        const lengthSlider = document.getElementById('length-slider');
+        const baseFontSize = document.getElementById('base-font-size');
+        const dpiSetting = document.getElementById('dpi-setting');
+        const backBtn = document.getElementById('back-to-home');
         
-        const units = ['px', 'em', 'rem', 'vw', 'vh', 'cm'];
+        // 支持的单位数组
+        const units = ['px', 'em', 'rem', '%', 'vw', 'vh', 'cm', 'mm', 'in', 'pt'];
         
+        // 返回按钮事件
+        backBtn.addEventListener('click', () => {
+            window.location.href = 'https://md.jerryz.com.cn/';
+        });
+
+        // 滑动条事件
+        lengthSlider.addEventListener('input', () => {
+            lengthInput.value = lengthSlider.value;
+        });
+
+        // 输入框事件
+        lengthInput.addEventListener('input', () => {
+            const value = parseFloat(lengthInput.value);
+            if (!isNaN(value) && value >= 0 && value <= 100) {
+                lengthSlider.value = value;
+            }
+        });
+        
+        // 转换按钮事件
         convertBtn.addEventListener('click', () => {
             const length = parseFloat(lengthInput.value);
             const unit = unitSelect.value;
@@ -187,54 +472,134 @@
                 return;
             }
         
-            // 设置线条高度
-            const scaleFactor = 2; // 缩放因子
-            const scaledLength = length * scaleFactor;
-            line.style.height = `${scaledLength}px`;
-            lineLength.textContent = `线条长度: ${length}${unit}`;
+            // 设置线条高度 - 按比例调整以适应显示区域
+            let displayHeight;
+            
+            switch (unit) {
+                case 'px':
+                    displayHeight = length;
+                    break;
+                case 'em':
+                case 'rem':
+                    displayHeight = length * parseFloat(baseFontSize.value);
+                    break;
+                case '%':
+                    displayHeight = length * document.getElementById('line-container').clientHeight / 100;
+                    break;
+                case 'vw':
+                    displayHeight = length * window.innerWidth / 100;
+                    break;
+                case 'vh':
+                    displayHeight = length * window.innerHeight / 100;
+                    break;
+                case 'cm':
+                    displayHeight = length * parseFloat(dpiSetting.value) / 2.54;
+                    break;
+                case 'mm':
+                    displayHeight = length * parseFloat(dpiSetting.value) / 25.4;
+                    break;
+                case 'in':
+                    displayHeight = length * parseFloat(dpiSetting.value);
+                    break;
+                case 'pt':
+                    displayHeight = length * parseFloat(dpiSetting.value) / 72;
+                    break;
+                default:
+                    displayHeight = length;
+            }
+            
+            // 限制显示高度，保持合理显示范围
+            const maxHeight = document.getElementById('line-container').clientHeight - 10;
+            const scaleFactor = displayHeight > maxHeight ? maxHeight / displayHeight : 1;
+            const scaledHeight = displayHeight * scaleFactor;
+            
+            line.style.height = `${scaledHeight}px`;
+            lineLength.textContent = `线条长度: ${length}${unit}` + 
+                (scaleFactor < 1 ? ` (已缩放 ${(scaleFactor * 100).toFixed(0)}% 以适应显示区域)` : '');
         
             // 转换到其他单位
             let conversionHtml = '<h2 class="text-lg font-semibold mb-2">换算结果:</h2>';
+            
             units.forEach(toUnit => {
                 if (toUnit !== unit) {
                     const convertedValue = convertUnit(length, unit, toUnit);
                     conversionHtml += `<p class="mb-1">${convertedValue} ${toUnit}</p>`;
                 }
             });
+            
             conversions.innerHTML = conversionHtml;
             conversions.style.display = 'block';
         });
         
+        // 单位转换函数
         function convertUnit(value, fromUnit, toUnit) {
+            // 先转换为像素
             const pxValue = toPx(value, fromUnit);
+            // 再从像素转换为目标单位
             return fromPx(pxValue, toUnit).toFixed(2);
         }
         
         function toPx(value, unit) {
+            const fontBase = parseFloat(baseFontSize.value);
+            const dpi = parseFloat(dpiSetting.value);
+            
             switch (unit) {
-        case 'px': return value;
-        case 'em':
-        case 'rem': return value * 16;  // Assuming 1em/rem = 16px
-        case '%': return value * window.innerHeight / 100; // Default to viewport height
-        case 'vw': return value * window.innerWidth / 100;
-        case 'vh': return value * window.innerHeight / 100;
-        case 'cm': return value * 37.795275591; // px per cm
-        default: return value;
+                case 'px': 
+                    return value;
+                case 'em':
+                case 'rem': 
+                    return value * fontBase;
+                case '%': 
+                    // 在这里我们使用容器宽度作为参考，更符合CSS的实际行为
+                    return value * document.querySelector('.container').clientWidth / 100;
+                case 'vw': 
+                    return value * window.innerWidth / 100;
+                case 'vh': 
+                    return value * window.innerHeight / 100;
+                case 'cm': 
+                    return value * dpi / 2.54; // 1英寸 = 2.54厘米
+                case 'mm': 
+                    return value * dpi / 25.4; // 1英寸 = 25.4毫米
+                case 'in': 
+                    return value * dpi; // 直接乘以DPI
+                case 'pt': 
+                    return value * dpi / 72; // 1英寸 = 72pt
+                default: 
+                    return value;
             }
         }
         
         function fromPx(px, unit) {
+            const fontBase = parseFloat(baseFontSize.value);
+            const dpi = parseFloat(dpiSetting.value);
+            
             switch (unit) {
-        case 'px': return px;
-        case 'em':
-        case 'rem': return px / 16;
-        case '%': return (px / window.innerHeight) * 100; // Default to viewport height
-        case 'vw': return (px / window.innerWidth) * 100;
-        case 'vh': return (px / window.innerHeight) * 100;
-        case 'cm': return px / 37.795275591;
-        default: return px;
+                case 'px': 
+                    return px;
+                case 'em':
+                case 'rem': 
+                    return px / fontBase;
+                case '%': 
+                    return (px / document.querySelector('.container').clientWidth) * 100;
+                case 'vw': 
+                    return (px / window.innerWidth) * 100;
+                case 'vh': 
+                    return (px / window.innerHeight) * 100;
+                case 'cm': 
+                    return px * 2.54 / dpi;
+                case 'mm': 
+                    return px * 25.4 / dpi;
+                case 'in': 
+                    return px / dpi;
+                case 'pt': 
+                    return px * 72 / dpi;
+                default: 
+                    return px;
             }
         }
+
+        // 初始化
+        lengthInput.value = lengthSlider.value;
     </script>
 </body>
 

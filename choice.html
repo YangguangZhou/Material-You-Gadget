@@ -7,25 +7,25 @@
     <title>随机选择器 - 帮你做决定 | Material You Gadget</title>
     <meta name="description" content="Material You Design风格的在线随机选择器。创建选项组合，轻松做出选择。不知道该做什么？来随机选一个吧！支持导入导出组合。">
     <meta name="keywords" content="随机选择器, 抽签工具, 决策工具, 在线选择器, Material You, 随机抽取">
-
-    <script async src="[https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2597042766299857](https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2597042766299857)"
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2597042766299857"
         crossorigin="anonymous"></script>
-    <script defer src="[https://umami.jerryz.com.cn/script.js](https://umami.jerryz.com.cn/script.js)"
+    <script defer src="https://umami.jerryz.com.cn/script.js"
         data-website-id="319efe93-a9d5-4f43-bfad-7bb27b46f56c"></script>
-    <link href="[https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap](https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap)" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
 
     <script type="application/ld+json">
     {
-      "@context": "[https://schema.org](https://schema.org)",
+      "@context": "https://schema.org",
       "@type": "WebPage",
       "name": "随机选择器 - 帮你做决定",
       "description": "Material You Design风格的在线随机选择器。创建选项组合，轻松做出选择。不知道该做什么？来随机选一个吧！支持导入导出组合。",
-      "url": "[https://md.jerryz.com.cn/choice](https://md.jerryz.com.cn/choice)", // 请确保URL准确
+      "url": "https://md.jerryz.com.cn/choice", // 请确保URL准确
       "keywords": "随机选择器, 抽签工具, 决策工具, 在线选择器, Material You, 随机抽取",
       "isPartOf": {
         "@type": "WebSite",
         "name": "Material You Gadget",
-        "url": "[https://md.jerryz.com.cn/](https://md.jerryz.com.cn/)"
+        "url": "https://md.jerryz.com.cn/"
       },
       "mainEntity": {
         "@type": "WebApplication",
@@ -83,6 +83,35 @@
             font-size: 24px;
             font-weight: 500;
             border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .back-to-home-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            width: 48px;
+            height: 48px;
+            background-color: var(--secondary-color);
+            border: none;
+            border-radius: 50%;
+            /* Circular */
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 2px 6px 2px rgba(0, 0, 0, 0.15);
+            ;
+            transition: background-color 0.2s ease, box-shadow 0.2s ease;
+            z-index: 1000;
+        }
+
+        .back-to-home-btn:hover {
+            box-shadow: 0 4px 8px 3px rgba(0, 0, 0, 0.15), 0 1px 3px rgba(0, 0, 0, 0.3);
+            ;
+        }
+
+        .back-to-home-btn .material-icons-outlined {
+            font-size: 24px;
         }
 
         .content {
@@ -316,10 +345,27 @@
         .file-input {
             display: none;
         }
+
+        @media (max-width: 900px) {
+
+            .back-to-home-btn {
+                top: 15px;
+                left: 15px;
+                width: 40px;
+                height: 40px;
+            }
+
+            .back-to-home-btn .material-icons-outlined {
+                font-size: 20px;
+            }
+        }
     </style>
 </head>
 
 <body>
+    <button id="back-to-home" class="back-to-home-btn" title="返回主站">
+        <span class="material-icons-outlined">arrow_back</span>
+    </button>
     <div class="container">
         <div class="app-bar">Material You 随机选择器</div>
         <div class="content">
@@ -586,6 +632,9 @@
 
         // 页面加载完成后初始化应用
         document.addEventListener('DOMContentLoaded', initApp);
+        document.getElementById('back-to-home').addEventListener('click', function () {
+            window.location.href = 'https://md.jerryz.com.cn/';
+        });
     </script>
 </body>
 
