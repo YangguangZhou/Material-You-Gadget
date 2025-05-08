@@ -10,3 +10,4 @@ Material You 风格的实用小工具
 5. [疯狂星期X](https://md.jerryz.com.cn/crazy): 开口要钱神器
 6. [CSP估分](https://md.jerryz.com.cn/score): CSP S/J 估分工具
 7. [24点游戏](https://md.jerryz.com.cn/24-point): 使用四个数字和基本运算，计算得到24的益智游戏
+8. [Markdown在线转换器](https://md.jerryz.com.cn/md): 强大的在线Markdown转换工具，实时将Markdown转换为富文本预览或HTML页面
