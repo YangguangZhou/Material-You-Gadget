@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GetModels - OpenAI API 模型查询工具 | Material You Gadget</title>
+    <meta name="description" content="在线查询 OpenAI 及兼容 API 的可用模型列表。快速获取模型ID、所有者等信息。支持按模型类型筛选，如对话模型、嵌入模型。Material You 风格。">
+    <meta name="keywords" content="OpenAI, API模型, 模型查询, GetModels, AI模型, GPT, Embedding, 大语言模型, API工具">
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2597042766299857"
+     crossorigin="anonymous"></script>
+    <script defer src="https://umami.jerryz.com.cn/script.js" data-website-id="319efe93-a9d5-4f43-bfad-7bb27b46f56c"></script>
+    
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": "GetModels - OpenAI API 模型查询工具",
+      "description": "在线查询 OpenAI 及兼容 API 的可用模型列表。快速获取模型ID、所有者等信息。支持按模型类型筛选，如对话模型、嵌入模型。",
+      "url": "https://md.jerryz.com.cn/models.html",
+      "keywords": "OpenAI, API模型, 模型查询, GetModels, AI模型, GPT, Embedding, 大语言模型, API工具, 模型列表",
+      "isPartOf": {
+        "@type": "WebSite",
+        "name": "Material You Gadget",
+        "url": "https://md.jerryz.com.cn/"
+      },
+      "mainEntity": {
+        "@type": "WebApplication",
+        "name": "GetModels - OpenAI API 模型查询工具",
+        "applicationCategory": "DeveloperTool",
+        "operatingSystem": "All",
+        "browserRequirements": "Requires HTML5 support and JavaScript",
+        "featureList": [
+          "查询OpenAI兼容API的模型列表",
+          "按模型类型筛选 (所有, 对话, 嵌入)",
+          "显示模型ID和所有者",
+          "一键复制模型ID",
+          "一键复制所有模型ID列表"
+        ]
+      }
+    }
+    </script>
+
+    <style>
+        :root {
+            /* Material You 动态颜色（可根据实际情况调整） */
+            --md-sys-color-primary: #006A6A;
+            --md-sys-color-on-primary: #ffffff;
+            --md-sys-color-primary-container: #6FF7F7;
+            --md-sys-color-on-primary-container: #002020;
+            --md-sys-color-secondary: #4A6363;
+            --md-sys-color-on-secondary: #ffffff;
+            --md-sys-color-secondary-container: #CCE8E8;
+            --md-sys-color-on-secondary-container: #051F1F;
+            --md-sys-color-surface: #FAFDFC;
+            --md-sys-color-on-surface: #191C1C;
+            --md-sys-color-surface-variant: #DAE5E4;
+            --md-sys-color-on-surface-variant: #3F4948;
+            --md-sys-color-error: #BA1A1A;
+            --md-sys-color-on-error: #ffffff;
+            --md-sys-color-error-container: #FFDAD6;
+            --md-sys-color-on-error-container: #410002;
+            --md-sys-color-outline: #6F7978;
+            --md-sys-color-success: #006E1C;
+            --md-sys-color-on-success: #ffffff;
+            --md-sys-color-success-container: #89F88F;
+            --md-sys-color-on-success-container: #002105;
+
+            /* 新增变量以匹配 color.html 样式 */
+            --border-radius-full: 50%;
+            --elevation-1: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.14);
+            --elevation-2: 0 3px 6px rgba(0,0,0,0.15), 0 2px 4px rgba(0,0,0,0.12);
+            --elevation-3: 0 10px 20px rgba(0,0,0,0.15), 0 3px 6px rgba(0,0,0,0.10);
+        }
+
+        body {
+            font-family: 'Noto Sans SC', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--md-sys-color-surface);
+            color: var(--md-sys-color-on-surface);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        header {
+            background-color: var(--md-sys-color-primary);
+            color: var(--md-sys-color-on-primary);
+            padding: 16px 24px;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 1.5rem;
+            font-weight: 500;
+        }
+
+        .logo {
+            margin-right: 12px;
+            font-size: 28px;
+        }
+
+        main {
+            flex: 1;
+            max-width: 800px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 24px;
+            box-sizing: border-box;
+        }
+
+        .card {
+            background-color: #ffffff;
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 24px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: var(--md-sys-color-primary);
+            margin-top: 0;
+            font-size: 1.25rem;
+            font-weight: 500;
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--md-sys-color-on-surface-variant);
+            font-size: 0.875rem;
+        }
+
+        input[type="text"], 
+        input[type="password"],
+        select {
+            width: 100%;
+            padding: 12px 16px;
+            border-radius: 8px;
+            border: 1px solid var(--md-sys-color-outline);
+            background-color: var(--md-sys-color-surface);
+            font-size: 1rem;
+            color: var(--md-sys-color-on-surface);
+            box-sizing: border-box;
+            transition: border 0.2s, box-shadow 0.2s;
+            font-family: 'Noto Sans SC', sans-serif;
+        }
+
+        input[type="text"]:focus,
+        input[type="password"]:focus,
+        select:focus {
+            outline: none;
+            border-color: var(--md-sys-color-primary);
+            box-shadow: 0 0 0 2px rgba(0, 106, 106, 0.2);
+        }
+
+        .helper-text {
+            font-size: 0.75rem;
+            color: var(--md-sys-color-on-surface-variant);
+            margin-top: 4px;
+        }
+
+        .button {
+            background-color: var(--md-sys-color-primary);
+            color: var(--md-sys-color-on-primary);
+            border: none;
+            border-radius: 20px;
+            padding: 10px 24px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.2s, box-shadow 0.2s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 8px;
+            min-width: 100px;
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+        }
+
+        .button:hover {
+            background-color: #005757;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+        }
+
+        .button-secondary {
+            background-color: var(--md-sys-color-secondary-container);
+            color: var(--md-sys-color-on-secondary-container);
+        }
+
+        .button-secondary:hover {
+            background-color: #BBD7D7;
+        }
+
+        .button .material-symbols-outlined {
+            font-size: 18px;
+            margin-right: 8px;
+        }
+
+        .result-container {
+            background-color: var(--md-sys-color-surface-variant);
+            border-radius: 12px;
+            padding: 16px;
+            margin-top: 24px;
+            min-height: 100px;
+        }
+
+        .model-list {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .model-item {
+            padding: 12px;
+            border-bottom: 1px solid var(--md-sys-color-outline);
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            position: relative;
+        }
+
+        .model-item:hover {
+            background-color: rgba(0, 106, 106, 0.08);
+        }
+
+        .model-item:active {
+            background-color: rgba(0, 106, 106, 0.12);
+        }
+
+        .model-item:last-child {
+            border-bottom: none;
+        }
+
+        .model-icon {
+            margin-right: 12px;
+            color: var(--md-sys-color-primary);
+        }
+
+        .model-copy-hint {
+            font-size: 0.75rem;
+            color: var(--md-sys-color-on-surface-variant);
+            margin-left: auto;
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+
+        .model-item:hover .model-copy-hint {
+            opacity: 1;
+        }
+
+        .error {
+            background-color: var(--md-sys-color-error-container);
+            color: var(--md-sys-color-on-error-container);
+            padding: 12px 16px;
+            border-radius: 8px;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+        }
+
+        .error .material-symbols-outlined {
+            margin-right: 8px;
+        }
+
+        .success {
+            background-color: var(--md-sys-color-success-container);
+            color: var(--md-sys-color-on-success-container);
+            padding: 12px 16px;
+            border-radius: 8px;
+            margin-top: 12px;
+            display: flex;
+            align-items: center;
+            opacity: 1;
+            transition: opacity 0.5s;
+        }
+
+        .success.fade-out {
+            opacity: 0;
+        }
+
+        .success .material-symbols-outlined {
+            margin-right: 8px;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        /* 返回按钮样式 */
+        .back-to-home-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            width: 48px;
+            height: 48px;
+            background-color: var(--md-sys-color-surface-variant);
+            color: var(--md-sys-color-on-surface-variant);
+            border: none;
+            border-radius: var(--border-radius-full);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: var(--elevation-2);
+            transition: background-color 0.2s ease, box-shadow 0.2s ease, color 0.2s ease;
+            z-index: 1000;
+        }
+
+        .back-to-home-btn:hover {
+            background-color: var(--md-sys-color-primary-container);
+            color: var(--md-sys-color-on-primary-container);
+            box-shadow: var(--elevation-3);
+        }
+
+        .back-to-home-btn .material-icons-outlined {
+            font-size: 24px;
+        }
+        
+        /* 页脚样式更新 */
+        footer {
+            text-align: center;
+            padding: 2rem 1rem;
+            margin-top: auto; /* 保持页脚在底部 */
+            color: var(--md-sys-color-outline); /* 使用 outline 颜色作为文字颜色 */
+            font-size: 0.875rem;
+            width: 100%;
+            box-sizing: border-box; /* 确保 padding 不会影响总宽度 */
+        }
+
+        footer a {
+            color: var(--md-sys-color-primary); /* 链接使用 primary 颜色 */
+            text-decoration: none;
+            transition: opacity 0.2s ease;
+        }
+
+        footer a:hover {
+            text-decoration: none;
+            opacity: 0.8;
+        }
+
+
+        .actions-bar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 16px;
+        }
+
+        /* 响应式调整 */
+        @media (max-width: 600px) {
+            main {
+                padding: 16px;
+                margin-top: 60px; /* 为返回按钮留出空间 */
+            }
+            
+            .card {
+                padding: 16px;
+            }
+
+            .actions-bar {
+                flex-direction: column;
+            }
+
+            .button {
+                width: 100%;
+                margin-right: 0;
+                margin-bottom: 8px;
+            }
+
+            .back-to-home-btn {
+                top: 15px;
+                left: 15px;
+                width: 40px;
+                height: 40px;
+            }
+            .back-to-home-btn .material-icons-outlined {
+                font-size: 20px;
+            }
+        }
+
+        /* 深色模式支持 */
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --md-sys-color-primary: #4CDADA;
+                --md-sys-color-on-primary: #003737;
+                --md-sys-color-primary-container: #004F4F;
+                --md-sys-color-on-primary-container: #6FF7F7;
+                --md-sys-color-secondary: #B0CCCC;
+                --md-sys-color-on-secondary: #1C3535;
+                --md-sys-color-secondary-container: #334B4B;
+                --md-sys-color-on-secondary-container: #CCE8E8;
+                --md-sys-color-surface: #191C1C;
+                --md-sys-color-on-surface: #E0E3E2;
+                --md-sys-color-surface-variant: #3F4948;
+                --md-sys-color-on-surface-variant: #BFC8C8;
+                --md-sys-color-error: #FFB4AB;
+                --md-sys-color-on-error: #690005;
+                --md-sys-color-error-container: #93000A;
+                --md-sys-color-on-error-container: #FFDAD6;
+                --md-sys-color-outline: #899392;
+                --md-sys-color-success: #70DB75;
+                --md-sys-color-on-success: #003A0D;
+                --md-sys-color-success-container: #005315;
+                --md-sys-color-on-success-container: #89F88F;
+            }
+
+            body {
+                background-color: var(--md-sys-color-surface);
+            }
+            
+            .card {
+                background-color: #202424;
+            }
+            
+            input[type="text"], 
+            input[type="password"],
+            select {
+                background-color: rgba(255, 255, 255, 0.05);
+                border-color: var(--md-sys-color-outline);
+                color: var(--md-sys-color-on-surface);
+            }
+        }
+
+        /* 加载动画 */
+        .loader {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            margin-right: 8px;
+            border: 2px solid var(--md-sys-color-on-primary);
+            border-radius: 50%;
+            border-top-color: transparent;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* 复制反馈动画 */
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .pulse {
+            animation: pulse 0.3s ease-in-out;
+        }
+    </style>
+</head>
+<body>
+    <button id="back-to-home" class="back-to-home-btn" title="返回主站">
+        <span class="material-icons-outlined">arrow_back</span>
+    </button>
+
+    <header>
+        <span class="material-symbols-outlined logo">model_training</span>
+        <h1>GetModels - OpenAI API 模型查询工具</h1>
+    </header>
+
+    <main>
+        <div class="card">
+            <h2>API 信息配置</h2>
+            <div id="error-container" class="error hidden">
+                <span class="material-symbols-outlined">error</span>
+                <div id="error-message"></div>
+            </div>
+            <div class="form-group">
+                <label for="base-url">API 基础 URL</label>
+                <input type="text" id="base-url" placeholder="https://api.openai.com/v1" value="https://api.openai.com/v1">
+                <div class="helper-text">OpenAI API 或兼容格式 API 的基础地址</div>
+            </div>
+            <div class="form-group">
+                <label for="api-key">API 密钥</label>
+                <input type="password" id="api-key" placeholder="sk-...">
+                <div class="helper-text">用于认证请求的 API 密钥</div>
+            </div>
+            <div class="form-group">
+                <label for="model-type">模型类型</label>
+                <select id="model-type">
+                    <option value="all">所有模型</option>
+                    <option value="embedding">嵌入模型</option>
+                    <option value="chat">对话模型</option>
+                </select>
+                <div class="helper-text">选择您想要查询的模型类型</div>
+            </div>
+            <button id="fetch-models" class="button">
+                <span class="material-symbols-outlined">search</span>
+                查询模型
+            </button>
+            <button id="clear-results" class="button button-secondary">
+                <span class="material-symbols-outlined">clear_all</span>
+                清空结果
+            </button>
+        </div>
+
+        <div class="card">
+            <h2>模型列表</h2>
+            <div id="success-container" class="success hidden">
+                <span class="material-symbols-outlined">check_circle</span>
+                <div id="success-message">复制成功！</div>
+            </div>
+            <div id="loading" class="hidden">
+                <div class="loader"></div> 正在查询模型，请稍候...
+            </div>
+            <div id="result" class="result-container">
+                <div class="helper-text" id="no-results-message">请使用上方配置进行模型查询</div>
+                <ul class="model-list" id="models-list"></ul>
+            </div>
+            <div class="actions-bar hidden" id="copy-actions">
+                <button id="copy-all-models" class="button">
+                    <span class="material-symbols-outlined">content_copy</span>
+                    复制全部模型名称
+                </button>
+                <div class="helper-text">点击单个模型可快速复制该模型名称</div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2024-2025 <a href="https://jerryz.com.cn" target="_blank" rel="noopener">Jerry Zhou</a> | <a href="https://github.com/YangguangZhou/Material-You-Gadget" target="_blank" rel="noopener noreferrer">GitHub</a></p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const fetchButton = document.getElementById('fetch-models');
+            const clearButton = document.getElementById('clear-results');
+            const copyAllButton = document.getElementById('copy-all-models');
+            const baseUrlInput = document.getElementById('base-url');
+            const apiKeyInput = document.getElementById('api-key');
+            const modelTypeSelect = document.getElementById('model-type');
+            const resultContainer = document.getElementById('result');
+            const modelsList = document.getElementById('models-list');
+            const loadingElement = document.getElementById('loading');
+            const errorContainer = document.getElementById('error-container');
+            const errorMessage = document.getElementById('error-message');
+            const successContainer = document.getElementById('success-container');
+            const successMessage = document.getElementById('success-message');
+            const noResultsMessage = document.getElementById('no-results-message');
+            const copyActions = document.getElementById('copy-actions');
+            const backToHomeButton = document.getElementById('back-to-home');
+
+            let modelIds = [];
+
+            if (backToHomeButton) {
+                backToHomeButton.addEventListener('click', function() {
+                    window.location.href = 'https://md.jerryz.com.cn/';
+                });
+            }
+
+            fetchButton.addEventListener('click', fetchModels);
+            clearButton.addEventListener('click', clearResults);
+            copyAllButton.addEventListener('click', copyAllModels);
+
+            function fetchModels() {
+                const baseUrl = baseUrlInput.value.trim();
+                const apiKey = apiKeyInput.value.trim();
+                const modelType = modelTypeSelect.value;
+
+                // 验证输入
+                if (!baseUrl) {
+                    showError('请输入有效的 API 基础 URL');
+                    return;
+                }
+
+                if (!apiKey) {
+                    showError('请输入有效的 API 密钥');
+                    return;
+                }
+
+                // 清除之前的错误
+                hideError();
+                hideSuccess();
+                
+                // 显示加载状态
+                loadingElement.classList.remove('hidden');
+                noResultsMessage.classList.add('hidden');
+                modelsList.innerHTML = '';
+                copyActions.classList.add('hidden');
+                modelIds = [];
+
+                // 构建请求 URL
+                let modelsUrl = `${baseUrl}/models`;
+
+                // 发送请求
+                fetch(modelsUrl, {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `Bearer ${apiKey}`,
+                        'Content-Type': 'application/json'
+                    }
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP 错误: ${response.status} - ${response.statusText}`);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    // 处理响应数据
+                    loadingElement.classList.add('hidden');
+                    
+                    if (!data.data || data.data.length === 0) {
+                        noResultsMessage.textContent = '没有找到符合条件的模型';
+                        noResultsMessage.classList.remove('hidden');
+                        return;
+                    }
+
+                    // 根据选择的类型筛选模型
+                    let filteredModels = data.data;
+                    
+                    if (modelType === 'embedding') {
+                        filteredModels = filteredModels.filter(model => 
+                            model.id.includes('embedding') || 
+                            model.id.includes('embed') ||
+                            model.id.includes('text-embedding')
+                        );
+                    } else if (modelType === 'chat') {
+                        filteredModels = filteredModels.filter(model => 
+                            model.id.includes('gpt') || 
+                            model.id.includes('chat') || 
+                            model.id.includes('llama') ||
+                            model.id.includes('claude') ||
+                            model.id.includes('gemini')
+                        );
+                    }
+
+                    if (filteredModels.length === 0) {
+                        noResultsMessage.textContent = '没有找到符合条件的模型';
+                        noResultsMessage.classList.remove('hidden');
+                        return;
+                    }
+
+                    // 排序模型（按名称首字母顺序）
+                    filteredModels.sort((a, b) => a.id.localeCompare(b.id));
+
+                    // 保存模型 ID 到数组中，用于"复制全部"功能
+                    modelIds = filteredModels.map(model => model.id);
+
+                    // 显示模型
+                    filteredModels.forEach(model => {
+                        const li = document.createElement('li');
+                        li.className = 'model-item';
+                        li.dataset.modelId = model.id;
+                        li.title = `点击复制模型 ID: ${model.id}`;
+                        
+                        // 根据模型类型选择图标
+                        let iconName = 'smart_toy';
+                        if (model.id.includes('embedding') || model.id.includes('embed')) {
+                            iconName = 'data_object';
+                        } else if (model.id.includes('vision') || model.id.includes('image')) {
+                            iconName = 'image';
+                        }
+                        
+                        li.innerHTML = `
+                            <span class="material-symbols-outlined model-icon">${iconName}</span>
+                            <div>
+                                <strong>${model.id}</strong>
+                                ${model.owned_by ? `<div class="helper-text">提供者: ${model.owned_by}</div>` : ''}
+                            </div>
+                            <span class="model-copy-hint">点击复制</span>
+                        `;
+                        li.addEventListener('click', function() {
+                            copyModelId(model.id);
+                            this.classList.add('pulse');
+                            setTimeout(() => {
+                                this.classList.remove('pulse');
+                            }, 300);
+                        });
+                        modelsList.appendChild(li);
+                    });
+
+                    // 显示复制全部按钮
+                    copyActions.classList.remove('hidden');
+                })
+                .catch(error => {
+                    loadingElement.classList.add('hidden');
+                    showError(`请求失败: ${error.message || '未知错误'}`);
+                    
+                    // 尝试提供更多的错误信息
+                    if (error.message.includes('401')) {
+                        showError('API 密钥无效或已过期，请检查您的 API 密钥');
+                    } else if (error.message.includes('403')) {
+                        showError('权限不足，您的 API 密钥可能没有访问权限');
+                    } else if (error.message.includes('404')) {
+                        showError('找不到 API 路径，请检查您的基础 URL 是否正确');
+                    } else if (error.message.includes('Failed to fetch')) {
+                        showError('无法连接到 API，请检查网络连接和 API 地址是否正确。跨域请求可能被浏览器阻止，请确认 API 服务器允许跨域请求。');
+                    }
+                });
+            }
+
+            function clearResults() {
+                modelsList.innerHTML = '';
+                hideError();
+                hideSuccess();
+                noResultsMessage.textContent = '请使用上方配置进行模型查询';
+                noResultsMessage.classList.remove('hidden');
+                copyActions.classList.add('hidden');
+                modelIds = [];
+            }
+
+            function copyModelId(modelId) {
+                navigator.clipboard.writeText(modelId)
+                    .then(() => {
+                        showSuccess(`成功复制模型 ID: ${modelId}`);
+                    })
+                    .catch(err => {
+                        showError(`复制失败: ${err}`);
+                    });
+            }
+
+            function copyAllModels() {
+                if (modelIds.length === 0) {
+                    showError('没有可复制的模型');
+                    return;
+                }
+
+                const allModelsText = modelIds.join(',');
+                navigator.clipboard.writeText(allModelsText)
+                    .then(() => {
+                        showSuccess(`成功复制所有 ${modelIds.length} 个模型 ID`);
+                    })
+                    .catch(err => {
+                        showError(`复制失败: ${err}`);
+                    });
+            }
+
+            function showError(message) {
+                errorMessage.textContent = message;
+                errorContainer.classList.remove('hidden');
+                hideSuccess();
+            }
+
+            function hideError() {
+                errorContainer.classList.add('hidden');
+            }
+
+            function showSuccess(message) {
+                successMessage.textContent = message;
+                successContainer.classList.remove('hidden');
+                successContainer.classList.remove('fade-out');
+                
+                // 3秒后自动隐藏成功消息
+                setTimeout(() => {
+                    successContainer.classList.add('fade-out');
+                    setTimeout(() => {
+                        hideSuccess();
+                    }, 500);
+                }, 3000);
+            }
+
+            function hideSuccess() {
+                successContainer.classList.add('hidden');
+            }
+        });
+    </script>
+</body>
+</html>

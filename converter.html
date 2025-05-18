@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>颜色转换器 - RGB与HEX互转工具 | Material You Gadget</title>
+    <meta name="description" content="在线颜色格式转换工具。支持RGB和十六进制(HEX)颜色代码互转，实时预览颜色效果。Material You风格的简洁界面设计。">
+    <meta name="keywords" content="颜色转换, RGB转换, HEX转换, 十六进制颜色, 在线工具, 颜色代码, Material You">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2597042766299857"
+     crossorigin="anonymous"></script>
+    <script defer src="https://umami.jerryz.com.cn/script.js" data-website-id="319efe93-a9d5-4f43-bfad-7bb27b46f56c"></script>
+    
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": "颜色转换器 - RGB与HEX互转工具",
+      "description": "在线颜色格式转换工具。支持RGB和十六进制(HEX)颜色代码互转，实时预览颜色效果。Material You风格的简洁界面设计。",
+      "url": "https://md.jerryz.com.cn/converter.html",
+      "keywords": "颜色转换, RGB转换, HEX转换, 十六进制颜色, 在线工具, 颜色代码, Material You",
+      "isPartOf": {
+        "@type": "WebSite",
+        "name": "Material You Gadget",
+        "url": "https://md.jerryz.com.cn/"
+      },
+      "mainEntity": {
+        "@type": "WebApplication",
+        "name": "颜色转换器",
+        "applicationCategory": "DesignApplication",
+        "operatingSystem": "All",
+        "browserRequirements": "Requires HTML5 support",
+        "featureList": [
+          "RGB与十六进制颜色转换",
+          "实时颜色预览",
+          "支持多种输入格式"
+        ]
+      }
+    }
+    </script>
+    
+    <style>
+        :root {
+            /* Material You 颜色系统 */
+            --md-sys-color-primary: #006A6A;
+            --md-sys-color-on-primary: #ffffff;
+            --md-sys-color-primary-container: #6FF7F7;
+            --md-sys-color-on-primary-container: #002020;
+            --md-sys-color-secondary: #4A6363;
+            --md-sys-color-on-secondary: #ffffff;
+            --md-sys-color-secondary-container: #CCE8E8;
+            --md-sys-color-on-secondary-container: #051F1F;
+            --md-sys-color-surface: #FAFDFC;
+            --md-sys-color-on-surface: #191C1C;
+            --md-sys-color-surface-variant: #DAE5E4;
+            --md-sys-color-on-surface-variant: #3F4948;
+            --md-sys-color-error: #BA1A1A;
+            --md-sys-color-on-error: #ffffff;
+            --md-sys-color-error-container: #FFDAD6;
+            --md-sys-color-on-error-container: #410002;
+            --md-sys-color-outline: #6F7978;
+            
+            /* 圆角和阴影 */
+            --border-radius: 16px;
+            --border-radius-full: 50%;
+            --elevation-1: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.14);
+            --elevation-2: 0 3px 6px rgba(0,0,0,0.15), 0 2px 4px rgba(0,0,0,0.12);
+            --elevation-3: 0 10px 20px rgba(0,0,0,0.15), 0 3px 6px rgba(0,0,0,0.10);
+        }
+        
+        body {
+            font-family: 'Noto Sans SC', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--md-sys-color-surface);
+            color: var(--md-sys-color-on-surface);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        /* 返回按钮样式 */
+        .back-to-home-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            width: 48px;
+            height: 48px;
+            background-color: var(--md-sys-color-surface-variant);
+            color: var(--md-sys-color-on-surface-variant);
+            border: none;
+            border-radius: var(--border-radius-full);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: var(--elevation-2);
+            transition: background-color 0.2s ease, box-shadow 0.2s ease, color 0.2s ease;
+            z-index: 1000;
+        }
+
+        .back-to-home-btn:hover {
+            background-color: var(--md-sys-color-secondary-container);
+            color: var(--md-sys-color-on-primary-container);
+            box-shadow: var(--elevation-3);
+        }
+
+        .back-to-home-btn .material-icons-outlined {
+            font-size: 24px;
+        }
+        
+        .container {
+            max-width: 700px;
+            width: 100%;
+            margin: 60px auto 40px;
+            padding: 0 20px;
+            box-sizing: border-box;
+        }
+        
+        .card {
+            background-color: #ffffff;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--elevation-2);
+            margin-bottom: 24px;
+            transition: box-shadow 0.3s ease;
+        }
+        
+        .card:hover {
+            box-shadow: var(--elevation-3);
+        }
+        
+        .card-header {
+            background-color: var(--md-sys-color-primary);
+            color: var(--md-sys-color-on-primary);
+            padding: 24px;
+            font-size: 24px;
+            font-weight: 500;
+            text-align: center;
+        }
+        
+        .card-content {
+            padding: 24px;
+        }
+        
+        .form-group {
+            margin-bottom: 24px;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 16px;
+            color: var(--md-sys-color-on-surface-variant);
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid var(--md-sys-color-outline);
+            border-radius: 8px;
+            font-size: 16px;
+            color: var(--md-sys-color-on-surface);
+            background-color: var(--md-sys-color-surface);
+            box-sizing: border-box;
+            transition: border-color 0.3s, box-shadow 0.3s;
+            font-family: 'Noto Sans SC', sans-serif;
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: var(--md-sys-color-primary);
+            box-shadow: 0 0 0 2px rgba(0, 106, 106, 0.2);
+        }
+        
+        #colorDisplay {
+            width: 150px;
+            height: 150px;
+            margin: 24px auto;
+            border-radius: var(--border-radius);
+            background-color: #f5f5f5;
+            box-shadow: var(--elevation-1);
+            transition: background-color 0.3s ease;
+        }
+        
+        #output {
+            background-color: var(--md-sys-color-surface-variant);
+            border-radius: var(--border-radius);
+            padding: 16px;
+            margin-top: 24px;
+            margin-bottom: 24px;
+            text-align: left;
+        }
+        
+        #output p {
+            margin: 12px 0;
+            font-size: 18px;
+        }
+        
+        #output span {
+            font-weight: 500;
+            color: var(--md-sys-color-primary);
+        }
+        
+        .copy-button {
+            background-color: var(--md-sys-color-primary);
+            color: var(--md-sys-color-on-primary);
+            border: none;
+            border-radius: 20px;
+            padding: 8px 16px;
+            margin-left: 10px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background-color 0.2s, transform 0.2s;
+            display: inline-flex;
+            align-items: center;
+        }
+        
+        .copy-button:hover {
+            background-color: #005757;
+        }
+        
+        .copy-button:active {
+            transform: scale(0.98);
+        }
+        
+        .copy-button .material-symbols-outlined {
+            font-size: 16px;
+            margin-right: 4px;
+            color: inherit; /* 新增：确保图标颜色与按钮文本颜色一致 */
+        }
+        
+        #instructions {
+            background-color: var(--md-sys-color-surface-variant);
+            border-radius: var(--border-radius);
+            padding: 20px;
+            color: var(--md-sys-color-on-surface-variant);
+            text-align: left;
+        }
+        
+        #instructions h5 {
+            margin-top: 0;
+            font-size: 18px;
+            color: var(--md-sys-color-on-surface);
+        }
+        
+        #instructions p {
+            margin: 8px 0;
+            line-height: 1.6;
+        }
+        
+        /* 页脚样式 */
+        footer {
+            text-align: center;
+            padding: 2rem 1rem;
+            margin-top: auto;
+            color: var(--md-sys-color-outline);
+            font-size: 0.875rem;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        footer a {
+            color: var(--md-sys-color-primary);
+            text-decoration: none;
+            transition: opacity 0.2s ease;
+        }
+
+        footer a:hover {
+            text-decoration: none;
+            opacity: 0.8;
+        }
+        
+        /* 响应式调整 */
+        @media (max-width: 600px) {
+            .container {
+                padding: 0 16px;
+                margin-top: 80px;
+            }
+            
+            .card-header {
+                padding: 16px;
+            }
+            
+            .card-content {
+                padding: 16px;
+            }
+            
+            #colorDisplay {
+                width: 120px;
+                height: 120px;
+            }
+            
+            .back-to-home-btn {
+                top: 15px;
+                left: 15px;
+                width: 40px;
+                height: 40px;
+            }
+            .back-to-home-btn .material-icons-outlined {
+                font-size: 20px;
+            }
+        }
+        
+        /* 成功消息样式 */
+        .success-message {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%) translateY(20px);
+            background-color: var(--md-sys-color-secondary-container);
+            color: var(--md-sys-color-on-secondary-container);
+            padding: 12px 24px;
+            border-radius: 16px;
+            box-shadow: var(--elevation-2);
+            display: flex;
+            align-items: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 1000;
+            font-weight: 500;
+        }
+        
+        .success-message.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(0);
+        }
+        
+        .success-message .material-symbols-outlined {
+            margin-right: 10px;
+            color: var(--md-sys-color-primary);
+            font-weight: bold;
+        }
+
+        /* 颜色选择器样式 */
+        .color-picker-container {
+            display: flex;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+
+        .color-picker-container .form-label {
+            margin-bottom: 0;
+            margin-right: 16px;
+        }
+
+        #colorPicker {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            width: 48px;
+            height: 48px;
+            padding: 0;
+            border: 2px solid var(--md-sys-color-outline);
+            border-radius: 8px;
+            cursor: pointer;
+            overflow: hidden; /* 确保内容不会溢出 */
+        }
+
+        #colorPicker::-webkit-color-swatch-wrapper {
+            padding: 0;
+            margin: 0;
+            border-radius: 6px; /* 轻微小于外边框的圆角 */
+        }
+
+        #colorPicker::-webkit-color-swatch {
+            border: none;
+            border-radius: 6px;
+            margin: 0;
+            padding: 0;
+        }
+
+        #colorPicker::-moz-color-swatch {
+            border: none;
+            border-radius: 6px;
+            margin: 0;
+            padding: 0;
+        }
+
+        #colorPicker:focus {
+            outline: none;
+            border-color: var(--md-sys-color-primary);
+            box-shadow: 0 0 0 2px rgba(0, 106, 106, 0.2);
+        }
+
+    </style>
+</head>
+
+<body>
+    <!-- 返回按钮 -->
+    <button id="back-to-home" class="back-to-home-btn" title="返回主站">
+        <span class="material-icons-outlined">arrow_back</span>
+    </button>
+    
+    <div class="container">
+        <div class="card">
+            <div class="card-header">颜色转换器</div>
+            <div class="card-content">
+                <div class="form-group">
+                    <label for="colorInput" class="form-label">输入RGB或16进制颜色值</label>
+                    <input type="text" class="form-control" id="colorInput" placeholder="例如: #279cff 或 rgb(39, 156, 255)">
+                </div>
+                <div class="color-picker-container">
+                    <label for="colorPicker" class="form-label">或选择颜色:</label>
+                    <input type="color" id="colorPicker" value="#006A6A">
+                </div>
+                <div id="colorDisplay"></div>
+                <div id="output">
+                    <p>RGB值: <span id="rgbValue">--</span>
+                        <button id="copyRgb" class="copy-button">
+                            <span class="material-symbols-outlined" style="color: #fff;">content_copy</span>复制
+                        </button>
+                    </p>
+                    <p>16进制值: <span id="hexValue">--</span>
+                        <button id="copyHex" class="copy-button">
+                            <span class="material-symbols-outlined" style="color: #fff;">content_copy</span>复制
+                        </button>
+                    </p>
+                </div>
+                <div id="instructions">
+                    <h5>使用说明：</h5>
+                    <p>1. 输入RGB或16进制颜色值，支持以下格式：</p>
+                    <p>• HEX格式：#279cff 或 279cff</p>
+                    <p>• RGB格式：rgb(39, 156, 255) 或 rgb(39,156,255)</p>
+                    <p>2. 颜色预览会实时更新</p>
+                    <p>3. 可以点击复制按钮复制转换结果</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="success-message" id="successMessage">
+        <span class="material-symbols-outlined">check_circle</span>
+        <span id="successText">已复制到剪贴板</span>
+    </div>
+    
+    <footer>
+        <p>&copy; 2024-2025 <a href="https://jerryz.com.cn" target="_blank" rel="noopener">Jerry Zhou</a> | <a href="https://github.com/YangguangZhou/Material-You-Gadget" target="_blank" rel="noopener noreferrer">GitHub</a></p>
+    </footer>
+
+    <script>
+        // 返回按钮功能
+        document.getElementById('back-to-home').addEventListener('click', function() {
+            window.location.href = 'https://md.jerryz.com.cn/';
+        });
+
+        const colorInput = document.getElementById('colorInput');
+        const colorPicker = document.getElementById('colorPicker');
+        const colorDisplay = document.getElementById('colorDisplay');
+        const rgbValueEl = document.getElementById('rgbValue');
+        const hexValueEl = document.getElementById('hexValue');
+
+        // 初始化颜色选择器的值，使其与 colorDisplay 的初始背景（如果已设置）或默认值同步
+        // 这里我们可以在页面加载时，如果 colorInput 有初始值，就触发一次转换
+        // 或者直接设置 colorPicker 的默认值，并让 colorInput 跟随它
+        // 为简单起见，我们假设 colorPicker 的初始值是 #006A6A (与 primary color 类似)
+        // 并在 colorInput 为空时，使用 colorPicker 的值
+        
+        function updateColorValues(inputValue) {
+            let colorValue = inputValue.trim();
+            
+            if (!colorValue) {
+                // 如果输入为空，尝试使用颜色选择器的值
+                colorValue = colorPicker.value;
+                 // 如果 colorPicker 的值也导致 colorValue 为空（不太可能，但作为保险），则重置
+                if (!colorValue) {
+                    colorDisplay.style.backgroundColor = '';
+                    rgbValueEl.textContent = '--';
+                    hexValueEl.textContent = '--';
+                    return;
+                }
+            }
+            
+            try {
+                let originalInputForPicker = colorValue; // 保存原始输入，用于后续设置picker
+
+                if (!colorValue.includes('#') && /^[0-9A-Fa-f]{3}$/.test(colorValue)) { // 支持3位hex无#
+                    colorValue = '#' + colorValue;
+                    originalInputForPicker = colorValue;
+                } else if (!colorValue.includes('#') && /^[0-9A-Fa-f]{6}$/.test(colorValue)) { // 支持6位hex无#
+                    colorValue = '#' + colorValue;
+                    originalInputForPicker = colorValue;
+                }
+                
+                if (colorValue.toLowerCase().includes('rgb')) {
+                    colorValue = colorValue.replace(/\s+/g, '');
+                    colorValue = colorValue.replace(/rgb\((\d+),(\d+),(\d+)\)/i, 'rgb($1, $2, $3)');
+                }
+                
+                colorDisplay.style.backgroundColor = colorValue;
+                
+                let r, g, b, hexForPicker;
+
+                if (/^#([0-9A-Fa-f]{3}){1,2}$/.test(colorValue)) {
+                    let hex = colorValue.substring(1);
+                    if (hex.length === 3) {
+                        hex = hex[0] + hex[0] + hex[1] + hex[1] + hex[2] + hex[2];
+                    }
+                    
+                    r = parseInt(hex.substring(0, 2), 16);
+                    g = parseInt(hex.substring(2, 4), 16);
+                    b = parseInt(hex.substring(4, 6), 16);
+                    
+                    rgbValueEl.textContent = `rgb(${r}, ${g}, ${b})`;
+                    hexValueEl.textContent = `#${hex}`.toUpperCase();
+                    hexForPicker = `#${hex}`;
+                } 
+                else if (/^rgb\((\s*\d+\s*,\s*\d+\s*,\s*\d+\s*)\)$/i.test(colorValue)) {
+                    const matches = colorValue.match(/(\d+)/g);
+                    if (matches && matches.length >= 3) {
+                        [r, g, b] = matches.map(val => parseInt(val));
+                        
+                        // 验证RGB值范围
+                        if (r < 0 || r > 255 || g < 0 || g > 255 || b < 0 || b > 255) {
+                            throw new Error("RGB值超出范围 (0-255)");
+                        }
+
+                        rgbValueEl.textContent = `rgb(${r}, ${g}, ${b})`;
+                        
+                        const hexR = r.toString(16).padStart(2, '0');
+                        const hexG = g.toString(16).padStart(2, '0');
+                        const hexB = b.toString(16).padStart(2, '0');
+                        hexValueEl.textContent = `#${hexR}${hexG}${hexB}`.toUpperCase();
+                        hexForPicker = `#${hexR}${hexG}${hexB}`;
+                    } else {
+                        throw new Error("无效的RGB格式");
+                    }
+                } else {
+                    throw new Error("无效的颜色格式");
+                }
+
+                // 更新颜色选择器的值，但不触发其input事件，避免无限循环
+                if (hexForPicker && colorPicker.value.toLowerCase() !== hexForPicker.toLowerCase()) {
+                    colorPicker.value = hexForPicker;
+                }
+
+            } catch (error) {
+                colorDisplay.style.backgroundColor = 'transparent'; // 清除无效颜色预览
+                rgbValueEl.textContent = '无效的值';
+                hexValueEl.textContent = '无效的值';
+                // console.error("颜色转换错误:", error.message);
+            }
+        }
+
+        // 文本输入框事件监听
+        colorInput.addEventListener('input', function() {
+            updateColorValues(this.value);
+        });
+        
+        // 颜色选择器事件监听
+        colorPicker.addEventListener('input', function() {
+            colorInput.value = this.value; // 将颜色选择器的值赋给文本框
+            updateColorValues(this.value); // 直接用选择器的值更新，因为它是标准的HEX
+        });
+
+        // 页面加载时，如果输入框为空，则使用颜色选择器的默认值进行一次初始化
+        if (!colorInput.value.trim()) {
+            colorInput.value = colorPicker.value; // 将选择器的初始值赋给输入框
+        }
+        updateColorValues(colorInput.value); // 初始加载时处理一次，确保同步
+
+
+        // 复制功能
+        document.getElementById('copyRgb').addEventListener('click', function() {
+            const rgbText = rgbValueEl.textContent;
+            if (rgbText !== '--' && rgbText !== '无效的值') {
+                navigator.clipboard.writeText(rgbText).then(function() {
+                    showSuccessMessage('RGB值已复制');
+                });
+            }
+        });
+        
+        document.getElementById('copyHex').addEventListener('click', function() {
+            const hexText = hexValueEl.textContent;
+            if (hexText !== '--' && hexText !== '无效的值') {
+                navigator.clipboard.writeText(hexText).then(function() {
+                    showSuccessMessage('十六进制值已复制');
+                });
+            }
+        });
+        
+        // 显示成功消息
+        function showSuccessMessage(text) {
+            const successMessage = document.getElementById('successMessage');
+            const successText = document.getElementById('successText');
+            
+            successText.textContent = text;
+            successMessage.classList.add('show');
+            
+            setTimeout(function() {
+                successMessage.classList.remove('show');
+            }, 2000);
+        }
+    </script>
+</body>
+</html>

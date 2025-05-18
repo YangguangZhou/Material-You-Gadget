@@ -2,73 +2,85 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
         <loc>https://md.jerryz.com.cn/</loc>
-        <lastmod>2025-05-12</lastmod>
+        <lastmod>2025-05-18</lastmod>
         <changefreq>daily</changefreq>
         <priority>1.0</priority>
     </url>
     <url>
         <loc>https://md.jerryz.com.cn/choice</loc>
-        <lastmod>2025-05-12</lastmod>
+        <lastmod>2025-05-18</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
         <loc>https://md.jerryz.com.cn/color</loc>
-        <lastmod>2025-05-12</lastmod>
+        <lastmod>2025-05-18</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
         <loc>https://md.jerryz.com.cn/length</loc>
-        <lastmod>2025-05-12</lastmod>
+        <lastmod>2025-05-18</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
         <loc>https://md.jerryz.com.cn/calculator</loc>
-        <lastmod>2025-05-12</lastmod>
+        <lastmod>2025-05-18</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
         <loc>https://md.jerryz.com.cn/crazy</loc>
-        <lastmod>2025-05-12</lastmod>
+        <lastmod>2025-05-18</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
         <loc>https://md.jerryz.com.cn/score</loc>
-        <lastmod>2025-05-12</lastmod>
+        <lastmod>2025-05-18</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
         <loc>https://md.jerryz.com.cn/24-point</loc>
-        <lastmod>2025-05-12</lastmod>
+        <lastmod>2025-05-18</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
         <loc>https://md.jerryz.com.cn/j</loc>
-        <lastmod>2025-05-12</lastmod>
+        <lastmod>2025-05-18</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
         <loc>https://md.jerryz.com.cn/s</loc>
-        <lastmod>2025-05-12</lastmod>
+        <lastmod>2025-05-18</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
         <loc>https://md.jerryz.com.cn/md</loc>
-        <lastmod>2025-05-12</lastmod>
+        <lastmod>2025-05-18</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
         <loc>https://md.jerryz.com.cn/bio</loc>
-        <lastmod>2025-05-12</lastmod>
+        <lastmod>2025-05-18</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://md.jerryz.com.cn/models.html</loc>
+        <lastmod>2025-05-18</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://md.jerryz.com.cn/converter.html</loc>
+        <lastmod>2025-05-18</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
