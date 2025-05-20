@@ -407,14 +407,14 @@
         </div>
         <div class="content">
             <div class="section-header">
-                各机构答案得分（根据评议稿）
+                各机构答案得分（根据终稿）
             </div>
             <p style="margin-bottom: 16px; font-size: 14px;">
-                🥇 汇智启航 126.2分<br>
-                🥈 猿辅导 123.2分<br>
-                🥉 北斗学友 122.2分<br>
-                愿程 120.2分<br>
-                质心 115.6分<br>
+                🥇 汇智启航 134.4分<br>
+                🥈 猿辅导 133.4分<br>
+                🥉 北斗学友 130分<br>
+                愿程 130.2分<br>
+                质心 127.6分<br>
             </p>
             <div class="section-header">
                 说明
@@ -422,13 +422,13 @@
             <p style="margin-bottom: 16px; font-size: 14px;">
                 请选择你判断为T的选项。每题2分，包括4个选项。答对0或1个选项得0分；答对2个选项得0.2分；答对3个选项得1分；各对1个选项得2分；试卷共72题，共计144分。
                 <br>
-                参考答案来自于官方评议稿。本工具仅供参考，实际成绩请以官方公布为准。
+                参考答案来自于官方终稿。本工具仅供参考，实际成绩请以官方公布为准。
                 <br>
                 <a href="https://cloud.jerryz.com.cn/d/OneDrive/OnlineDrive/其它文件/2025年全国高中生生物学联赛试题.pdf" target="_blank"
                     rel="noopener">完整试题地址</a>
                 <br>
-                <a href="https://cdn.jerryz.com.cn/gh/YangguangZhou/Material-You-Gadget@main/%E8%AF%84%E8%AE%AE%E7%A8%BF.jpg"
-                    target="_blank" rel="noopener">评议稿答案</a>
+                <a href="https://cdn.jerryz.com.cn/gh/YangguangZhou/Material-You-Gadget@main/终稿.png"
+                    target="_blank" rel="noopener">终稿答案</a>
             </p>
 
             <div id="section1" class="question-section">
@@ -511,14 +511,14 @@
     <script>
         // 正确答案
         const correctAnswers = [
-            "FTFF", "FTTT", "TFTT", "FFTT", "TFFT", "TFFT", "FTFT", "TFFT", "TFTF", "TTFT",
-            "TFTF", "FTFT", "TFTT", "TTFF", "FTFF", "FFTT", "TFTT", "FTTF",
-            "TFTT", "TTFT", "TTFT", "TTFT", "TTFF", "TTFT", "FTFT", "FFFF", "TTFF", "TFTF",
-            "TFFT", "FTTF", "TFTF", "TFTF", "TFFT", "TFFT", "FTFT", "TFTF",
-            "TFTT", "TFTT", "TTTT", "TTFT", "TTFT", "FFTF", "TTFF", "TTFF", "FFFF", "TFFT",
-            "TFTF", "TTFT", "TFFT", "TFTT", "FTFT", "TTFT", "FTFT", "TFTT",
-            "FTFF", "FFTT", "FTFF", "FTFF", "TTFF", "TFFT", "TFTT", "FTFE", "TTFF", "TFFF",
-            "TTFT", "TFTF", "TTFF", "TTTT", "TTFF", "TFTF", "TTFF", "TFTF"
+            "FTTF", "FTTT", "TFTT", "FFTT", "TFFT", "TFFT", "FTFT", "TFFT", "TFTF", "TTTT", // 1-10
+            "TFTF", "FTFT", "TFTT", "TTFF", "FTFF", "FFTT", "TFTN", "FTTF", // 11-18
+            "TFTT", "TNFT", "TTFT", "TTFT", "TTTF", "TTFT", "FTFT", "FFFT", "TTFF", "TFTF", // 19-28
+            "TFFT", "FTFF", "TFTF", "TFTF", "TFFT", "TFFT", "FTFT", "TFTF", // 29-36
+            "TFTT", "TFTT", "TTTT", "TTFT", "TTFT", "FFTF", "TTFF", "TTTF", "FFFF", "TFFT", // 37-46
+            "TFTF", "TTNT", "TFFT", "TFTT", "FTFT", "TTFT", "FTFT", "TFTT", // 47-54
+            "FTTF", "FFTT", "FTTF", "FTTF", "TTTF", "TFFT", "TFTT", "FTFT", "TTTF", "TFFT", // 55-64
+            "TTFT", "TFTF", "TTFF", "TTTT", "TTFF", "TFTF", "TTFF", "TFTF"  // 65-72
         ];
 
         // 初始化页面
@@ -656,7 +656,9 @@
                 // 计算匹配的判断数
                 let matches = 0;
                 for (let j = 0; j < 4; j++) {
-                    if (userPattern[j] === correctPattern[j]) {
+                    if (correctPattern[j] === 'N') { // 如果正确答案是N，则用户无论选T或F都算对
+                        matches++;
+                    } else if (userPattern[j] === correctPattern[j]) {
                         matches++;
                     }
                 }
