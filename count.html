@@ -19,7 +19,7 @@
       "@type": "WebPage",
       "name": "字数统计工具 - 实时统计中英文字数",
       "description": "在线字数统计工具。实时统计中文字数、英文词数、字母数和字符数。支持中文标点符号筛选。Material You 风格。",
-      "url": "https://md.jerryz.com.cn/word-count",
+      "url": "https://md.jerryz.com.cn/count",
       "keywords": "字数统计, 文字计数, 字符统计, 中文字数, 英文词数, 在线工具, Material You",
       "isPartOf": {
         "@type": "WebSite",
@@ -180,11 +180,13 @@
         transition: all 0.2s ease;
         position: relative;
         overflow: hidden;
+        border: 1px solid var(--md-sys-color-outline);
     }
     
     .stat-card:hover {
         transform: translateY(-2px);
         box-shadow: var(--elevation-2);
+        background-color: var(--md-sys-color-primary-container);
     }
     
     .stat-label {
@@ -194,6 +196,10 @@
         font-weight: 500;
     }
     
+    .stat-card:hover .stat-label {
+        color: var(--md-sys-color-on-primary-container);
+    }
+    
     .stat-number {
         font-size: 32px;
         font-weight: 700;
@@ -201,44 +207,8 @@
         transition: all 0.3s ease;
     }
     
-    .stat-card.chinese-with-punc {
-        background: linear-gradient(135deg, #fef3f3 0%, #fee2e2 100%);
-    }
-    
-    .stat-card.chinese-with-punc .stat-number {
-        color: #dc2626;
-    }
-    
-    .stat-card.chinese-without-punc {
-        background: linear-gradient(135deg, #fefbf3 0%, #fed7aa 100%);
-    }
-    
-    .stat-card.chinese-without-punc .stat-number {
-        color: #ea580c;
-    }
-    
-    .stat-card.english-words {
-        background: linear-gradient(135deg, #f3f8ff 0%, #dbeafe 100%);
-    }
-    
-    .stat-card.english-words .stat-number {
-        color: #2563eb;
-    }
-    
-    .stat-card.english-letters {
-        background: linear-gradient(135deg, #f3fdf3 0%, #dcfce7 100%);
-    }
-    
-    .stat-card.english-letters .stat-number {
-        color: #16a34a;
-    }
-    
-    .stat-card.total-chars {
-        background: linear-gradient(135deg, #faf8ff 0%, #e9d5ff 100%);
-    }
-    
-    .stat-card.total-chars .stat-number {
-        color: #9333ea;
+    .stat-card:hover .stat-number {
+        color: var(--md-sys-color-on-primary-container);
     }
     
     /* 返回按钮样式 */
@@ -348,27 +318,27 @@
             <div class="section">
                 <div class="section-title">统计结果</div>
                 <div class="stats-grid">
-                    <div class="stat-card chinese-with-punc">
+                    <div class="stat-card">
                         <div class="stat-label">中文字数（含标点）</div>
                         <div class="stat-number" id="chineseWithPunc">0</div>
                     </div>
                     
-                    <div class="stat-card chinese-without-punc">
+                    <div class="stat-card">
                         <div class="stat-label">中文字数（不含标点）</div>
                         <div class="stat-number" id="chineseWithoutPunc">0</div>
                     </div>
                     
-                    <div class="stat-card english-words">
+                    <div class="stat-card">
                         <div class="stat-label">英文词数</div>
                         <div class="stat-number" id="englishWords">0</div>
                     </div>
                     
-                    <div class="stat-card english-letters">
+                    <div class="stat-card">
                         <div class="stat-label">英文字母数</div>
                         <div class="stat-number" id="englishLetters">0</div>
                     </div>
                     
-                    <div class="stat-card total-chars">
+                    <div class="stat-card">
                         <div class="stat-label">总字符数</div>
                         <div class="stat-number" id="totalChars">0</div>
                     </div>

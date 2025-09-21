@@ -11,4 +11,4 @@ Material You 风格的实用小工具
 6. [CSP估分](https://md.jerryz.com.cn/score): CSP S/J 估分工具
 7. [24点游戏](https://md.jerryz.com.cn/24-point): 使用四个数字和基本运算，计算得到24的益智游戏
 8. [Markdown在线转换器](https://md.jerryz.com.cn/md): 强大的在线Markdown转换工具，实时将Markdown转换为富文本预览或HTML页面
-9. [字数统计工具](https://md.jerryz.com.cn/word-count.html): 实时统计中英文字数、词数和字符数
+9. [字数统计工具](https://md.jerryz.com.cn/count.html): 实时统计中英文字数、词数和字符数
