@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>字数统计工具 - 实时统计中英文字数 | Material You Gadget</title>
+    <meta name="description" content="在线字数统计工具。实时统计中文字数、英文词数、字母数和字符数。支持中文标点符号筛选。Material You 风格。">
+    <meta name="keywords" content="字数统计, 文字计数, 字符统计, 中文字数, 英文词数, 在线工具, Material You">
+
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2597042766299857"
+     crossorigin="anonymous"></script>
+    <script defer src="https://umami.jerryz.com.cn/script.js" data-website-id="319efe93-a9d5-4f43-bfad-7bb27b46f56c"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": "字数统计工具 - 实时统计中英文字数",
+      "description": "在线字数统计工具。实时统计中文字数、英文词数、字母数和字符数。支持中文标点符号筛选。Material You 风格。",
+      "url": "https://md.jerryz.com.cn/count",
+      "keywords": "字数统计, 文字计数, 字符统计, 中文字数, 英文词数, 在线工具, Material You",
+      "isPartOf": {
+        "@type": "WebSite",
+        "name": "Material You Gadget",
+        "url": "https://md.jerryz.com.cn/"
+      },
+      "mainEntity": {
+        "@type": "WebApplication",
+        "name": "字数统计工具",
+        "applicationCategory": "UtilityApplication",
+        "operatingSystem": "All",
+        "browserRequirements": "Requires HTML5 support"
+      }
+    }
+    </script>
+
+    <style>
+    :root {
+        /* Material You 风格颜色系统 */
+        --md-sys-color-primary: #006493;
+        --md-sys-color-on-primary: #FFFFFF;
+        --md-sys-color-primary-container: #c9e6ff;
+        --md-sys-color-on-primary-container: #001e30;
+        --md-sys-color-secondary: #50606e;
+        --md-sys-color-on-secondary: #FFFFFF;
+        --md-sys-color-secondary-container: #d3e5f5;
+        --md-sys-color-on-secondary-container: #0c1d29;
+        --md-sys-color-surface: #FFFBFE;
+        --md-sys-color-on-surface: #1C1B1F;
+        --md-sys-color-surface-variant: #e1e2ec;
+        --md-sys-color-on-surface-variant: #44474e;
+        --md-sys-color-error: #B00020;
+        --md-sys-color-on-error: #FFFFFF;
+        --md-sys-color-outline: #79747e;
+        
+        /* 圆角和阴影 */
+        --border-radius: 16px;
+        --border-radius-full: 50%;
+        --elevation-1: 0 1px 2px rgba(0,0,0,0.3);
+        --elevation-2: 0 3px 6px rgba(0,0,0,0.15);
+        --elevation-3: 0 8px 16px rgba(0,0,0,0.25);
+    }
+    
+    body {
+        font-family: 'Roboto', sans-serif;
+        margin: 0;
+        padding: 20px;
+        background-color: var(--md-sys-color-surface);
+        color: var(--md-sys-color-on-surface);
+        transition: all 0.3s ease;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        min-height: 100vh;
+    }
+    
+    .container {
+        max-width: 800px;
+        width: 100%;
+        background-color: #FFFFFF;
+        border-radius: var(--border-radius);
+        box-shadow: var(--elevation-2);
+        overflow: hidden;
+        transition: box-shadow 0.3s ease;
+        margin-top: 40px;
+        margin-bottom: 40px;
+    }
+    
+    .app-bar {
+        background-color: var(--md-sys-color-primary);
+        color: var(--md-sys-color-on-primary);
+        padding: 24px;
+        font-size: 28px;
+        font-weight: 500;
+        text-align: center;
+        position: relative;
+    }
+    
+    .content {
+        padding: 32px;
+    }
+    
+    .section {
+        margin-bottom: 32px;
+    }
+    
+    .section-title {
+        font-size: 20px;
+        font-weight: 500;
+        color: var(--md-sys-color-on-surface);
+        margin-bottom: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+    
+    .textarea-container {
+        position: relative;
+        margin-bottom: 24px;
+    }
+    
+    textarea {
+        width: 100%;
+        min-height: 200px;
+        padding: 16px;
+        border: 2px solid var(--md-sys-color-outline);
+        border-radius: var(--border-radius);
+        font-family: inherit;
+        font-size: 16px;
+        line-height: 1.5;
+        color: var(--md-sys-color-on-surface);
+        background-color: var(--md-sys-color-surface);
+        resize: vertical;
+        transition: border-color 0.2s ease;
+        box-sizing: border-box;
+    }
+    
+    textarea:focus {
+        outline: none;
+        border-color: var(--md-sys-color-primary);
+    }
+    
+    textarea::placeholder {
+        color: var(--md-sys-color-on-surface-variant);
+        opacity: 0.7;
+    }
+    
+    .clear-btn {
+        background-color: var(--md-sys-color-error);
+        color: var(--md-sys-color-on-error);
+        border: none;
+        padding: 12px 24px;
+        border-radius: var(--border-radius);
+        font-size: 14px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        box-shadow: var(--elevation-1);
+    }
+    
+    .clear-btn:hover {
+        box-shadow: var(--elevation-2);
+        transform: translateY(-1px);
+    }
+    
+    .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 16px;
+        margin-top: 24px;
+    }
+    
+    .stat-card {
+        background-color: var(--md-sys-color-surface-variant);
+        border-radius: var(--border-radius);
+        padding: 20px;
+        text-align: center;
+        transition: all 0.2s ease;
+        position: relative;
+        overflow: hidden;
+        border: 1px solid var(--md-sys-color-outline);
+    }
+    
+    .stat-card:hover {
+        transform: translateY(-2px);
+        box-shadow: var(--elevation-2);
+        background-color: var(--md-sys-color-primary-container);
+    }
+    
+    .stat-label {
+        font-size: 14px;
+        color: var(--md-sys-color-on-surface-variant);
+        margin-bottom: 8px;
+        font-weight: 500;
+    }
+    
+    .stat-card:hover .stat-label {
+        color: var(--md-sys-color-on-primary-container);
+    }
+    
+    .stat-number {
+        font-size: 32px;
+        font-weight: 700;
+        color: var(--md-sys-color-primary);
+        transition: all 0.3s ease;
+    }
+    
+    .stat-card:hover .stat-number {
+        color: var(--md-sys-color-on-primary-container);
+    }
+    
+    /* 返回按钮样式 */
+    .back-to-home-btn {
+        position: fixed;
+        top: 20px;
+        left: 20px;
+        width: 48px;
+        height: 48px;
+        background-color: var(--md-sys-color-surface-variant);
+        color: var(--md-sys-color-on-surface-variant);
+        border: none;
+        border-radius: var(--border-radius-full);
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        box-shadow: var(--elevation-2);
+        transition: background-color 0.2s ease, box-shadow 0.2s ease;
+        z-index: 1000;
+    }
+
+    .back-to-home-btn:hover {
+        background-color: var(--md-sys-color-primary-container);
+        color: var(--md-sys-color-on-primary-container);
+        box-shadow: var(--elevation-3);
+    }
+
+    .back-to-home-btn .material-icons-outlined {
+        font-size: 24px;
+    }
+
+    @media (max-width: 900px) {
+        .back-to-home-btn {
+            top: 15px;
+            left: 15px;
+            width: 40px;
+            height: 40px;
+        }
+        
+        .back-to-home-btn .material-icons-outlined {
+            font-size: 20px;
+        }
+        
+        .container {
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .content {
+            padding: 24px 16px;
+        }
+        
+        .stats-grid {
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        }
+        
+        .stat-number {
+            font-size: 24px;
+        }
+    }
+    
+    /* 页脚样式 */
+    .footer {
+        text-align: center;
+        padding: 2rem 1rem;
+        margin-top: auto;
+        color: var(--md-sys-color-outline);
+        width: 100%;
+    }
+
+    .footer a {
+        color: var(--md-sys-color-primary);
+        text-decoration: none;
+        transition: color 0.2s ease;
+    }
+
+    .footer a:hover {
+        color: #00517a;
+        text-decoration: none;
+    }
+    </style>
+</head>
+<body>
+    <!-- 返回按钮 -->
+    <button id="back-to-home" class="back-to-home-btn" title="返回主站">
+        <span class="material-icons-outlined">arrow_back</span>
+    </button>
+    
+    <div class="container">
+        <div class="app-bar">字数统计工具</div>
+        <div class="content">
+            <div class="section">
+                <div class="section-title">
+                    <span>文本输入</span>
+                    <button class="clear-btn" onclick="clearText()">清除</button>
+                </div>
+                <div class="textarea-container">
+                    <textarea 
+                        id="textInput" 
+                        placeholder="请在此输入您要统计的文本内容..."
+                        rows="8"
+                    ></textarea>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">统计结果</div>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-label">中文字数（含标点）</div>
+                        <div class="stat-number" id="chineseWithPunc">0</div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-label">中文字数（不含标点）</div>
+                        <div class="stat-number" id="chineseWithoutPunc">0</div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-label">英文词数</div>
+                        <div class="stat-number" id="englishWords">0</div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-label">英文字母数</div>
+                        <div class="stat-number" id="englishLetters">0</div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-label">总字符数</div>
+                        <div class="stat-number" id="totalChars">0</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <p>&copy; 2024-2025 <a href="https://jerryz.com.cn" target="_blank" rel="noopener">Jerry Zhou</a> | <a href="https://github.com/YangguangZhou/Material-You-Gadget" target="_blank" rel="noopener noreferrer">GitHub</a></p>
+    </footer>
+
+    <script>
+        // 获取DOM元素
+        const textInput = document.getElementById('textInput');
+        const chineseWithPuncElement = document.getElementById('chineseWithPunc');
+        const chineseWithoutPuncElement = document.getElementById('chineseWithoutPunc');
+        const englishWordsElement = document.getElementById('englishWords');
+        const englishLettersElement = document.getElementById('englishLetters');
+        const totalCharsElement = document.getElementById('totalChars');
+
+        // 统计函数
+        function countText(text) {
+            // 中文字符正则（包含中文标点）
+            const chineseWithPuncRegex = /[\u4e00-\u9fff\u3000-\u303f\uff00-\uffef]/g;
+
+            // 中文字符正则（不包含标点，仅中文字符）
+            const chineseWithoutPuncRegex = /[\u4e00-\u9fff]/g;
+
+            // 英文字母正则
+            const englishLettersRegex = /[a-zA-Z]/g;
+
+            // 英文单词正则（以非字母字符分隔）
+            const englishWordsRegex = /[a-zA-Z]+/g;
+
+            const results = {
+                chineseWithPunc: (text.match(chineseWithPuncRegex) || []).length,
+                chineseWithoutPunc: (text.match(chineseWithoutPuncRegex) || []).length,
+                englishWords: (text.match(englishWordsRegex) || []).length,
+                englishLetters: (text.match(englishLettersRegex) || []).length,
+                totalChars: text.length
+            };
+
+            return results;
+        }
+
+        // 更新统计结果显示
+        function updateCountDisplay(counts) {
+            chineseWithPuncElement.textContent = counts.chineseWithPunc.toLocaleString();
+            chineseWithoutPuncElement.textContent = counts.chineseWithoutPunc.toLocaleString();
+            englishWordsElement.textContent = counts.englishWords.toLocaleString();
+            englishLettersElement.textContent = counts.englishLetters.toLocaleString();
+            totalCharsElement.textContent = counts.totalChars.toLocaleString();
+            
+            // 添加动画效果
+            document.querySelectorAll('.stat-number').forEach(el => {
+                el.style.transform = 'scale(1.1)';
+                setTimeout(() => {
+                    el.style.transform = 'scale(1)';
+                }, 150);
+            });
+        }
+
+        // 实时统计
+        function performCount() {
+            const text = textInput.value;
+            const counts = countText(text);
+            updateCountDisplay(counts);
+        }
+
+        // 清除文本
+        function clearText() {
+            if (textInput.value.trim() === '') {
+                return;
+            }
+
+            if (confirm('确定要清除所有文本吗？')) {
+                textInput.value = '';
+                performCount();
+                textInput.focus();
+            }
+        }
+
+        // 事件监听
+        textInput.addEventListener('input', performCount);
+        textInput.addEventListener('paste', () => {
+            setTimeout(performCount, 10);
+        });
+
+        // 返回按钮功能
+        document.getElementById('back-to-home').addEventListener('click', function() {
+            window.location.href = 'https://md.jerryz.com.cn/';
+        });
+
+        // 页面加载完成后执行初始统计
+        document.addEventListener('DOMContentLoaded', () => {
+            performCount();
+            textInput.focus();
+        });
+    </script>
+    <script>
+        (function() {
+            const applySafeAreaPadding = () => {
+                const cap = window.Capacitor;
+                const platform = cap?.getPlatform?.();
+                if (platform && platform !== 'web') {
+                    const current = parseFloat(window.getComputedStyle(document.body).paddingTop) || 0;
+                    document.body.style.paddingTop = `calc(${current}px + env(safe-area-inset-top, 0px) + 16px)`;
+                    document.body.classList.add('capacitor-safe-area');
+
+                    const statusBar = cap?.StatusBar ?? cap?.Plugins?.StatusBar;
+                    if (statusBar?.setStyle) {
+                        statusBar.setStyle({ style: 'DARK' }).catch(() => {});
+                    }
+                    if (statusBar?.setBackgroundColor) {
+                        statusBar.setBackgroundColor({ color: '#0f172a' }).catch(() => {});
+                    }
+                }
+            };
+
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', applySafeAreaPadding, { once: true });
+            } else {
+                applySafeAreaPadding();
+            }
+        })();
+    </script>
+</body>
+</html>
