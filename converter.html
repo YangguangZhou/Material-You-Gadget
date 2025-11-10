@@ -140,6 +140,15 @@
             font-weight: 500;
             text-align: center;
         }
+
+        /* 为 SEO 添加语义化 h1，并保持现有样式 */
+        .card-header h1 {
+            margin: 0;
+            font-size: inherit;
+            font-weight: inherit;
+            color: inherit;
+            line-height: 1;
+        }
         
         .card-content {
             padding: 24px;
@@ -398,7 +407,7 @@
     
     <div class="container">
         <div class="card">
-            <div class="card-header">颜色转换器</div>
+            <div class="card-header"><h1>颜色转换器</h1></div>
             <div class="card-content">
                 <div class="form-group">
                     <label for="colorInput" class="form-label">输入RGB或16进制颜色值</label>

@@ -97,6 +97,15 @@
         text-align: center;
         position: relative;
     }
+
+    /* 为 SEO 添加语义化 h1，并保持现有 app-bar 样式 */
+    .app-bar h1 {
+        margin: 0;
+        font-size: inherit;
+        font-weight: inherit;
+        color: inherit;
+        line-height: 1;
+    }
     
     .content {
         padding: 32px;
@@ -299,7 +308,7 @@
     </button>
     
     <div class="container">
-        <div class="app-bar">字数统计工具</div>
+        <div class="app-bar"><h1>字数统计工具</h1></div>
         <div class="content">
             <div class="section">
                 <div class="section-title">
